@@ -1,0 +1,56 @@
+notes
+
+Week 1
+
+https://wireframe.cc/SANHkV
+https://wireframe.cc/nwlfT7
+https://wireframe.cc/4I65lk
+https://wireframe.cc/hmtWeq
+https://wireframe.cc/y8B2ki
+https://wireframe.cc/U4Ge2U
+https://wireframe.cc/rmiEWp
+
+restaurant's account registeration
+	"im the business owner"
+		needs verification for sign up
+	uniform menu
+	ability to customize restaurant style
+
+visitor searches
+	address and/or current location
+	maps api 
+		map w/matching search - list of top 10 matches
+		click on map/list item
+	something sharable 
+
+
+Friday
+	name
+	git init repo
+		master and dev branches
+Sunday
+	figure out stack
+		probably...
+			node, express, mysql, html/css
+		research api	
+			nope
+				tripadvisor
+				yelp
+				grubhub
+				doordash
+			yep
+				google maps and/or places
+				https://developers.zomato.com/api
+Next week
+	stubs
+	dry run presentation
+
+Week 3
+	tuesday submit project pitch pdf
+	wednesday 3-4 minute presentation
+
+
+6/24
+Met on Zoom after class and talked about ideas. 
+Decided on menu portal for restaurants/customers.
+Talked about tentative meeting times and schedules.
