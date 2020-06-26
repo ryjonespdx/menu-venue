@@ -1,0 +1,31 @@
+{
+  "name": "menu-venue",
+  "version": "1.0.0",
+  "description": "A web app for small/local restaurants to upload their menus in a quick and easy way. Uses Node.js, Express, DB TBD, and the Google Maps API",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryjonespdx/menu-venue.git"
+  },
+  "keywords": [
+    "web",
+    "app",
+    "Node.js",
+    "Express",
+    "Google",
+    "Maps",
+    "API"
+  ],
+  "author": "Ryan Jones and Bruh Beyene",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryjonespdx/menu-venue/issues"
+  },
+  "homepage": "https://github.com/ryjonespdx/menu-venue#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
