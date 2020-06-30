@@ -8,20 +8,33 @@ app.use(bodyParser.urlencoded({ extended: true}));  // lets use make use of the 
 app.set('view engine', 'ejs')
 
 app.get('/', function (req, res) {
-    res.render('landing');
+    res.render('landing', { results: null });
 })
 app.post('/', function (req, res) {   // TODO: utilize Google Maps API here
     console.log(req.body.address);    // the address submitted by the user
-    res.render('landing');
+    res.render('landing', { results: `${req.body.address} data from google and/or mysql`});
 })
 
 app.get('/login', function (req, res) {
     res.render('login');
 })
-app.post('/login', function(req, res) {
+
+app.post('/login', function(req, res) { // login button on login page
     console.log(req.body.username);
     console.log(req.body.password);
-    res.render('login');
+    if(true)                            // TODO: validate user; serve restaurant owner page or reject
+        res.render('owner', { welcomeOwner: `${req.body.username}'s page` });
+    else
+        res.render('login');
+})
+
+app.post('/register', function(req, res) { // register button on login page
+    console.log(req.body.username);
+    console.log(req.body.password);
+    if(true)                               // TODO: validate registration; serve restaurant owner page or reject
+        res.render('owner', { welcomeOwner: `${req.body.username}'s page` });
+    else
+        res.render('login');
 })
 
 app.listen(3000, function() {
