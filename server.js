@@ -7,7 +7,7 @@ app.use(express.static('public'));  // exposes all static files within 'public' 
 app.use(bodyParser.urlencoded({ extended: true}));  // lets use make use of the 'req.body' object
 app.set('view engine', 'ejs')
 
-app.get('/foo', function (req, res) {
+app.get('/', function (req, res) {
     res.render('landing');
 })
 app.post('/', function (req, res) {   // TODO: utilize Google Maps API here
