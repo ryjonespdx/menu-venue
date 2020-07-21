@@ -10,6 +10,7 @@ From: https://codeburst.io/build-a-weather-website-in-30-minutes-with-node-js-ex
 5. Install Express by running `npm install --save express`
 6. Install EJS (Embedded JavaScript), a templating language, by running `npm install ejs --save`
 7. Install EJS' Middleware function 'body-parser' by running `npm install body-parser --save`
+8. Install nodemon (automatically restart server after file changes) by running `npm install --saved-dev nodemon` to install nodemon locally in the directory, or `npm install -g nodemon` to install nodemon globally.
 
 # Running the Server
 To run the server, run `node server.js`
