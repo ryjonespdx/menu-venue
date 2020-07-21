@@ -14,4 +14,5 @@ From: https://codeburst.io/build-a-weather-website-in-30-minutes-with-node-js-ex
 
 # Running the Server
 To run the server, run `node server.js`
+
 To run the server with nodemon, run `DEBUG=menu-venue:* npm run devstart`
