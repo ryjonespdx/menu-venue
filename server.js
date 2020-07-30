@@ -10,21 +10,12 @@ const restaurantRouter = require('./routes/restaurant')
 
 const app = express();
 
-const mysqlModel = require('mysql-model');
-
-const appModel = mysqlModel.createConnection({
-  host:       'database-host',
-  user:       'database-user',
-  password:   'database-password',
-  database :  'database-name'
-});
-
 
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "pug");
 
 app.use('/', indexRouter);
-app.use('/user', usersRouter);
+app.use('/user', userRouter);
 app.use('/restaurant', restaurantRouter);
 
 module.exports = app;

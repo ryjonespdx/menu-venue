@@ -1,0 +1,12 @@
+extends restaurant
+
+block menu_list_block
+
+    dl
+        each menu in menus 
+            dt #{menu.name}
+
+        else
+            p This restaurant has no menus.
+    
+    block menu_items_block

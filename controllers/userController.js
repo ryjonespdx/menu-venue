@@ -1,4 +1,5 @@
-const Restaurant = require('../models/restaurant');
+const User = require('../models/user');
+
 var async = require('async');
 
 const { body,validationResult } = require('express-validator/check');
@@ -34,12 +35,9 @@ exports.user_delete_post = function(req, res) {
     res.send('NOT IMPLEMENTED: User delete POST');
 };
 
-// Display list of all Users.
-exports.author_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: User details GET');
-}
+// Display detail page for a specific user.
 exports.user_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: User list GET');
+    res.send('NOT IMPLEMENTED: User detail GET');
 }
 
 // Display list of all Users.

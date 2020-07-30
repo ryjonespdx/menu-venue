@@ -1,10 +1,9 @@
-const Restaurant = require('../models/restaurant');
 const Menu = require('../models/menu');
+
 var async = require('async');
 
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
-
 
 // Display Menu create form on GET.
 exports.menu_create_get = function(req, res) {
@@ -36,12 +35,9 @@ exports.menu_delete_post = function(req, res) {
     res.send('NOT IMPLEMENTED: Menu delete POST');
 };
 
-// Display list of all Menus.
-exports.author_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: Menu details GET');
-}
+// Display detail page for a specific menu.
 exports.menu_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: Menu list GET');
+    res.send('NOT IMPLEMENTED: Menu detail GET');
 }
 
 // Display list of all Menus.

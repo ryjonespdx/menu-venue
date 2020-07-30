@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const restaurant_controller = require('../controllers/restaurantController');
-
-router.get('/', restaurant_controller.index);
+router.get('/', function(req, res) {
+    res.render('index', { title: 'Menu Venue' });
+});
 
 module.exports = router;

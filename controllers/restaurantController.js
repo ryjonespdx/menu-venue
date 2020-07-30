@@ -1,5 +1,4 @@
 const Restaurant = require('../models/restaurant');
-const Menu = require('../models/menu');
 var async = require('async');
 
 const { body,validationResult } = require('express-validator/check');
@@ -7,9 +6,9 @@ const { sanitizeBody } = require('express-validator/filter');
 
 
 // Display 
-exports.index = function(req, res) {   
-    res.render('index', { title: 'Local Library Home', error: err, data: results });
-}
+// exports.index = function(req, res) {   
+//     res.render('index', { title: 'Menu Venue', data: { restaurant_count : 3} });
+// }
 
 // Display Restaurant create form on GET.
 exports.restaurant_create_get = function(req, res) {
@@ -41,15 +40,13 @@ exports.restaurant_delete_post = function(req, res) {
     res.send('NOT IMPLEMENTED: Restaurant delete POST');
 };
 
-// Display list of all Restaurants.
-exports.author_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: Restaurant details GET');
-}
+// Display detail page for a specific user.
 exports.restaurant_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: Restaurant list GET');
+    res.send('NOT IMPLEMENTED: Restaurant detail GET');
 }
 
 // Display list of all Restaurants.
 exports.restaurant_list = function(req, res) {
     res.send('NOT IMPLEMENTED: Restaurant list GET');
+    // res.render('restaurant_list', { title: 'Menu Venue', restaurant_list: [ { name: 'guido', address: 'first' } ] });
 }
