@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    h1= title
+        p Welcome to #[em MenuVenue], please sign in 
+
+    if error
+        p Error getting dynamic content.
+    else
+        p mysql has the following record counts:
+
+    fieldset
+        form(method='POST' action='/login')
+            div.form-group
+                label(for='email') Email:
+                input#first_name.form-control(type='text' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===email ? '' : user.email) )
+            div.form-group
+                label(for='password') Password:
+                input#first_name.form-control(type='password' placeholder='' name='password' required='true' value='' )
+            div.form-group
+                button.btn.btn-success-outline(type='submit' value='Login') Login
+
+    fieldset
+        form(method='POST' action='/register')
+            div.form-group
+                label(for='email') Email:
+                input#first_name.form-control(type='text' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===email ? '' : user.email) )
+            div.form-group
+                label(for='password') Password:
+                input#first_name.form-control(type='password' placeholder='' name='password' required='true' value='' )
+            div.form-group
+                label(for='confirm-password') Confirm Password:
+                input#first_name.form-control(type='password' placeholder='' name='password' required='true' value='' )
+            div.form-group
+                button.btn.btn-success-outline(type='submit' value='register') Register

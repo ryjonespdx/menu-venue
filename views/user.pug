@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+  h1 #{restaurant.name}
+  p #{restaurant.address}
+  
+  div(style='margin-left:20px;margin-top:20px')
+
+    h4 EDIT YOUR MENU
+    
+    dl
+      each item in menu 
+        dt #{item.name}
+        dd #{item.description}
+
+      else
+        p Your restaurant has no menu.
