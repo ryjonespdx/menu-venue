@@ -1,27 +1,34 @@
 // From Express documentation: https://expressjs.com/en/starter/hello-world.html
 const express = require("express");
 const bodyParser = require("body-parser");
-const path = require('path');
-var cookieParser = require('cookie-parser');
+const path = require("path");
+var cookieParser = require("cookie-parser");
+var mongoose = require("mongoose");
 
-const indexRouter = require('./routes/index')
-const userRouter = require('./routes/user')
-const restaurantRouter = require('./routes/restaurant')
+// Mongoose / MongoDB code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+// Set up default mongoose connection
+var mongoDB = "mongodb://127.0.0.1/db";
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+const indexRouter = require("./routes/index");
+const userRouter = require("./routes/user");
+const restaurantRouter = require("./routes/restaurant");
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.set('views', path.join(__dirname, 'views'));
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-app.use('/', indexRouter);
-app.use('/user', userRouter);
-app.use('/restaurant', restaurantRouter);
+app.use("/", indexRouter);
+app.use("/user", userRouter);
+app.use("/restaurant", restaurantRouter);
 
 module.exports = app;
-
 
 // app.use(express.static("public")); // exposes all static files within 'public' folder so that they may be used
 // app.use(bodyParser.urlencoded({ extended: true })); // lets use make use of the 'req.body' object
