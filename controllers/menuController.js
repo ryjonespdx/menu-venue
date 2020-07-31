@@ -1,9 +1,6 @@
+const Restaurant = require('../models/restaurant');
+const User = require('../models/user');
 const Menu = require('../models/menu');
-
-var async = require('async');
-
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
 
 // Display Menu create form on GET.
 exports.menu_create_get = function(req, res) {

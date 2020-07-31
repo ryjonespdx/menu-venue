@@ -1,6 +1,6 @@
-extends menu_list 
+extends restaurant_menu
 
-block menu_items_block
+block restaurant_menu_items_content
 
     dl
       each item in item_list
@@ -8,4 +8,4 @@ block menu_items_block
         dd #{item.description}
 
       else
-        p This restaurant has no items.
+        p This menu has no items.

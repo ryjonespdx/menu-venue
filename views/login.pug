@@ -4,9 +4,6 @@ block content
     h1= title
         p Welcome to #[em MenuVenue], please sign in 
 
-    if error
-        p Error getting dynamic content.
-
     fieldset
         form(method='POST' action='/login')
             div.form-group

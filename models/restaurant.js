@@ -9,8 +9,8 @@ const appModel = mysqlModel.createConnection({
 
 const Restaurant = appModel.extend(
     {
-        name: {type: String, required: true},
-        address: {type: String, required: true},
+        name: '',
+        address: ''
     }
 );
 

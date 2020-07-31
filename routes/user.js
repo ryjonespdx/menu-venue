@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const user_controller = require('../controllers/userController');
-const async = require('async');
 
 // GET request for list of all Users.
 router.get('/all', user_controller.user_list);

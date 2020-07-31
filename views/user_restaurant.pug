@@ -1,0 +1,14 @@
+extends user
+
+block user_restaurant_content
+  ul
+    each restaurant in restaurant_list
+      li 
+        p (#{restaurant.name})
+        p (#{restaurant.address})
+
+
+    else
+      li You have no restaurants.
+
+    block user_restaurant_menu_content 

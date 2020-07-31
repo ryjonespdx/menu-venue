@@ -1,14 +1,6 @@
 const Restaurant = require('../models/restaurant');
-var async = require('async');
-
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
-
-
-// Display 
-// exports.index = function(req, res) {   
-//     res.render('index', { title: 'Menu Venue', data: { restaurant_count : 3} });
-// }
+const User = require('../models/user');
+const Menu = require('../models/menu');
 
 // Display Restaurant create form on GET.
 exports.restaurant_create_get = function(req, res) {

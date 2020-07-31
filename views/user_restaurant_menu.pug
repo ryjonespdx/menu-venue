@@ -1,0 +1,13 @@
+extends user_restaurant
+
+block user_restaurant_menu_content
+
+    dl
+      each menu in menu_list
+        dt #{menu.name}
+        dd #{menu.description}
+
+      else
+        p You have no menus.
+
+    block user_restaurant_menu_item_content

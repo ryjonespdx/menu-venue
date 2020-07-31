@@ -3,7 +3,6 @@ const router = express.Router();
 
 const restaurant_controller = require('../controllers/restaurantController');
 const menu_controller = require('../controllers/menuController');
-const async = require('async');
 
 // GET menu-venue home page.
 // router.get('/', restaurant_controller.index);

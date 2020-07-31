@@ -1,6 +1,6 @@
-extends restaurant
+extends index
 
-block menu_list_block
+block restaurant_list_content
 
     dl
         each menu in menus 
@@ -8,5 +8,5 @@ block menu_list_block
 
         else
             p This restaurant has no menus.
-    
-    block menu_items_block
+
+    block restaurant_menu_items_content
