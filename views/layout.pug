@@ -9,26 +9,21 @@ html(lang='en')
         script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
         link(rel='stylesheet', href='/css/style.css')
     body
-        div(class='container-top')
+        div(class='container-fluid')
             nav(class='navbar')
                 ul
                     li
-                        a(href='#')
+                        a(href='/') Home
                     li
-                        a(href='#')
+                        a(href='/restaurant/all') All restaurants
                     li
-                        a(href='#')
-            div(class='container-top')
-                block content
+                        a(href='#') nav-item
+                    li
+                        a(href='#') nav-item
+                    li
+                        a(href='#') nav-item
+                    li
+                        a(href='/login') login 
 
-            div(class='container-bottom')
-                div(class='row')
-                    div(class='col-sm-12')
-                        ul
-                            li 
-                                a(href='/') Home
-                            hr
-                    div(class='col-sm-12')
-                        ul
-                            li 
-                                a(href='/restaurant/all') All restaurants
+            div(class='container-fluid')
+                block content

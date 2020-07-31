@@ -1,3 +1,7 @@
+/*******************************************************************
+ * usage examples at https://www.npmjs.com/package/mysql-model
+ * *****************************************************************/
+
 const mysqlModel = require('mysql-model');
 
 const appModel = mysqlModel.createConnection({
@@ -9,10 +13,12 @@ const appModel = mysqlModel.createConnection({
 
 const Restaurant = appModel.extend(
     {
+        id: '',
         name: '',
-        address: ''
+        address: '',
     }
 );
+
 
 //Export model
 module.exports = Restaurant;

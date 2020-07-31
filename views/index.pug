@@ -1,18 +1,25 @@
 extends layout
 
 block content
-    h1= title
-        p Welcome
 
-        fieldset
-            form(method='POST' action='')
-                div.form-group
-                    label(for='name') Restaurant:
-                    input#name.form-control(type='text' placeholder='e.g. Sushi Hanna' name='name' value=(undefined===restaurant ? '' : restaurant.name) )
-                div.form-group
-                    label(for='address') Address:
-                    input#address.form-control(type='text' placeholder='e.g. 123 main street' name='address' value=(undefined===address? '' : restaurant.address) )
-                div.form-group
-                    button.btn.btn-success-outline(type='submit' value='Find Restaurants') Submit
+    fieldset
+        form(method='POST' action='')
+            div.form-group
+                label(for='name') Restaurant:
+                input#name.form-control(type='text' placeholder='e.g. Sushi Hanna' name='name' value=(undefined===restaurant ? '' : restaurant.name) )
+            div.form-group
+                label(for='address') Address:
+                input#address.form-control(type='text' placeholder='e.g. 123 main street' name='address' value=(undefined===address? '' : restaurant.address) )
+            div.form-group
+                button.btn.btn-success-outline(type='submit' value='Find Restaurants') Submit
 
-    block restaurant_list_content
+    hr
+    div(class='container-fluid')
+        div(class='row')
+            div(class='col-sm-6')
+
+                p Google Maps API ?
+
+            div(class='col-sm-6')
+
+                block restaurant_list_content

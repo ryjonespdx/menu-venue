@@ -1,3 +1,7 @@
+/********************************************************************************
+ * userController: functions to handle GET and POST requests called in user.js
+ * *****************************************************************************/
+
 const Restaurant = require('../models/restaurant');
 const User = require('../models/user');
 const Menu = require('../models/menu');

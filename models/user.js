@@ -1,3 +1,7 @@
+/*******************************************************************
+ * usage examples at https://www.npmjs.com/package/mysql-model
+ * *****************************************************************/
+
 const mysqlModel = require('mysql-model');
 
 const appModel = mysqlModel.createConnection({
@@ -9,8 +13,9 @@ const appModel = mysqlModel.createConnection({
 
 const User = appModel.extend(
     {
-        email: {type: String, required: true},
-        password: {type: String, required: true},
+        id: '',
+        email:'',
+        password: ''
     }
 );
 

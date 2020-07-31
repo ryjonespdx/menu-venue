@@ -1,3 +1,8 @@
+/*************************************************************************************************************
+ * user.js : attaches the routes starting with '/user', to its controller in userController.js
+**************************************************************************************************************/
+
+
 const express = require('express');
 const router = express.Router();
 
