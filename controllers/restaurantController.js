@@ -1,12 +1,36 @@
 /********************************************************************************************
- * restaurantController: functions to handle GET and POST requests called in restaurant.js
- * *****************************************************************************************/
+user = {
+    id: '',
+    email: '',
+    password: '',
+    url: ''
+}
+restaurant = {
+    id: '',
+    name: '',
+    address: '',
+    phone: '',
+    url: '',
+    user_id: ''
+}
+mene  = {
+    id: '',
+    name: '',
+    url: '',
+    restaurant_id: ''
+}
+item = {
+    id: '',
+    name: '',
+    price: '',
+    description: '',
+    menu_id: ''
+}
+  ******************************************************************************************/
 
-const User = require('../models/user');
-const Restaurant = require('../models/restaurant');
-const Menu = require('../models/menu');
-const Item = require('../models/item');
-
+/********************************************************************************************
+ * restaurantController: functions to handle GET and POST requests as a visitor
+  ******************************************************************************************/
 
 // Display detail page for a specific Restaurant.
 exports.restaurant_detail = function(req, res) {

@@ -1,11 +1,36 @@
 /********************************************************************************************
- * indexController: functions to handle GET and POST requests called in index.js
- * *****************************************************************************************/
+user = {
+    id: '',
+    email: '',
+    password: '',
+    url: ''
+}
+restaurant = {
+    id: '',
+    name: '',
+    address: '',
+    phone: '',
+    url: '',
+    user_id: ''
+}
+mene  = {
+    id: '',
+    name: '',
+    url: '',
+    restaurant_id: ''
+}
+item = {
+    id: '',
+    name: '',
+    price: '',
+    description: '',
+    menu_id: ''
+}
+  ******************************************************************************************/
 
-const Restaurant = require('../models/restaurant');
-const User = require('../models/user');
-const Menu = require('../models/menu');
-const Item = require('../models/item');
+/********************************************************************************************
+ * indexController: functions to handle GET and POST requests called from home and login
+ * *****************************************************************************************/
 
 exports.index_get = function(req, res) {
     res.render('index', { title: 'Menu Venue' });
