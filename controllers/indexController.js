@@ -45,10 +45,21 @@ exports.login_post= function(req, res) {
         {id: '3', name: 'restaurant3', address: 'address3', phone: '333-3333', url: '/restaurant/3'}
     ];
 
-    // authentication
-    if(true)
-        res.render('user_restaurant', { title: 'Menu Venue: Your Restaurants', user_info: user , restaurant_list: restaurants } );
-    else
+    if(true) { // authenticated 
+
+        // user has restaurants AND menus AND items
+        if(true) {
+            res.render('user_restaurant_menu_item', { title: 'Menu Venue: Your Restaurants', user_info: user , restaurant_list: restaurants } );
+        }
+        // user has restaurants AND menus
+        else if(false) {
+
+        }
+        else if(false) {
+
+        }
+    }
+    else // no user/wrong password
         res.render('login', { title: 'incorrect!' });
 };
 
