@@ -7,7 +7,8 @@ var mongoose = require("mongoose");
 
 // Mongoose / MongoDB code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 // Set up default mongoose connection
-var mongoDB = "mongodb://127.0.0.1/db";
+var config = require("./config");
+var mongoDB = config.DB_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
