@@ -34,22 +34,22 @@ router.get('/:id/restaurant/all', user_controller.user_menu_list);
 // GET request for creating a Menu. NOTE This must come before routes that display Menu (uses id).
 router.get('/:id/restaurant/create', user_controller.user_restaurant_create_get);
 
-// POST request for creating Menu.
+// POST request for creating Restaurant.
 router.post('/:id/restaurant/create', user_controller.user_restaurant_create_post);
 
-// GET request to delete Menu.
+// GET request to delete Restaurant.
 router.get('/:id/restaurant/:restaurant_id/delete', user_controller.user_restaurant_delete_get);
 
-// POST request to delete Menu.
+// POST request to delete Restaurant.
 router.post('/:id/restaurant/:restaurant_id/delete', user_controller.user_restaurant_delete_post);
 
-// GET request to update Menu.
+// GET request to update Restaurant.
 router.get('/:id/restaurant/:restaurant_id/update', user_controller.user_restaurant_update_get);
 
-// POST request to update Menu.
+// POST request to update Restaurant.
 router.post('/:id/restaurant/:restaurant_id/update', user_controller.user_restaurant_update_post);
 
-// GET request for one Menu.
+// GET request for one Restaurant.
 router.get('/:id/restaurant/:restaurant_id', user_controller.user_restaurant_detail)
 
 

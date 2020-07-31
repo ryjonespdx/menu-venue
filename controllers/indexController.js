@@ -36,7 +36,7 @@ exports.login_post= function(req, res) {
     // search the database for...
     let submittedEmail = req.body.email;
     let submittedPassword = req.body.password;
-
+    
     // dummy data returned from MySQL db
     user = { id: '1', email: 'a@b.com', url: '/user/1' };
     restaurants = [
@@ -46,21 +46,11 @@ exports.login_post= function(req, res) {
     ];
 
     if(true) { // authenticated 
-
-        // user has restaurants AND menus AND items
-        if(true) {
-            res.render('user_restaurant_menu_item', { title: 'Menu Venue: Your Restaurants', user_info: user , restaurant_list: restaurants } );
-        }
-        // user has restaurants AND menus
-        else if(false) {
-
-        }
-        else if(false) {
-
-        }
+        res.render('user_restaurant', { title: 'Menu Venue: Your Restaurants', user_info: user , restaurant_list: restaurants } );
     }
-    else // no user/wrong password
+    else { // no user/wrong password
         res.render('login', { title: 'incorrect!' });
+    }
 };
 
 exports.register_post= function(req, res) {

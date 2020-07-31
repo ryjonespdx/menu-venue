@@ -7,8 +7,8 @@ block user_restaurant_content
   ul
     each restaurant in restaurant_list
       ul
-        li #{restaurant.id}
-        li #{restaurant.name}
+        li 
+          a(href=restaurant.url) #{restaurant.name}
         li #{restaurant.address}
       hr  
 
