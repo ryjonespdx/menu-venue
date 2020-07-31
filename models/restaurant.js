@@ -16,9 +16,10 @@ const Restaurant = appModel.extend(
         id: '',
         name: '',
         address: '',
+        phone: '',
+        url: '',
+        user_id: ''
     }
 );
 
-
-//Export model
 module.exports = Restaurant;

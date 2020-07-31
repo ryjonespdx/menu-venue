@@ -2,7 +2,6 @@
  * user.js : attaches the routes starting with '/user', to its controller in userController.js
 **************************************************************************************************************/
 
-
 const express = require('express');
 const router = express.Router();
 
@@ -31,6 +30,5 @@ router.post('/:id/update', user_controller.user_update_post);
 
 // GET request for one User.
 router.get('/:id', user_controller.user_detail);
-
 
 module.exports = router;

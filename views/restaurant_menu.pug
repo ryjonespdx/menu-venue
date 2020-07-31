@@ -2,9 +2,12 @@ extends index
 
 block restaurant_list_content
 
+    h4= restaurant_info.name
+
     dl
-        each menu in menus 
-            dt #{menu.name}
+        each menu in menu_list 
+            dt 
+                a(href=menu.url) #{menu.name}
 
         else
             p This restaurant has no menus.

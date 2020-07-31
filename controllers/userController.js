@@ -2,9 +2,10 @@
  * userController: functions to handle GET and POST requests called in user.js
  * *****************************************************************************/
 
-const Restaurant = require('../models/restaurant');
 const User = require('../models/user');
+const Restaurant = require('../models/restaurant');
 const Menu = require('../models/menu');
+const Item = require('../models/item');
 
 // Display User create form on GET.
 exports.user_create_get = function(req, res) {

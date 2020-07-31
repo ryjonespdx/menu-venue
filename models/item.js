@@ -11,13 +11,15 @@ const appModel = mysqlModel.createConnection({
   database :  'database-name'
 });
 
-const Menu = appModel.extend(
+const Item = appModel.extend(
     {
         id: '',
         name: '',
+        price: '',
+        description: '',
         url: '',
-        restaurant_id: ''
+        menu_id: ''
     }
 );
 
-module.exports = Menu;
+module.exports = Item;

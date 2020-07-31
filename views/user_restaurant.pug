@@ -1,12 +1,16 @@
 extends user
 
 block user_restaurant_content
+
+  h4= user_info.email
+
   ul
     each restaurant in restaurant_list
-      li 
-        p (#{restaurant.name})
-        p (#{restaurant.address})
-
+      ul
+        li #{restaurant.id}
+        li #{restaurant.name}
+        li #{restaurant.address}
+      hr  
 
     else
       li You have no restaurants.

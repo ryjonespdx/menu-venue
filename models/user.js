@@ -15,9 +15,9 @@ const User = appModel.extend(
     {
         id: '',
         email:'',
-        password: ''
+        password: '',
+        url: ''
     }
 );
 
-//Export model
 module.exports = User;

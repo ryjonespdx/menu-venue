@@ -7,13 +7,8 @@ const router = express.Router();
 
 const restaurant_controller = require('../controllers/restaurantController');
 
-// GET menu-venue home page.
-// router.get('/', restaurant_controller.index);
-
 // GET request for list of all Restaurants.
 router.get('/all', restaurant_controller.restaurant_list);
-
-// Restaurant routes
 
 // GET request for creating a Restaurant. NOTE This must come before routes that display Restaurant (uses id).
 router.get('/create', restaurant_controller.restaurant_create_get);
@@ -59,6 +54,5 @@ router.get('/:id/menu/:menu_id', restaurant_controller.menu_detail)
 
 // GET request for one Restaurant.
 router.get('/:id', restaurant_controller.restaurant_detail);
-
 
 module.exports = router;
