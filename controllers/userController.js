@@ -1,37 +1,35 @@
-/********************************************************************************************
-user = {
-    id: '',
-    email: '',
-    password: '',
-    url: ''
-}
-restaurant = {
-    id: '',
-    name: '',
-    address: '',
-    phone: '',
-    url: '',
-    user_id: ''
-}
-mene  = {
-    id: '',
-    name: '',
-    url: '',
-    restaurant_id: ''
-}
-item = {
-    id: '',
-    name: '',
-    price: '',
-    description: '',
-    menu_id: ''
-}
-  ******************************************************************************************/
-
 /********************************************************************************
  * userController: functions to handle GET and POST requests called as a user
  * *****************************************************************************/
 
+const { users, restaurants, menus, menuItems } = require('../mockData');
+
+
+exports.login_get = function(req, res) {
+    res.render('login', { title: 'login' });
+}
+
+exports.login_post = function(req, res) {
+
+    // search the database for...
+    let submittedEmail = req.body.email;
+    let submittedPassword = req.body.password;
+    
+    
+    if(true) { // authenticated
+        res.render('user', { title: 'Menu Venue: Your Restaurants', user_info: users[0] , restaurant_list: [ restaurants[0], restaurants[1] ], menu_list: [], menu: [] } );
+    }
+    else { // no user/wrong password
+        res.render('login', { title: 'incorrect!' });
+    }
+};
+
+
+// user controls
+
+exports.register_post = function(req, res) {
+    res.render('login', { title: 'you registered!' });
+};
 // Display User create form on GET.
 exports.user_create_get = function(req, res) {
     res.send('NOT IMPLEMENTED: User create GET');
@@ -72,6 +70,10 @@ exports.user_list = function(req, res) {
     res.send('NOT IMPLEMENTED: User list GET');
 }
 
+
+
+// user restaurant controls
+
 // Display Restaurant create form on GET.
 exports.user_restaurant_create_get = function(req, res) {
     res.send('NOT IMPLEMENTED: Restaurant create GET');
@@ -106,30 +108,22 @@ exports.user_restaurant_delete_post = function(req, res) {
 exports.user_restaurant_detail = function(req, res) {
 
     // search the database for...
-    let url = req.params.id
+    let url = req.params.id;
     
-    // dummy data returned from MySQL db
-    restaurant = {id: '1', name: 'restaurant1', address: 'address1', phone: '111-1111', url: '/restaurant/1'},
-    menus = [
-        {id: '1', name: 'menu1', url: '/restaurant/1/menu/1', restaurant_id: '1'},
-        {id: '2', name: 'menu2', url: '/restaurant/1/menu/2', restaurant_id: '1'}
-    ]
-
-    res.render('restaurant_menu', { title: 'Menu Venue: All Menus', restaurant_info: restaurant, menu_list: menus });
+    res.render('user_restaurant', { title: 'Menu Venue: All Menus', user_info: users[0], restaurant_info: restaurants[0], menu_list: menus[0] });
 }
 
 // Display list of all Restaurants.
 exports.user_restaurant_list = function(req, res) {
 
-    // dummy data returned from MySQL db
-    found = [
-        {id: '1', name: 'restaurant1', address: 'address1', phone: '111-1111', url: '/restaurant/1'},
-        {id: '2', name: 'restaurant2', address: 'address2', phone: '222-2222', url: '/restaurant/2'},
-        {id: '3', name: 'restaurant3', address: 'address3', phone: '333-3333', url: '/restaurant/3'}
-    ];
-    
-    res.render('restaurant_list', { title: 'Menu Venue: All Restaurants', restaurant_list: found });
+    // search the database for all restaurants...
+
+    res.render('restaurant', { title: 'Menu Venue: All Restaurants', restaurant_list: [ restaurants[0], restaurants[1], restaurants[2], restaurants[3] ]});
 }
+
+
+
+// user restaurant menu controls
 
 // Display Menu create form on GET.
 exports.user_menu_create_get = function(req, res) {
@@ -164,27 +158,51 @@ exports.user_menu_delete_post = function(req, res) {
 // Display detail page for a specific menu.
 exports.user_menu_detail = function(req, res) {
 
-    // search the database for...
-    let restaurant_id = req.params.id
-    let menu_id = req.params.menu_id
-    
-    // dummy data returned from MySQL db
-    restaurant = {id: '1', name: 'restaurant1', address: 'address1', phone: '111-1111', url: '/restaurant/1'},
-    menus = [
-        {id: '1', name: 'menu1', url: '/restaurant/1/menu/1', restaurant_id: '1'},
-        {id: '2', name: 'menu2', url: '/restaurant/1/menu/2', restaurant_id: '1'}
-    ]
-    items = [
-        {id: '1', name: 'item1', price: '1.11', description: 'description1'},
-        {id: '2', name: 'item2', price: '2.22', description: 'description1'},
-        {id: '3', name: 'item3', price: '3.33', description: 'description2'},
-        {id: '4', name: 'item4', price: '4.44', description: 'description4'},
-    ]
+    let restaurant_id = req.params.id;
+    let menu_id = req.params.menu_id;
 
-    res.render('restaurant_menu_items', { title: 'Menu Venue: Menu', restaurant_info: restaurant, menu_list: menus, item_list: items });
+    res.render('user_restaurant_menu', { title: 'Menu Venue: Menu', user_info: users[0], restaurant_info: restaurants[0], menu_info: menus[0], menu: [ menuItems[0], menuItems[1] ] });
 }
 
 // Display list of all Menus.
 exports.user_menu_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: Menu list GET');
+
+    // search the database for...
+    let restaurant_id = req.params.id;
+
+    res.render('user_restaurant', { title: 'Menu Venue: All Menus', user_info: users[0], restaurant_info: restaurants[0], menu_list: [ menus[0], menus[1] ] });
 }
+
+
+
+// user restaurant menu item controls
+
+// Display Item create form on GET.
+exports.user_item_create_get = function(req, res) {
+    res.send('NOT IMPLEMENTED: Item create GET');
+}
+
+// Display Item create form on POST.
+exports.user_item_create_post = function(req, res) {
+    res.send('NOT IMPLEMENTED: Item create POST');
+}
+
+// Display Item update form on GET.
+exports.user_item_update_get = function(req, res) {
+    res.send('NOT IMPLEMENTED: Item update GET');
+};
+
+// Handle Item update on POST.
+exports.user_item_update_post = function(req, res) {
+    res.send('NOT IMPLEMENTED: Item update POST');
+};
+
+// Display Item delete form on GET.
+exports.user_item_delete_get = function(req, res) {
+    res.send('NOT IMPLEMENTED: Item delete GET');
+};
+
+// Handle Item delete on POST.
+exports.user_item_delete_post = function(req, res) {
+    res.send('NOT IMPLEMENTED: Item delete POST');
+};
