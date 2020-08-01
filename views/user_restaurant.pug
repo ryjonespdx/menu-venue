@@ -1,20 +1,21 @@
-extends user
+extends layout
 
-block user_restaurant_content
+block content
 
-  h4= user_info.email
+  h4= restaurant_info.name
 
-  ul
-    each restaurant in restaurant_list
-      ul
-        li 
-          a(href=restaurant.url) #{restaurant.name}
-        li #{restaurant.address}
-      hr  
+    dl
+      each menu in menu_list
+        dt 
+          a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu.id) #{menu.name}
+        dd #{menu.description}
+        dd
+          a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu.id+'/update') update menu
+        dd
+          a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu.id+'/delete') delete menu
 
-    else
-      li You have no restaurants.
-
-    a(href="") create restaurant
-
-    block user_restaurant_menu_content
+      else
+        p You have no menus.
+      
+      p
+        a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/create') create menu

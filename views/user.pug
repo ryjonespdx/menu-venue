@@ -2,7 +2,23 @@ extends layout
 
 block content
 
-  h1= title
+  h4= user_info.email
 
-  block user_restaurant_content
+    dl
+      each restaurant in restaurant_list
+        dt 
+          a(href='/user/'+user_info.id+'/restaurant/'+restaurant.id+'/menu/all') #{restaurant.name}
+          dd #{restaurant.address}
+          dd 
+            a(href='/user/'+user_info.id+'/restaurant/'+restaurant.id+'/update') update restaurant
+          dd
+            a(href='/user/'+user_info.id+'/restaurant/'+restaurant.id+'/delete') delete restaurant
+
+        hr  
+
+      else
+        dt You have no restaurants.
+
+      p
+        a(href='/user/'+user_info.id+'/restaurant/create') create restaurant
 

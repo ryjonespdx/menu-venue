@@ -1,15 +1,13 @@
-extends index
+extends restaurant
 
-block restaurant_list_content
+block restaurant_content
 
-    h4= restaurant_info.name
+  h4= menu_info.name
 
-    dl
-        each menu in menu_list 
-            dt 
-                a(href=menu.url) #{menu.name}
+  dl
+    each item in item_list
+      dt #{item.name}
+      dd #{item.description}
 
-        else
-            p This restaurant has no menus.
-
-    block restaurant_menu_items_content
+    else
+      p This menu has no items.

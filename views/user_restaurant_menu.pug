@@ -1,16 +1,19 @@
-extends user_restaurant
+extends layout
 
-block user_restaurant_menu_content
+block content
+
+  h4= menu.name
 
     dl
-      each menu in menu_list
-        dt #{menu.name}
-        dd #{menu.description}
+      each item in menu
+        dt #{item.name}
+        dd #{item.description}
+        dd
+          a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/item/'+item.id+'/update') update item 
+        dd
+          a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/item/'+item.id+'/delete') delete item
 
       else
-        p You have no menus.
+        p You have no items.
 
-
-    a(href="#") create menu
-
-    block user_restaurant_menu_item_content
+      a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/item/create') create item
