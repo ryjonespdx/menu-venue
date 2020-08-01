@@ -10,9 +10,13 @@ const user_controller = require('../controllers/userController');
 
 // requests from login page
 
-router.get('/', user_controller.login_get);
+router.get('/', user_controller.user_get);
 
-router.post('/', user_controller.login_post);
+// POST request for one User. (redirects '/:id' on successful login)
+router.post('/', user_controller.user_post);
+
+// GET request for one User. (redirected here on successful login)
+router.get('/:id', user_controller.user_detail);
 
 router.post('/register', user_controller.register_post);
 
@@ -109,8 +113,5 @@ router.get('/:id/restaurant/:restaurant_id/menu/:menu_id/item/:item_id/update', 
 // POST request to update Item.
 router.post('/:id/restaurant/:restaurant_id/menu/:menu_id/item/:item_id/update', user_controller.user_item_update_post);
 
-
-// GET request for one User.
-router.get('/:id', user_controller.user_detail);
 
 module.exports = router;

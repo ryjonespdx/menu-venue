@@ -4,32 +4,37 @@
 
 const { users, restaurants, menus, menuItems } = require('../mockData');
 
+// user controls
 
-exports.login_get = function(req, res) {
+exports.user_get = function(req, res) {
     res.render('login', { title: 'login' });
 }
 
-exports.login_post = function(req, res) {
+exports.user_post = function(req, res) {
 
     // search the database for...
     let submittedEmail = req.body.email;
     let submittedPassword = req.body.password;
-    
-    
-    if(true) { // authenticated
-        res.render('user', { title: 'Menu Venue: Your Restaurants', user_info: users[0] , restaurant_list: [ restaurants[0], restaurants[1] ], menu_list: [], menu: [] } );
-    }
-    else { // no user/wrong password
+
+    let found_id = 1;
+
+    if(true) // authenticated
+        res.redirect('/user/'+found_id);
+    else // no user/wrong password
         res.render('login', { title: 'incorrect!' });
-    }
 };
 
+// Display detail page for a specific user.
+exports.user_detail = function(req, res) {
 
-// user controls
+    res.render('user', { title: 'Menu Venue: Your Restaurants', user_info: users[0] , restaurant_list: [ restaurants[0], restaurants[1] ], menu_list: [], menu: [] } );
+}
+
 
 exports.register_post = function(req, res) {
     res.render('login', { title: 'you registered!' });
 };
+
 // Display User create form on GET.
 exports.user_create_get = function(req, res) {
     res.send('NOT IMPLEMENTED: User create GET');
@@ -59,11 +64,6 @@ exports.user_delete_get = function(req, res) {
 exports.user_delete_post = function(req, res) {
     res.send('NOT IMPLEMENTED: User delete POST');
 };
-
-// Display detail page for a specific user.
-exports.user_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: User detail GET');
-}
 
 // Display list of all Users.
 exports.user_list = function(req, res) {
