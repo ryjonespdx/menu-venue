@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+    h4= menu_info.name
+
+    h5= message
+
+    h5 creating a item
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name:
+            input#title.form-control(type='text', placeholder='the name' name='name' required='true' value=(undefined===item? '' : item.name) )
+        div.form-group
+            label(for='price') Price:
+            input#title.form-control(type='text', placeholder='how much?' name='price' required='true' value=(undefined===price? '' : item.price) )
+        div.form-group
+            label(for='address') Description:
+            input#title.form-control(type='text', placeholder='describe it' name='description' required='true' value=(undefined===item? '' : item.description) )
+        button.btn.btn-outline-success(type='submit') Create

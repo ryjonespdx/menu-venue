@@ -76,12 +76,24 @@ exports.user_list = function(req, res) {
 
 // Display Restaurant create form on GET.
 exports.user_restaurant_create_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Restaurant create GET');
+
+    res.render('create_restaurant', { user_info: users[0] } )
 }
 
 // Display Restaurant create form on POST.
 exports.user_restaurant_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Restaurant create POST');
+    // res.send('NOT IMPLEMENTED: Restaurant create POST');
+
+    user_id = req.params.id;
+    name = req.body.name;
+    address = req.body.address;
+    phone = req.body.phone;
+
+    // save into db under user_id
+    if(true) // saved
+        res.redirect('/user/'+user_id);
+    else
+        res.render('create_restaurant', { user_info: users[0], message: 'Could not save!' } )
 }
 
 // Display Restaurant update form on GET.
@@ -127,12 +139,23 @@ exports.user_restaurant_list = function(req, res) {
 
 // Display Menu create form on GET.
 exports.user_menu_create_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Menu create GET');
+
+    res.render('create_menu', { restaurant_info: restaurants[0] } )
 }
 
 // Display Menu create form on POST.
 exports.user_menu_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Menu create POST');
+
+    user_id = req.params.id;
+    restaurant_id = req.params.id;
+    name = req.body.name;
+    description = req.body.description;
+
+    // save into db under restaurant_id
+    if(true) // saved
+        res.redirect('/user/'+user_id+'/restaurant/'+restaurant_id+'/menu/all');
+    else
+        res.render('create_menu', { restaurant_info: restaurants[0], message: 'Could not save!' } )
 }
 
 // Display Menu update form on GET.
@@ -179,12 +202,25 @@ exports.user_menu_list = function(req, res) {
 
 // Display Item create form on GET.
 exports.user_item_create_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Item create GET');
+
+    res.render('create_item', { menu_info: menus[0] } )
 }
 
 // Display Item create form on POST.
 exports.user_item_create_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Item create POST');
+
+    user_id = req.params.id;
+    restaurant_id = req.params.id;
+    menu_id = req.params.id;
+    name = req.body.name;
+    price = req.body.price;
+    description = req.body.description;
+
+    // save into db under menu_id
+    if(true) // saved
+        res.redirect('/user/'+user_id+'/restaurant/'+restaurant_id+'/menu/'+menu_id);
+    else
+        res.render('create_item', { menu_info: menus[0], message: 'Could not save!' } )
 }
 
 // Display Item update form on GET.

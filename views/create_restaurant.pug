@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+    h4= user_info.email
+
+    h5= message
+
+    h5 creating a restaurant
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name:
+            input#title.form-control(type='text', placeholder='its name' name='name' required='true' value=(undefined===restaurant ? '' : restaurant.name) )
+        div.form-group
+            label(for='address') Address:
+            input#title.form-control(type='text', placeholder='its address' name='address' required='true' value=(undefined===restaurant? '' : restaurant.address) )
+        div.form-group
+            label(for='phone') Phone:
+            input#title.form-control(type='text', placeholder='its phone number' name='phone' required='true' value=(undefined===restaurant? '' : restaurant.phone) )
+        button.btn.btn-outline-success(type='submit') Create
