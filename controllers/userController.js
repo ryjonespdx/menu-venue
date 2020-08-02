@@ -30,9 +30,23 @@ exports.user_detail = function(req, res) {
     res.render('user', { title: 'Menu Venue: Your Restaurants', user_info: users[0] , restaurant_list: [ restaurants[0], restaurants[1] ], menu_list: [], menu: [] } );
 }
 
+exports.register_get = function(req, res) {
+    res.render('create_user', { title: 'enter email and create a password' });
+};
 
 exports.register_post = function(req, res) {
-    res.render('login', { title: 'you registered!' });
+
+    // search the database for...
+    let submittedEmail = req.body.email;
+    let submittedPassword = req.body.password;
+
+    // create user
+    let created_id = 2;
+
+    if(true) // available
+        res.redirect('/user/'+created_id);
+    else // not valid
+        res.render('create_user', { title: 'invalid!' });
 };
 
 // Display User create form on GET.
