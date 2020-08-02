@@ -14,5 +14,5 @@ exports.index_post = function(req, res) {
     let searchedName = req.body.name;
     let searchedAddress = req.body.address;
 
-    res.render('restaurant_list', { title: `Results for ${searchedName} around ${searchedAddress}`, restaurant_list: [ restaurants[0], restaurants[1] ] });
+    res.render('restaurant_list', { title: `Results for ${searchedName}`, restaurant_list: [ restaurants[0], restaurants[1] ] });
 }

@@ -96,7 +96,6 @@ exports.user_restaurant_create_get = function(req, res) {
 
 // Display Restaurant create form on POST.
 exports.user_restaurant_create_post = function(req, res) {
-    // res.send('NOT IMPLEMENTED: Restaurant create POST');
 
     user_id = req.params.id;
     name = req.body.name;
@@ -112,17 +111,38 @@ exports.user_restaurant_create_post = function(req, res) {
 
 // Display Restaurant update form on GET.
 exports.user_restaurant_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Restaurant update GET');
+
+    let user_id = req.params.id;
+    let restaurant_id = req.params.restaurant_id;
+    
+    res.render('edit_restaurant', { title: 'Menu Venue: Edit Restaurant', user_info: users[0], restaurant_info: restaurants[0] });
+
 };
 
 // Handle Restaurant update on POST.
 exports.user_restaurant_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Restaurant update POST');
+
+    // save into database
+    let user_id = req.params.id;
+    let restaurant_id = req.params.restaurant_id;
+    let name = req.body.name;
+    let address = req.body.phone;
+    let phone = req.body.phone;
+    
+    res.redirect('/user/'+user_id);
 };
 
 // Display Restaurant delete form on GET.
 exports.user_restaurant_delete_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Restaurant delete GET');
+
+    // delete a restaurant from database
+    let user_id = req.params.id;
+    let restaurant_id = req.params.restaurant_id;
+    let name = req.body.name;
+    let address = req.body.phone;
+    let phone = req.body.phone;
+    
+    res.redirect('/user/'+user_id);
 };
 
 // Handle Restaurant delete on POST.
@@ -141,10 +161,7 @@ exports.user_restaurant_detail = function(req, res) {
 
 // Display list of all Restaurants.
 exports.user_restaurant_list = function(req, res) {
-
-    // search the database for all restaurants...
-
-    res.render('restaurant', { title: 'Menu Venue: All Restaurants', restaurant_list: [ restaurants[0], restaurants[1], restaurants[2], restaurants[3] ]});
+    res.send('NOT IMPLEMENTED: Restaurant list GET');
 }
 
 
@@ -174,17 +191,37 @@ exports.user_menu_create_post = function(req, res) {
 
 // Display Menu update form on GET.
 exports.user_menu_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Menu update GET');
+
+    let user_id = req.params.id;
+    let restaurant_id = req.params.restaurant_id;
+    let menu_id = req.params.menu_id;
+    
+    res.render('edit_menu', { title: 'Menu Venue: Edit Menu', user_info: users[0], restaurant_info: restaurants[0], menu_info: menus[0] });
 };
 
 // Handle Menu update on POST.
 exports.user_menu_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Menu update POST');
+
+    // save into database
+    let user_id = req.params.id;
+    let restaurant_id = req.params.restaurant_id;
+    let menu_id = req.params.menu_id;
+    let name = req.body.name;
+    let description = req.body.description;
+    
+    res.redirect('/user/'+user_id+'/restaurant/'+restaurant_id+'/menu/all');
 };
 
 // Display Menu delete form on GET.
 exports.user_menu_delete_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Menu delete GET');
+
+    // delete a menu database
+    let user_id = req.params.id;
+    let restaurant_id = req.params.restaurant_id;
+    let menu_id = req.params.menu_id;
+    let name = req.body.name;
+    
+    res.redirect('/user/'+user_id+'/restaurant/'+restaurant_id+'/menu/all');
 };
 
 // Handle Menu delete on POST.
@@ -224,8 +261,8 @@ exports.user_item_create_get = function(req, res) {
 exports.user_item_create_post = function(req, res) {
 
     user_id = req.params.id;
-    restaurant_id = req.params.id;
-    menu_id = req.params.id;
+    restaurant_id = req.params.restaurant_id;
+    menu_id = req.params.menu_id;
     name = req.body.name;
     price = req.body.price;
     description = req.body.description;
@@ -239,17 +276,43 @@ exports.user_item_create_post = function(req, res) {
 
 // Display Item update form on GET.
 exports.user_item_update_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Item update GET');
+
+    let user_id = req.params.id;
+    let restaurant_id = req.params.restaurant_id;
+    let menu_id = req.params.menu_id;
+    let item_id = req.params.item_id;
+    
+    res.render('edit_item', { title: 'Menu Venue: Edit Item', user_info: users[0], restaurant_info: restaurants[0], menu_info: menus[0], item_info: menuItems[0] });
 };
 
 // Handle Item update on POST.
 exports.user_item_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Item update POST');
+
+    // save into database
+    let user_id = req.params.id;
+    let restaurant_id = req.params.restaurant_id;
+    let menu_id = req.params.menu_id;
+    let item_id = req.params.item_id;
+    let name = req.body.name;
+    let price = req.body.price;
+    let description = req.body.description;
+    
+    res.redirect('/user/'+user_id+'/restaurant/'+restaurant_id+'/menu/'+menu_id);
 };
 
 // Display Item delete form on GET.
 exports.user_item_delete_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Item delete GET');
+
+    // delete an item database
+    let user_id = req.params.id;
+    let restaurant_id = req.params.restaurant_id;
+    let menu_id = req.params.menu_id;
+    let item_id = req.params.item_id;
+    let name = req.body.name;
+    let price = req.body.price;
+    let description = req.body.description;
+    
+    res.redirect('/user/'+user_id+'/restaurant/'+restaurant_id+'/menu/'+menu_id);
 };
 
 // Handle Item delete on POST.

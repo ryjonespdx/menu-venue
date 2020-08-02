@@ -1,0 +1,24 @@
+extends layout
+
+block content
+
+    h4= user_info.email
+
+    h5= message
+
+    h5 editing a restaurant
+
+    p
+        a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/delete') Remove
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name:
+            input#title.form-control(type='text', placeholder=restaurant_info.name name='name' value=(undefined===restaurant ? '' : restaurant.name) )
+        div.form-group
+            label(for='address') Address:
+            input#title.form-control(type='text', placeholder=restaurant_info.address name='address' value=(undefined===restaurant? '' : restaurant.address) )
+        div.form-group
+            label(for='phone') Phone:
+            input#title.form-control(type='text', placeholder=restaurant_info.phone name='phone' value=(undefined===restaurant? '' : restaurant.phone) )
+        button.btn.btn-outline-success(type='submit') Update

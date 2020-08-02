@@ -8,11 +8,8 @@ block content
       each menu in menu_list
         dt 
           a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu.id) #{menu.name}
-        dd #{menu.description}
         dd
           a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu.id+'/update') update menu
-        dd
-          a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu.id+'/delete') delete menu
 
       else
         p You have no menus.

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+    h4= user_info.email
+
+    h5= message
+
+    h5 editing a menu
+
+    p
+        a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/delete') Remove
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name:
+            input#title.form-control(type='text', placeholder=menu_info.name name='name' value=(undefined===menu? '' : menu.name) )
+        button.btn.btn-outline-success(type='submit') Update

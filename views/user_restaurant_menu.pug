@@ -7,11 +7,10 @@ block content
     dl
       each item in menu
         dt #{item.name}
+        dd #{item.price}
         dd #{item.description}
         dd
           a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/item/'+item.id+'/update') update item 
-        dd
-          a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/item/'+item.id+'/delete') delete item
 
       else
         p You have no items.
