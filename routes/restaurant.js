@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 
 const restaurant_controller = require('../controllers/restaurantController');
+const index_controller = require('../controllers/indexController');
 
 // GET request for list of all Restaurants.
 router.get('/all', restaurant_controller.restaurant_list);
