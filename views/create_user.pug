@@ -8,12 +8,15 @@ block content
         form(method='POST' action='')
             div.form-group
                 label(for='email') Email:
-                input#first_name.form-control(type='text' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===email ? '' : user.email) )
+                input.form-control(type='text' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===email ? '' : user.email) )
+            div.form-group
+                label(for='username') Username:
+                input.form-control(type='text' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===username? '' : user.username) )
             div.form-group
                 label(for='password') Password:
-                input#first_name.form-control(type='password' placeholder='' name='password' required='true' value='' )
+                inputform-control(type='password' placeholder='' name='password' required='true' value='' )
             div.form-group
                 label(for='confirm-password') Confirm Password:
-                input#first_name.form-control(type='password' placeholder='' name='password' required='true' value='' )
+                inputform-control(type='password' placeholder='' name='password' required='true' value='' )
             div.form-group
                 button.btn.btn-outline-secondary(type='submit' value='register') Register

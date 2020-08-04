@@ -2,14 +2,14 @@ extends layout
 
 block content
 
-    h4= user_info.email
+    h4= user_info.username
 
     h5= message
 
     h5 editing a restaurant
 
     p
-        a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/delete') Remove
+        a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.id+'/delete') Remove
 
     form(method='POST' action='')
         div.form-group
