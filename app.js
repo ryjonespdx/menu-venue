@@ -2,13 +2,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const session = require("express-session");
 var cookieParser = require("cookie-parser");
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 var favicon = require("serve-favicon");
+var config = require("./config/config");
+
+const isProduction = process.env.CURR_ENV === "production";
 
 // Mongoose / MongoDB code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 // Set up default mongoose connection
-var config = require("./config/config");
+mongoose.promise = global.Promise;
 var mongoDB = config.DB_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
