@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var RestaurantSchema = new Schema({
+const RestaurantSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: "User", required: true }, // username of restaurant owner
   name: { type: String, required: true, maxlength: 100 },
   cuisine: { type: String, required: true, maxlength: 100 },
