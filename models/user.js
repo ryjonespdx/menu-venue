@@ -5,28 +5,28 @@ const jwt = require("jsonwebtoken");
 
 const Schema = mongoose.Schema;
 
-const UserModelSchema = new Schema({
+const UserSchema = new Schema({
   username: { type: String, required: true, maxlength: 100 },
   email: { type: String, required: true, maxlength: 100 },
   hash: String,
   Salt: String,
 });
 
-UserModelSchema.methods.setPassword = function (password) {
+UserSchema.methods.setPassword = function (password) {
   this.salt = crypto.randomBytes(16).toString("hex");
   this.hash = crypto
     .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
     .toString("hex");
 };
 
-UserModelSchema.methods.validatePassword = function (password) {
+UserSchema.methods.validatePassword = function (password) {
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
     .toString("hex");
   return this.hash === hash;
 };
 
-UserModelSchema.methods.generateJWT = function () {
+UserSchema.methods.generateJWT = function () {
   const today = new Date();
   const expirationDate = newDate(today);
   expirationDate.setDate(today.getDate() + 60);
@@ -42,7 +42,7 @@ UserModelSchema.methods.generateJWT = function () {
   );
 };
 
-UserModelSchema.methods.toAuthJSON = function () {
+UserSchema.methods.toAuthJSON = function () {
   return {
     username: this.username,
     email: this.email,
@@ -51,4 +51,4 @@ UserModelSchema.methods.toAuthJSON = function () {
   };
 };
 
-module.exports = mongoose.model("UserModel", UserModelSchema);
+mongoose.model("User", UserSchema);
