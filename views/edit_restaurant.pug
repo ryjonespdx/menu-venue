@@ -14,11 +14,11 @@ block content
     form(method='POST' action='')
         div.form-group
             label(for='name') Name:
-            input#title.form-control(type='text', placeholder=restaurant_info.name name='name' value=(undefined===restaurant ? '' : restaurant.name) )
+            input.form-control(type='text', placeholder=restaurant_info.name name='name' value=(undefined===restaurant ? '' : restaurant.name) )
         div.form-group
             label(for='address') Address:
-            input#title.form-control(type='text', placeholder=restaurant_info.address name='address' value=(undefined===restaurant? '' : restaurant.address) )
+            input.form-control(type='text', placeholder=restaurant_info.address name='address' value=(undefined===restaurant? '' : restaurant.address) )
         div.form-group
             label(for='phone') Phone:
-            input#title.form-control(type='text', placeholder=restaurant_info.phone name='phone' value=(undefined===restaurant? '' : restaurant.phone) )
+            input.form-control(type='text', placeholder=restaurant_info.phone name='phone' value=(undefined===restaurant? '' : restaurant.phone) )
         button.btn.btn-outline-success(type='submit') Update

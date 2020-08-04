@@ -8,10 +8,10 @@ block content
         form(method='POST' action='')
             div.form-group
                 label(for='email') Email:
-                input.form-control(type='text' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===email ? '' : user.email) )
+                input.form-control(type='email' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===email ? '' : user.email) )
             div.form-group
                 label(for='username') Username:
-                input.form-control(type='text' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===username? '' : user.username) )
+                input.form-control(type='text' placeholder='' name='email' required='true' value=(undefined===username? '' : user.username) )
             div.form-group
                 label(for='password') Password:
                 inputform-control(type='password' placeholder='' name='password' required='true' value='' )

@@ -11,11 +11,11 @@ block content
     form(method='POST' action='')
         div.form-group
             label(for='name') Name:
-            input#title.form-control(type='text', placeholder='its name' name='name' required='true' value=(undefined===restaurant ? '' : restaurant.name) )
+            input.form-control(type='text', placeholder='its name' name='name' required='true' value=(undefined===restaurant ? '' : restaurant.name) )
         div.form-group
             label(for='address') Address:
-            input#title.form-control(type='text', placeholder='its address' name='address' required='true' value=(undefined===restaurant? '' : restaurant.address) )
+            input.form-control(type='text', placeholder='its address' name='address' required='true' value=(undefined===restaurant? '' : restaurant.address) )
         div.form-group
             label(for='phone') Phone:
-            input#title.form-control(type='text', placeholder='its phone number' name='phone' required='true' value=(undefined===restaurant? '' : restaurant.phone) )
+            input.form-control(type='text', placeholder='its phone number' name='phone' required='true' value=(undefined===restaurant? '' : restaurant.phone) )
         button.btn.btn-outline-success(type='submit') Create

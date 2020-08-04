@@ -9,16 +9,16 @@ block content
     h5 editing an item
 
     p
-        a(href='/user/'+user_info.id+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/item/'+item_info.id+'/delete') Remove
+        a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/item/'+item_info.id+'/delete') Remove
 
     form(method='POST' action='')
         div.form-group
             label(for='name') Name:
-            input#title.form-control(type='text', placeholder=item_info.name name='name' value=(undefined===item? '' : item.name) )
+            input.form-control(type='text', placeholder=item_info.name name='name' value=(undefined===item? '' : item.name) )
         div.form-group
             label(for='price') Price:
-            input#title.form-control(type='text', placeholder=item_info.price name='price' value=(undefined===item? '' : item.price) )
+            input.form-control(type='text', placeholder=item_info.price name='price' value=(undefined===item? '' : item.price) )
         div.form-group
             label(for='description') Descriptton:
-            input#title.form-control(type='text', placeholder=item_info.description name='description' value=(undefined===item? '' : item.description) )
+            input.form-control(type='text', placeholder=item_info.description name='description' value=(undefined===item? '' : item.description) )
         button.btn.btn-outline-success(type='submit') Update
