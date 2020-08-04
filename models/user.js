@@ -42,4 +42,13 @@ UserModelSchema.methods.generateJWT = function () {
   );
 };
 
+UserModelSchema.methods.toAuthJSON = function () {
+  return {
+    username: this.username,
+    email: this.email,
+    _id: this._id,
+    token: this.generateJWT(),
+  };
+};
+
 module.exports = mongoose.model("UserModel", UserModelSchema);

@@ -43,6 +43,13 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
+// Models
+require("./models/user");
+require("./models/restaurant");
+require("./models/menu");
+require("./models/menuitem");
+require("./config/passport"); // (!) This line must be below all 'require models/*'
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 

@@ -2,11 +2,6 @@
  * restaurantController: functions to handle GET and POST requests as a visitor
  ******************************************************************************************/
 
-// (!) Note: add the following line below all models:
-//     require('../config/passport');
-var Restaurant = require("../models/restaurant");
-require("../config/passport");
-
 const { users, restaurants, menus, menuItems } = require("../mockData");
 
 // Display detail page for a specific Restaurant.

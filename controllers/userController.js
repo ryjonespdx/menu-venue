@@ -2,12 +2,6 @@
  * userController: functions to handle GET and POST requests called as a user
  * *****************************************************************************/
 
-// (!) Note: add the following line below all models:
-//     require('../config/passport');
-var User = require("../models/user");
-var Restaurant = require("../models/restaurant");
-require("../config/passport");
-
 const { users, restaurants, menus, menuItems } = require("../mockData");
 
 // user controls
@@ -20,41 +14,37 @@ exports.user_post = function (req, res) {
   // search the database for...
   let username = req.body.username;
   let password = req.body.password;
-  
-  User.findOne({ username: username, password: password }, function(err, found ) {
 
-      if(err) 
-          res.render('login', { title: 'we have issues, try later' });
-      else if (!found)
-          res.render('login', { title: 'no user found' });
-      else
-          res.redirect('/user/'+found.username);
+  User.findOne({ username: username, password: password }, function (
+    err,
+    found
+  ) {
+    if (err) res.render("login", { title: "we have issues, try later" });
+    else if (!found) res.render("login", { title: "no user found" });
+    else res.redirect("/user/" + found.username);
   });
 };
 
 // Display detail page for a specific user.
 exports.user_detail = function (req, res) {
-
   let username = req.params.id;
 
-  User.findOne({ username: username })
-    .then( foundUser => {
-      Restaurant.find({ owner: foundUser._id }, function(err, foundRestaurant) {
-          if(err)
-              res.render('error', { message: err });
-          else {
-            console.log(foundRestaurant);
-            res.render('user', {
-              title: "Menu Venue: Your Restaurants",
-              user_info: foundUser,
-              restaurant_list: foundRestaurant,
-              menu_list: [],
-              menu: []
-            });
-          }
-      });
+  User.findOne({ username: username }).then((foundUser) => {
+    Restaurant.find({ owner: foundUser._id }, function (err, foundRestaurant) {
+      if (err) res.render("error", { message: err });
+      else {
+        console.log(foundRestaurant);
+        res.render("user", {
+          title: "Menu Venue: Your Restaurants",
+          user_info: foundUser,
+          restaurant_list: foundRestaurant,
+          menu_list: [],
+          menu: [],
+        });
+      }
     });
-}
+  });
+};
 
 exports.register_get = function (req, res) {
   res.render("create_user", { title: "enter email and create a password" });
@@ -67,24 +57,23 @@ exports.register_post = function (req, res) {
   let password = req.body.password;
 
   // passwords don't match, try again
-  if(password[0] !== password[1])
-      res.render('create_user', { title: 'Passwords do not match!' });
+  if (password[0] !== password[1])
+    res.render("create_user", { title: "Passwords do not match!" });
 
-  User.findOne({ username: username }, function(err, found) {
-      if(err) 
-        res.render('error', { message : err });
-      else if 
-        (found !== null) res.render('create_user', { title: 'User already exists!' });
-      else {
-        new User({
-          username: username,
-          email: email,
-          password: password[0]
-          }).save(function(err) {
-              if(err) res.render('error', { message : err });
-              else res.redirect('/user/'+username);
-          });
-      }
+  User.findOne({ username: username }, function (err, found) {
+    if (err) res.render("error", { message: err });
+    else if (found !== null)
+      res.render("create_user", { title: "User already exists!" });
+    else {
+      new User({
+        username: username,
+        email: email,
+        password: password[0],
+      }).save(function (err) {
+        if (err) res.render("error", { message: err });
+        else res.redirect("/user/" + username);
+      });
+    }
   });
 };
 
@@ -132,38 +121,40 @@ exports.user_restaurant_create_get = function (req, res) {
 
 // Display Restaurant create form on POST.
 exports.user_restaurant_create_post = function (req, res) {
-
   let username = req.params.id;
   name = req.body.name;
   address = req.body.address;
   number = req.body.number;
 
-  User.findOne({ username: username })
-    .then( foundUser => {
-      Restaurant.findOne({ owner: foundUser._id, name: name }, function(err, foundRestaurant) {
-          if(err)
-              res.render('error', { message: err });
-          else if (foundRestaurant !== null)
-              res.render('create_restaurant', { user_info: foundUser.username, message: 'Restaurant already exists!' });
+  User.findOne({ username: username }).then((foundUser) => {
+    Restaurant.findOne({ owner: foundUser._id, name: name }, function (
+      err,
+      foundRestaurant
+    ) {
+      if (err) res.render("error", { message: err });
+      else if (foundRestaurant !== null)
+        res.render("create_restaurant", {
+          user_info: foundUser.username,
+          message: "Restaurant already exists!",
+        });
+      else {
+        new Restaurant({
+          owner: foundUser._id,
+          name: name,
+          street: address,
+          city: "portland",
+          zip: "97000",
+          state: "oregon",
+          number: number,
+        }).save(function (err) {
+          if (err) res.render("error", { message: err });
           else {
-              new Restaurant({ 
-                owner : foundUser._id, 
-                name : name, 
-                street: address,
-                city : 'portland',
-                zip: '97000',
-                state: 'oregon',
-                number: number
-              }).save(function(err) {
-                  if(err)
-                    res.render('error', { message: err } );
-                  else {
-                    res.redirect('/user/'+username+'/');
-                  }
-              });
+            res.redirect("/user/" + username + "/");
           }
-      });
+        });
+      }
     });
+  });
 };
 
 // Display Restaurant update form on GET.
