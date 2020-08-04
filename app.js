@@ -8,7 +8,7 @@ var favicon = require("serve-favicon");
 
 // Mongoose / MongoDB code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 // Set up default mongoose connection
-var config = require("./config");
+var config = require("./config/config");
 var mongoDB = config.DB_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
@@ -20,6 +20,7 @@ const restaurantRouter = require("./routes/restaurant");
 
 const app = express();
 
+//- favicon from https://favicon.io/emoji-favicons/steaming-bowl/
 app.use(favicon(path.join(__dirname, "public/image/", "favicon.ico")));
 
 app.use(bodyParser.urlencoded({ extended: false }));
