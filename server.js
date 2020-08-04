@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 var cookieParser = require("cookie-parser");
 var mongoose = require("mongoose");
+var favicon = require("serve-favicon");
 
 // Mongoose / MongoDB code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 // Set up default mongoose connection
@@ -19,6 +20,8 @@ const restaurantRouter = require("./routes/restaurant");
 
 const app = express();
 
+app.use(favicon(path.join(__dirname, "public/image/", "favicon.ico")));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -31,7 +34,7 @@ app.use("/restaurant", restaurantRouter);
 
 module.exports = app;
 
-// app.use(express.static("public")); // exposes all static files within 'public' folder so that they may be used
+app.use(express.static(path.join(__dirname, "public"))); // exposes all static files within 'public' folder so that they may be used
 // app.use(bodyParser.urlencoded({ extended: true })); // lets use make use of the 'req.body' object
 
 // app.get("/", function (req, res) {
