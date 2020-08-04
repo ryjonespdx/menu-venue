@@ -7,7 +7,7 @@ block content
     dl
         each menu in menu_list 
             dt 
-                a(href='/restaurant/'+restaurant_info.username+'/menu/'+menu.id) #{menu.name}
+                a(href='/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
 
         else
             p This restaurant has no menus.

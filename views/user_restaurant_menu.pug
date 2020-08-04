@@ -10,9 +10,9 @@ block content
         dd #{item.price}
         dd #{item.description}
         dd
-          a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/item/'+item.id+'/update') update item 
+          a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/item/'+item.name+'/update') update item 
 
       else
         p You have no items.
 
-      a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.id+'/menu/'+menu_info.id+'/item/create') create item
+      a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/item/create') create item

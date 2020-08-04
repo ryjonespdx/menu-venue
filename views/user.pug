@@ -7,10 +7,12 @@ block content
     dl
       each restaurant in restaurant_list
         dt 
-          a(href='/user/'+user_info.username+'/restaurant/'+restaurant.id+'/menu/all') #{restaurant.name}
-          dd #{restaurant.address}
+          a(href='/user/'+user_info.username+'/restaurant/'+restaurant.name+'/menu/all') #{restaurant.name}
+          dd #{restaurant.street}
+          dd #{restaurant.city}
+          dd #{restaurant.number}
           dd 
-            a(href='/user/'+user_info.username+'/restaurant/'+restaurant.id+'/update') update restaurant
+            a(href='/user/'+user_info.username+'/restaurant/'+restaurant.name+'/update') update restaurant
 
         hr  
 

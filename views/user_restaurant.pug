@@ -7,12 +7,12 @@ block content
     dl
       each menu in menu_list
         dt 
-          a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.id+'/menu/'+menu.id) #{menu.name}
+          a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
         dd
-          a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.id+'/menu/'+menu.id+'/update') update menu
+          a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.name+'/menu/'+menu.name+'/update') update menu
 
       else
         p You have no menus.
       
       p
-        a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.id+'/menu/create') create menu
+        a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.name+'/menu/create') create menu

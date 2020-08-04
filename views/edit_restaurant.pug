@@ -9,7 +9,7 @@ block content
     h5 editing a restaurant
 
     p
-        a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.id+'/delete') Remove
+        a(href='/user/'+user_info.username+'/restaurant/'+restaurant_info.name+'/delete') Remove
 
     form(method='POST' action='')
         div.form-group
@@ -20,5 +20,5 @@ block content
             input.form-control(type='text', placeholder=restaurant_info.address name='address' value=(undefined===restaurant? '' : restaurant.address) )
         div.form-group
             label(for='phone') Phone:
-            input.form-control(type='text', placeholder=restaurant_info.phone name='phone' value=(undefined===restaurant? '' : restaurant.phone) )
+            input.form-control(type='text', placeholder=restaurant_info.number name='number' value=(undefined===restaurant? '' : restaurant.number) )
         button.btn.btn-outline-success(type='submit') Update
