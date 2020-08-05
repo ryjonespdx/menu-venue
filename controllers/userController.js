@@ -3,6 +3,7 @@
  * *****************************************************************************/
 const mongoose = require("mongoose");
 var User = require("../models/user");
+var Restaurant = require("../models/restaurant");
 require("../config/passport");
 
 const { users, restaurants, menus, menuItems } = require("../mockData");
