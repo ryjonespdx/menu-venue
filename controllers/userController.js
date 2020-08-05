@@ -205,7 +205,7 @@ exports.user_detail = function (req, res) {
       else {
         res.render("user", {
           title: "Menu Venue: Your Restaurants",
-          user_info: foundUser,
+          user_info: foundUser.local,
           restaurant_list: foundRestaurant,
           menu_list: [],
           menu: [],
@@ -293,7 +293,7 @@ exports.user_restaurant_create_get = function (req, res) {
 
 // Display Restaurant create form on POST.
 exports.user_restaurant_create_post = function (req, res) {
-  let username = req.user;
+  let username = req.params.id;
   name = req.body.name;
   cuisine = req.body.cuisine;
   street = req.body.street;
@@ -302,9 +302,7 @@ exports.user_restaurant_create_post = function (req, res) {
   zip = req.body.zip;
   number = req.body.number;
 
-  console.log(req.user);
-
-  User.findOne({ username: username }).then((foundUser) => {
+  User.findOne({ 'local.username': username }).then((foundUser) => {
     Restaurant.findOne({ owner: foundUser._id, name: name }, function (
       err,
       foundRestaurant
@@ -312,7 +310,7 @@ exports.user_restaurant_create_post = function (req, res) {
       if (err) res.render("error", { message: err });
       else if (foundRestaurant !== null)
         res.render("create_restaurant", {
-          user_info: foundUser.username,
+          user_info: foundUser.local,
           message: "Restaurant already exists!",
         });
       else {
@@ -328,7 +326,7 @@ exports.user_restaurant_create_post = function (req, res) {
         }).save(function (err) {
           if (err) res.render("error", { message: err });
           else {
-            res.redirect("/user/" + username + "/");
+            res.redirect("/user/" + foundUser.local.username);
           }
         });
       }
@@ -341,7 +339,7 @@ exports.user_restaurant_update_get = function (req, res) {
   let username = req.params.id;
   let name = req.params.restaurant_id;
 
-  User.findOne({ username: username })
+  User.findOne({ 'local.username': username })
     .then( foundUser => {
       Restaurant.findOne({ name: name, owner: foundUser._id }, function(err, foundRestaurant) {
         if(err)
@@ -349,7 +347,7 @@ exports.user_restaurant_update_get = function (req, res) {
         else {
           res.render("edit_restaurant", {
             title: "Menu Venue: Edit Restaurant",
-            user_info: { username: username },
+            user_info: foundUser.local,
             restaurant_info: foundRestaurant 
           });
         }
@@ -361,8 +359,8 @@ exports.user_restaurant_update_get = function (req, res) {
 // Handle Restaurant update on POST.
 exports.user_restaurant_update_post = function (req, res) {
   // save into database
-  let user_id = req.params.id;
-  let restaurant_id = req.params.restaurant_id;
+  let username = req.params.id;
+  let restaurant = req.params.restaurant_id;
   let name = req.body.name;
   let cuisine = req.body.cuisine;
   let street = req.body.street;
@@ -371,7 +369,7 @@ exports.user_restaurant_update_post = function (req, res) {
   let zip = req.body.zip;
   let phone = req.body.phone;
 
-  res.redirect("/user/" + user_id);
+  res.redirect("/user/" + username);
 };
 
 // Display Restaurant delete form on GET.
@@ -393,7 +391,7 @@ exports.user_restaurant_detail = function (req, res) {
   let username = req.params.id;
   let restaurant = req.params.restaurant_id
 
-  User.findOne({ username: username })
+  User.findOne({ 'local.username': username })
     .then( foundUser => {
       Restaurant.findOne({ owner: foundUser._id, name: restaurant })
         .then( foundUserRestaurant => {
@@ -403,7 +401,7 @@ exports.user_restaurant_detail = function (req, res) {
             else {
               res.render('user_restaurant', {
                 title: "Menu Venue: Your Menus",
-                user_info: foundUser,
+                user_info: foundUser.local,
                 restaurant_info: foundUserRestaurant,
                 menu_list: foundUserMenu
               });
@@ -434,7 +432,7 @@ exports.user_menu_create_post = function (req, res) {
   name = req.body.name;
   description = req.body.description;
 
-  User.findOne({ username: username })
+  User.findOne({ "local.username": username })
     .then( foundUser => {
       Restaurant.findOne({ owner: foundUser._id, name: restaurant })
       .then( foundRestaurant => {
@@ -442,7 +440,7 @@ exports.user_menu_create_post = function (req, res) {
           if(err)
               res.render('error', { message: err });
           else if (foundMenu !== null)
-              res.render('create_menu', { user_info: foundUser, message: 'Menu already exists!' });
+              res.render('create_menu', { user_info: foundUser.local, message: 'Menu already exists!' });
           else {
               new Menu({ 
                 restaurant: foundRestaurant._id, 
@@ -514,7 +512,7 @@ exports.user_menu_detail = function (req, res) {
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
 
-  User.findOne({ username: username })
+  User.findOne({ "local.username": username })
     .then( foundUser => {
       Restaurant.findOne({ owner: foundUser._id, name: restaurant })
         .then( foundUserRestaurant => {
@@ -525,7 +523,7 @@ exports.user_menu_detail = function (req, res) {
               else {
                 res.render('user_restaurant_menu', {
                   title: "Menu Venue: Your Items",
-                  user_info: foundUser,
+                  user_info: foundUser.local,
                   restaurant_info: foundUserRestaurant,
                   menu_info: foundUserMenu,
                   menu: foundUserMenu.items
@@ -566,7 +564,7 @@ exports.user_item_create_post = function (req, res) {
   price = req.body.price;
   description = req.body.description;
 
-  User.findOne({ username: username })
+  User.findOne({ "local.username": username })
     .then( foundUser => {
       Restaurant.findOne({ owner: foundUser._id, name: restaurant })
       .then( foundUserRestaurant => {
@@ -576,7 +574,7 @@ exports.user_item_create_post = function (req, res) {
           else if (foundMenu.items.length !== 0) {
             // if matching item name exists
               // res.render('create_item', { 
-              //   user_info: foundUser, 
+              //   user_info: foundUser.local, 
               //   message: 'Menu already exists!' 
               // });
             //else
