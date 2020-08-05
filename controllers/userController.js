@@ -2,16 +2,172 @@
  * userController: functions to handle GET and POST requests called as a user
  * *****************************************************************************/
 const mongoose = require("mongoose");
-var User = require("../models/user");
-var Restaurant = require("../models/restaurant");
-require("../config/passport");
-
-// (!) Note: add the following line below all models:
-//     require('../config/passport');
+const passport = require("passport");
 var User = require("../models/user");
 var Restaurant = require("../models/restaurant");
 var Menu = require("../models/menu");
-require("../config/passport");
+
+/*
+ *
+ * New auth operations from https://medium.com/@basics.aki/step-wise-tutorial-for-node-js-authentication-using-passport-js-and-jwt-using-apis-cfbf274ae522
+ *
+ */
+exports.login = function (req, res, next) {
+  if (!req.body.username) {
+    return res.status(422).json({
+      errors: {
+        username: "is required",
+      },
+    });
+  }
+
+  // if (!req.body.email) {
+  //   return res.status(422).json({
+  //     errors: {
+  //       email: "is required",
+  //     },
+  //   });
+  // }
+
+  if (!req.body.password) {
+    return res.status(422).json({
+      errors: {
+        password: "is required",
+      },
+    });
+  }
+
+  return passport.authenticate(
+    "local",
+    { session: false },
+    (err, passportUser, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (passportUser) {
+        const user = passportUser;
+        user.token = passportUser.generateJWT();
+        return res.json({ user: user.toAuthJSON(user.token) });
+      }
+
+      return res.json({ status: 400 });
+    }
+  )(req, res, next);
+};
+
+exports.signup = function (req, res, next) {
+  const { username, email, password } = req.body;
+  User.findOne({ "local.username": username }, (err, userMatch) => {
+    if (userMatch) {
+      return res.json({
+        error: `Sorry, that username is taken.`,
+      });
+    }
+    const newUser = new User({
+      "local.username": username,
+      "local.email": email,
+    });
+
+    newUser.setPassword(password);
+
+    newUser.save((err, savedUser) => {
+      if (err) return res.json(err);
+      return res.json(savedUser);
+    });
+  });
+};
+
+exports.change_password = function (req, res, next) {
+  User.findOne({ resetPasswordToken: req.body.token }).then(function (user) {
+    // TODO add logic for checking the expiry time of the generated token.
+
+    user.setPassword(req.body.password);
+
+    user.updateOne(
+      {
+        "local.salt": user.local.salt,
+        "local.hash": user.local.hash,
+      },
+      function (err, savedUser) {
+        if (err) return res.json(err);
+        return res.json(savedUser);
+      }
+    );
+  });
+};
+
+exports.forgot_password = function (req, res, next) {
+  async.waterfall(
+    [
+      function (done) {
+        crypto.randomBytes(20, function (err, buf) {
+          var token = buf.toString("hex");
+          done(err, token);
+        });
+      },
+      function (token, done) {
+        User.findOne({ "local.email": req.body.email }, function (err, user) {
+          if (!user) {
+            return res.send({
+              error: "No account with that email address exists.",
+            });
+          }
+          user.resetPasswordToken = token;
+          user.resetPasswordExpires = Date.now() + 3600000; // logic for expiring password
+
+          user.save(function (err) {
+            done(err, token, user);
+          });
+        });
+      },
+      function (token, user, done) {
+        // Create a SMTP transporter object
+        let smtpTransport = nodemailer.createTransport({
+          host: process.env.CLIENT_HOST,
+          service: "SendGrid",
+          port: process.env.SENDGRID_PORT,
+          auth: {
+            user: process.env.SENDGRID_USERNAME,
+            pass: process.env.SENDGRID_PASSWORD,
+          },
+          logger: true,
+          debug: true, // include SMTP traffic in the logs
+        });
+
+        // TODO set this up properly
+        var mailOptions = {
+          to: user["local"]["email"],
+          from: "example@example.com",
+          subject: "Password change request",
+          text:
+            "Hi" +
+            user.username +
+            "\n" +
+            "Please click on the following link" +
+            "http://" +
+            process.env.CLIENT_HOST +
+            "/change_password?token=" +
+            token +
+            "\n\n" +
+            "If you did not request this, please ignore this email and your password will remain unchanged.\n",
+        };
+        smtpTransport.sendMail(mailOptions, function (err) {
+          res.send({ status: "Email sent" });
+          done(err, "done");
+        });
+      },
+    ],
+    function (err) {
+      if (err) return next(err);
+      res.send({ err: err });
+    }
+  );
+};
+/*
+ *
+ * End of new auth operations
+ *
+ */
 
 const { users, restaurants, menus, menuItems } = require("../mockData");
 
@@ -40,22 +196,20 @@ exports.user_post = function (req, res) {
 exports.user_detail = function (req, res) {
   let username = req.params.id;
 
-  User.findOne({ username: username })
-    .then( foundUser => {
-      Restaurant.find({ owner: foundUser._id }, function(err, foundRestaurant) {
-          if(err)
-              res.render('error', { message: err });
-          else {
-            res.render('user', {
-              title: "Menu Venue: Your Restaurants",
-              user_info: foundUser,
-              restaurant_list: foundRestaurant,
-              menu_list: [],
-              menu: []
-            });
-          }
-      });
+  User.findOne({ username: username }).then((foundUser) => {
+    Restaurant.find({ owner: foundUser._id }, function (err, foundRestaurant) {
+      if (err) res.render("error", { message: err });
+      else {
+        res.render("user", {
+          title: "Menu Venue: Your Restaurants",
+          user_info: foundUser,
+          restaurant_list: foundRestaurant,
+          menu_list: [],
+          menu: [],
+        });
+      }
     });
+  });
 };
 
 exports.register_get = function (req, res) {
@@ -212,28 +366,29 @@ exports.user_restaurant_delete_post = function (req, res) {
 
 // Display detail page for a specific Restaurant.
 exports.user_restaurant_detail = function (req, res) {
-
   let username = req.params.id;
-  let restaurant = req.params.restaurant_id
+  let restaurant = req.params.restaurant_id;
 
-  User.findOne({ username: username })
-    .then( foundUser => {
-      Restaurant.find({ owner: foundUser._id, name: restaurant })
-        .then( foundUserRestaurant => {
-          Menu.find({ restaurant: foundUserRestaurant._id}, function(err, foundUserMenu) {
-            if(err)
-                res.render('error', { message: err });
-            else {
-              res.render('user_restaurant', {
-                title: "Menu Venue: Your Menus",
-                user_info: {username: username},
-                restaurant_info: { name: restaurant},
-                menu_list: foundUserMenu
-              });
-            }
-          });
+  User.findOne({ username: username }).then((foundUser) => {
+    Restaurant.find({ owner: foundUser._id, name: restaurant }).then(
+      (foundUserRestaurant) => {
+        Menu.find({ restaurant: foundUserRestaurant._id }, function (
+          err,
+          foundUserMenu
+        ) {
+          if (err) res.render("error", { message: err });
+          else {
+            res.render("user_restaurant", {
+              title: "Menu Venue: Your Menus",
+              user_info: { username: username },
+              restaurant_info: { name: restaurant },
+              menu_list: foundUserMenu,
+            });
+          }
         });
-     });
+      }
+    );
+  });
 };
 
 // Display list of all Restaurants.
@@ -272,30 +427,34 @@ exports.user_menu_create_post = function (req, res) {
   name = req.body.name;
   description = req.body.description;
 
-  User.findOne({ username: username })
-    .then( foundUser => {
-      Restaurant.findOne({ owner: foundUser._id, name: name })
-      .then( foundRestaurant => {
-        Menu.findOne({ restaurant: foundRestaurant._id, name: name }, function(err, foundMenu) {
-          if(err)
-              res.render('error', { message: err });
+  User.findOne({ username: username }).then((foundUser) => {
+    Restaurant.findOne({ owner: foundUser._id, name: name }).then(
+      (foundRestaurant) => {
+        Menu.findOne({ restaurant: foundRestaurant._id, name: name }, function (
+          err,
+          foundMenu
+        ) {
+          if (err) res.render("error", { message: err });
           else if (foundMenu !== null)
-              res.render('create_menu', { user_info: foundUser.username, message: 'Menu already exists!' });
+            res.render("create_menu", {
+              user_info: foundUser.username,
+              message: "Menu already exists!",
+            });
           else {
-              new Menu({ 
-                restaurant: foundRestaurant._id, 
-                name : name, 
-              }).save(function(err) {
-                  if(err)
-                    res.render('error', { message: err } );
-                  else {
-                    res.redirect('/user/'+username+'/restaurant/menu/all');
-                  }
-              });
+            new Menu({
+              restaurant: foundRestaurant._id,
+              name: name,
+            }).save(function (err) {
+              if (err) res.render("error", { message: err });
+              else {
+                res.redirect("/user/" + username + "/restaurant/menu/all");
+              }
+            });
           }
         });
-      });
-    });
+      }
+    );
+  });
 };
 
 // Display Menu update form on GET.

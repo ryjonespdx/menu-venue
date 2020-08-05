@@ -6,7 +6,6 @@
 //     require('../config/passport');
 var Restaurant = require("../models/restaurant");
 var Menu = require("../models/menu");
-require("../config/passport");
 
 const { users, restaurants, menus, menuItems } = require("../mockData");
 
@@ -15,20 +14,18 @@ exports.restaurant_detail = function (req, res) {
   // search the database for...
   let restaurant = req.params.id;
 
-  Restaurant.findOne({ name: restaurant })
-    .then( foundRestaurant => {
-      Menu.find({ restaurant: foundRestaurant._id }, function(err, foundMenu) {
-        if(err)
-          res.render('error', { message: err } );
-        else {
-          res.render("restaurant", {
-            title: "Menu Venue: Restaurant Details",
-            restaurant_info: {name: foundRestaurant.name},
-            menu_list: foundMenu
-          });
-        }
-      });
-     });
+  Restaurant.findOne({ name: restaurant }).then((foundRestaurant) => {
+    Menu.find({ restaurant: foundRestaurant._id }, function (err, foundMenu) {
+      if (err) res.render("error", { message: err });
+      else {
+        res.render("restaurant", {
+          title: "Menu Venue: Restaurant Details",
+          restaurant_info: { name: foundRestaurant.name },
+          menu_list: foundMenu,
+        });
+      }
+    });
+  });
 };
 
 // Display list of all Restaurants.
