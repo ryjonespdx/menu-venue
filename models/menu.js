@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var MenuSchema = new Schema({
+const MenuSchema = new Schema({
   // the restaurant associated with the menu
   restaurant: {
     type: Schema.Types.ObjectId,
