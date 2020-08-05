@@ -5,6 +5,9 @@
 // (!) Note: add the following line below all models:
 //     require('../config/passport');
 
+var Restaurant = require("../models/restaurant");
+require("../config/passport");
+
 const { users, restaurants, menus, menuItems } = require("../mockData");
 
 exports.index_get = function (req, res) {
@@ -13,11 +16,20 @@ exports.index_get = function (req, res) {
 
 exports.index_post = function (req, res) {
   // search the database for...
-  let searchedName = req.body.name;
-  let searchedAddress = req.body.address;
+  let searched = req.body.name;
 
-  res.render("restaurant_list", {
-    title: `Results for ${searchedName}`,
-    restaurant_list: [restaurants[0], restaurants[1]],
+  Restaurant.find({ name: searched }, function(err, found ) {
+
+      if(err) 
+          res.render('error', { message: 'we have issues, try later' });
+      else if (found.length === 0)
+          res.render('index', { restaurant_info: {name: searched}, title: 'no restaurant found' });
+      else
+          res.render("restaurant_list", {
+            title: `Results for ${searched}`,
+            restaurant_list: found
   });
+  });
+
+
 };

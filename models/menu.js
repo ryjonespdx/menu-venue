@@ -9,6 +9,11 @@ var MenuSchema = new Schema({
     ref: "Restaurant",
     required: true,
   },
+  name: { 
+    type: String, 
+    required: true, 
+    maxlength: 100 
+  },
   // the items in the menu
   items: [
     {

@@ -6,6 +6,7 @@
 //     require('../config/passport');
 var User = require("../models/user");
 var Restaurant = require("../models/restaurant");
+var Menu = require("../models/menu");
 require("../config/passport");
 
 const { users, restaurants, menus, menuItems } = require("../mockData");
@@ -43,7 +44,6 @@ exports.user_detail = function (req, res) {
           if(err)
               res.render('error', { message: err });
           else {
-            console.log(foundRestaurant);
             res.render('user', {
               title: "Menu Venue: Your Restaurants",
               user_info: foundUser,
@@ -209,15 +209,28 @@ exports.user_restaurant_delete_post = function (req, res) {
 
 // Display detail page for a specific Restaurant.
 exports.user_restaurant_detail = function (req, res) {
-  // search the database for...
-  let url = req.params.id;
 
-  res.render("user_restaurant", {
-    title: "Menu Venue: All Menus",
-    user_info: users[0],
-    restaurant_info: restaurants[0],
-    menu_list: menus[0],
-  });
+  let username = req.params.id;
+  let restaurant = req.params.restaurant_id
+
+  User.findOne({ username: username })
+    .then( foundUser => {
+      Restaurant.find({ owner: foundUser._id, name: restaurant })
+        .then( foundUserRestaurant => {
+          Menu.find({ restaurant: foundUserRestaurant._id}, function(err, foundUserMenu) {
+            if(err)
+                res.render('error', { message: err });
+            else {
+              res.render('user_restaurant', {
+                title: "Menu Venue: Your Menus",
+                user_info: {username: username},
+                restaurant_info: { name: restaurant},
+                menu_list: foundUserMenu
+              });
+            }
+          });
+        });
+     });
 };
 
 // Display list of all Restaurants.
@@ -234,21 +247,51 @@ exports.user_menu_create_get = function (req, res) {
 
 // Display Menu create form on POST.
 exports.user_menu_create_post = function (req, res) {
-  user_id = req.params.id;
-  restaurant_id = req.params.id;
+  // user_id = req.params.id;
+  // restaurant_id = req.params.id;
+  // name = req.body.name;
+  // description = req.body.description;
+
+  // // save into db under restaurant_id
+  // if (true)
+  //   // saved
+  //   res.redirect(
+  //     "/user/" + user_id + "/restaurant/" + restaurant_id + "/menu/all"
+  //   );
+  // else
+  //   res.render("create_menu", {
+  //     restaurant_info: restaurants[0],
+  //     message: "Could not save!",
+  //   });
+
+  username = req.params.id;
+  restaurant = req.params.restaurant_id;
   name = req.body.name;
   description = req.body.description;
 
-  // save into db under restaurant_id
-  if (true)
-    // saved
-    res.redirect(
-      "/user/" + user_id + "/restaurant/" + restaurant_id + "/menu/all"
-    );
-  else
-    res.render("create_menu", {
-      restaurant_info: restaurants[0],
-      message: "Could not save!",
+  User.findOne({ username: username })
+    .then( foundUser => {
+      Restaurant.findOne({ owner: foundUser._id, name: name })
+      .then( foundRestaurant => {
+        Menu.findOne({ restaurant: foundRestaurant._id, name: name }, function(err, foundMenu) {
+          if(err)
+              res.render('error', { message: err });
+          else if (foundMenu !== null)
+              res.render('create_menu', { user_info: foundUser.username, message: 'Menu already exists!' });
+          else {
+              new Menu({ 
+                restaurant: foundRestaurant._id, 
+                name : name, 
+              }).save(function(err) {
+                  if(err)
+                    res.render('error', { message: err } );
+                  else {
+                    res.redirect('/user/'+username+'/restaurant/menu/all');
+                  }
+              });
+          }
+        });
+      });
     });
 };
 
