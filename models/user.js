@@ -19,17 +19,15 @@ const UserSchema = new Schema({
 });
 
 UserSchema.methods.setPassword = function (password) {
-  console.log(password[0]);
-  console.log(typeof password[0]);
   this.local.salt = crypto.randomBytes(16).toString("hex");
   this.local.hash = crypto
-    .pbkdf2Sync(password[0], this.local.salt, 128, 128, "sha512")
+    .pbkdf2Sync(password, this.local.salt, 128, 128, "sha512")
     .toString("hex");
 };
 
 UserSchema.methods.validatePassword = function (password) {
   const hash = crypto
-    .pbkdf2Sync(password[0], this.local.salt, 128, 128, "sha512")
+    .pbkdf2Sync(password, this.local.salt, 128, 128, "sha512")
     .toString("hex");
   return this.local.hash === hash;
 };
@@ -52,7 +50,7 @@ UserSchema.methods.generateJWT = function () {
 UserSchema.methods.toAuthJSON = function (token) {
   return {
     _id: this._id,
-    username: this.local.username,
+    username: this.username,
     token: token,
     email: this.email,
   };

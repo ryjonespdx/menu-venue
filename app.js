@@ -37,6 +37,11 @@ require("./models/restaurant");
 require("./models/menu");
 require("./models/menuitem");
 
+const passport = require("passport");
+require("./config/passport");
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
@@ -80,7 +85,5 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 //     });
 //   }
 // });
-
-require("./config/passport");
 
 module.exports = app;

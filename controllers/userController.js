@@ -2,10 +2,10 @@
  * userController: functions to handle GET and POST requests called as a user
  * *****************************************************************************/
 const mongoose = require("mongoose");
-const passport = require("passport");
 var User = require("../models/user");
 var Restaurant = require("../models/restaurant");
 var Menu = require("../models/menu");
+const passport = require("passport");
 
 /*
  *
@@ -47,10 +47,11 @@ exports.login = function (req, res, next) {
       if (passportUser) {
         const user = passportUser;
         user.token = passportUser.generateJWT();
-        return res.json({ user: user.toAuthJSON(user.token) });
+        // return res.json({ user: user.toAuthJSON(user.token) });
+        res.redirect(`/user/` + req.body.username);
+      } else {
+        return res.json({ status: 400, passportUser, info });
       }
-
-      return res.json({ status: 400 });
     }
   )(req, res, next);
 };
@@ -59,8 +60,8 @@ exports.signup = function (req, res, next) {
   const { username, email, password } = req.body;
   User.findOne({ "local.username": username }, (err, userMatch) => {
     if (userMatch) {
-      return res.json({
-        error: `Sorry, that username is taken.`,
+      return res.render(`create_user`, {
+        title: "Sorry, that username is taken.",
       });
     }
     const newUser = new User({
@@ -71,8 +72,12 @@ exports.signup = function (req, res, next) {
     newUser.setPassword(password);
 
     newUser.save((err, savedUser) => {
-      if (err) return res.json(err);
-      return res.json(savedUser);
+      if (err)
+        return res.render(`create_user`, {
+          title: "Sorry, that username is taken.",
+        });
+      // return res.json(savedUser);
+      res.redirect(`/user/` + username);
     });
   });
 };
@@ -196,7 +201,7 @@ exports.user_post = function (req, res) {
 exports.user_detail = function (req, res) {
   let username = req.params.id;
 
-  User.findOne({ username: username }).then((foundUser) => {
+  User.findOne({ "local.username": username }).then((foundUser) => {
     Restaurant.find({ owner: foundUser._id }, function (err, foundRestaurant) {
       if (err) res.render("error", { message: err });
       else {
