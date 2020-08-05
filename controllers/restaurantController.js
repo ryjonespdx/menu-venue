@@ -6,7 +6,6 @@
 //     require('../config/passport');
 var Restaurant = require("../models/restaurant");
 var Menu = require("../models/menu");
-require("../config/passport");
 
 const { users, restaurants, menus, menuItems } = require("../mockData");
 const restaurant = require("../models/restaurant");
