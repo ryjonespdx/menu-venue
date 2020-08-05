@@ -50,7 +50,7 @@ exports.login = function (req, res, next) {
         // return res.json({ user: user.toAuthJSON(user.token) });
         res.redirect(`/user/` + req.body.username);
       } else {
-        return res.json({ status: 400, passportUser, info });
+        return res.render("login", { title: "Invalid Credentials" });
       }
     }
   )(req, res, next);
@@ -292,10 +292,12 @@ exports.user_restaurant_create_get = function (req, res) {
 
 // Display Restaurant create form on POST.
 exports.user_restaurant_create_post = function (req, res) {
-  let username = req.params.id;
+  let username = req.user;
   name = req.body.name;
   address = req.body.address;
   number = req.body.number;
+
+  console.log(req.user);
 
   User.findOne({ username: username }).then((foundUser) => {
     Restaurant.findOne({ owner: foundUser._id, name: name }, function (
