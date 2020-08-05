@@ -69,7 +69,7 @@ exports.signup = function (req, res, next) {
       "local.email": email,
     });
 
-    newUser.setPassword(password);
+    newUser.setPassword(password[0]);
 
     newUser.save((err, savedUser) => {
       if (err)
