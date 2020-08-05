@@ -9,6 +9,7 @@ var Menu = require("../models/menu");
 require("../config/passport");
 
 const { users, restaurants, menus, menuItems } = require("../mockData");
+const restaurant = require("../models/restaurant");
 
 // Display detail page for a specific Restaurant.
 exports.restaurant_detail = function (req, res) {
@@ -23,7 +24,7 @@ exports.restaurant_detail = function (req, res) {
         else {
           res.render("restaurant", {
             title: "Menu Venue: Restaurant Details",
-            restaurant_info: {name: foundRestaurant.name},
+            restaurant_info: foundRestaurant,
             menu_list: foundMenu
           });
         }
@@ -33,24 +34,36 @@ exports.restaurant_detail = function (req, res) {
 
 // Display list of all Restaurants.
 exports.restaurant_list = function (req, res) {
-  res.render("restaurant_list", {
-    title: "Menu Venue: Restaurant List",
-    restaurant_list: [restaurants[0], restaurants[1]],
+
+  Restaurant.find({}, function(err, found) {
+    res.render("restaurant_list", { 
+      title: "Menu Venue: Restaurant List", 
+      restaurant_list: found
+    });
   });
 };
 
 // Display detail page for a specific menu.
 exports.menu_detail = function (req, res) {
   // search the database for...
-  let restaurant_id = req.params.id;
-  let menu_id = req.params.menu_id;
+  let restaurant = req.params.id;
+  let menu = req.params.menu_id;
 
-  res.render("restaurant_menu", {
-    title: "Menu Venue: Menu Details",
-    restaurant_info: restaurants[restaurant_id],
-    menu_info: menus[0],
-    item_list: [menuItems[0]],
-  });
+  Restaurant.findOne({ name: restaurant })
+    .then( foundRestaurant => {
+      Menu.findOne({ name: menu, restaurant: foundRestaurant._id },
+        function(err, foundMenu) {
+          if(err)
+            res.render('error', { message: err } );
+          else {
+            res.render("restaurant_menu", {
+              title: "Menu Venue: Menu Details",
+              menu_info: foundMenu,
+              item_list: foundMenu.items 
+            });
+          }
+        });
+    });
 };
 
 // Display list of all Menus.

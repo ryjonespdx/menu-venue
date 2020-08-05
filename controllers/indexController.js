@@ -18,18 +18,19 @@ exports.index_post = function (req, res) {
   // search the database for...
   let searched = req.body.name;
 
-  Restaurant.find({ name: searched }, function(err, found ) {
-
+  Restaurant.find({ $or: [ {name: searched}, {cuisine: searched} ] }, 
+    function(err, found ) {
       if(err) 
           res.render('error', { message: 'we have issues, try later' });
       else if (found.length === 0)
           res.render('index', { restaurant_info: {name: searched}, title: 'no restaurant found' });
-      else
+      else {
           res.render("restaurant_list", {
             title: `Results for ${searched}`,
             restaurant_list: found
-  });
-  });
+          });
+        }
+    });
 
 
 };
