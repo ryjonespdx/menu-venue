@@ -1,6 +1,9 @@
 /********************************************************************************
  * userController: functions to handle GET and POST requests called as a user
  * *****************************************************************************/
+const mongoose = require("mongoose");
+var User = require("../models/user");
+require("../config/passport");
 
 const { users, restaurants, menus, menuItems } = require("../mockData");
 
