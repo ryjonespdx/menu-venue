@@ -1,0 +1,36 @@
+extends layout
+
+block content
+
+    h4= user_info.username
+
+    h5= message
+
+    h5 editing a restaurant
+
+    p
+        a(href='/user/restaurant/'+restaurant_info.name+'/delete') Remove
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name:
+            input.form-control(type='text', placeholder=restaurant_info.name name='name' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.name) )
+        div.form-group
+            label(for='cuisine') Cuisine:
+            input.form-control(type='text', placeholder=restaurant_info.cuisine name='cuisine' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.cuisine) )
+        div.form-group
+            label(for='street') Street:
+            input.form-control(type='text', placeholder=restaurant_info.street name='street' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.street) )
+        div.form-group
+            label(for='city') City:
+            input.form-control(type='text', placeholder=restaurant_info.city name='city' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.city) )
+        div.form-group
+            label(for='state') State:
+            input.form-control(type='text', placeholder=restaurant_info.state name='state' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.state) )
+        div.form-group
+            label(for='zip') Zip:
+            input.form-control(type='text', placeholder=restaurant_info.zip name='zip' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.zip) )
+        div.form-group
+            label(for='phone') Phone:
+            input.form-control(type='text', placeholder=restaurant_info.number name='number' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.number) )
+        button.btn.btn-outline-success(type='submit') Update

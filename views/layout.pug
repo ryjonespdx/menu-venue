@@ -1,0 +1,43 @@
+doctype html
+html(lang='en')
+    head
+        title= title
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
+        script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js')
+        script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
+        link(type='text/css', href='/css/style.css')
+    body
+        //- Bootstrap navbar from https://getbootstrap.com/docs/4.0/components/navbar/
+        div(class='container-fluid') 
+            nav(class='navbar navbar-expand-sm navbar-light bg-light')
+                a(class='navbar-brand' href='/')
+                    //- favicon from https://favicon.io/emoji-favicons/steaming-bowl/
+                    img(src="/image/favicon.png" width="50" height="50" class="d-inline-block align-left" style="margin-right: 10px")
+                    p(style="display: inline-block") Menu Venue
+                button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+                   span(class="navbar-toggler-icon")
+                div(class='collapse navbar-collapse' id='navbarSupportedContent')
+                    form(class='form-inline my-2 my-lg-0')
+                        input(class='form-control mr-sm-2' type='search' placeholder='Search' aria-label='Search')
+                        button(class='btn btn-outline-success my-2 my-sm-0' type='submit') Search
+                    ul(class='navbar-nav mr-auto')
+                        li(class='nav-item')
+                            a(class='nav-link' href='/') Home 
+                                span(class="sr-only") (current)
+                        li(class='nav-item')
+                            a(class='nav-link' href='/restaurant/all') All
+                        li(class='nav-item')
+                        if session.username
+                            li(class="nav-item")
+                                a(class="nav-link" href="/user") My Restaurants
+                            li(class="nav-item")
+                                a(class="nav-link" href="/logout") Logout
+                        else
+                            li(class='nav-item')
+                                a(class='nav-link' href='/login') Login
+
+            div(class='container-fluid')
+                br
+                block content

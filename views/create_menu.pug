@@ -1,0 +1,15 @@
+extends layout
+
+block content
+
+    h4= restaurant_info.name
+
+    h5= message
+
+    h5 creating a menu
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name:
+            input#title.form-control(type='text', placeholder='name it' name='name' required='true' value=(undefined===menu? '' : menu.name) )
+        button.btn.btn-outline-success(type='submit') Create

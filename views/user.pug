@@ -1,0 +1,24 @@
+extends layout
+
+block content
+
+  h4= user_info.username
+
+    dl
+      each restaurant in restaurant_list
+        dt 
+          a(href='/user/restaurant/'+restaurant.name) #{restaurant.name}
+          dd #{restaurant.street}
+          dd #{restaurant.city}
+          dd #{restaurant.number}
+          dd 
+            a(href='/user/restaurant/'+restaurant.name+'/update') update restaurant
+
+        hr  
+
+      else
+        dt You have no restaurants.
+
+      p
+        a(href='/user/restaurant/create') create restaurant
+

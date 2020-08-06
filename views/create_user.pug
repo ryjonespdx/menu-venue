@@ -1,0 +1,37 @@
+extends layout
+
+block content
+
+    h1= title
+
+    fieldset
+        form(method='POST' action='')
+            div.form-group
+                label(for='email') Email:
+                input.form-control(type='email' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===email ? '' : user.email) )
+            div.form-group
+                label(for='username') Username:
+                input.form-control(type='text' placeholder='' name='username' required='true' value=(undefined===username? '' : user.username) )
+            div.form-group
+                label(for='password') Password:
+                input#password.form-control(type='password' placeholder='' name='password' required='true' value='' )
+            div.form-group
+                label(for='confirm-password') Confirm Password:
+                input#password-confirm.form-control(type='password' placeholder='' name='password' required='true' value='' )
+            div.form-group
+                button#submit.btn.btn-outline-secondary(type='submit' value='register') Register
+    script.
+        let p1 = document.querySelector('#password');
+        let p2 = document.querySelector('#password-confirm');
+        let submit = document.querySelector('#submit');
+        submit.disabled = true;
+        p2.oninput = function() {
+        if(!p1.value || !p2.value || (p1.value !== p2.value)) {
+        submit.disabled = true;
+        submit.textContent = `Check Your Passwords`;
+        }
+        else {
+        submit.disabled = false;
+        submit.textContent = `Register`;
+        }
+        }
