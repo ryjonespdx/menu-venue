@@ -7,12 +7,12 @@ block content
     dl
       each restaurant in restaurant_list
         dt 
-          a(href='/user/'+user_info.username+'/restaurant/'+restaurant.name) #{restaurant.name}
+          a(href='/user/restaurant/'+restaurant.name) #{restaurant.name}
           dd #{restaurant.street}
           dd #{restaurant.city}
           dd #{restaurant.number}
           dd 
-            a(href='/user/'+user_info.username+'/restaurant/'+restaurant.name+'/update') update restaurant
+            a(href='/user/restaurant/'+restaurant.name+'/update') update restaurant
 
         hr  
 
@@ -20,5 +20,5 @@ block content
         dt You have no restaurants.
 
       p
-        a(href='/user/'+user_info.username+'/restaurant/create') create restaurant
+        a(href='/user/restaurant/create') create restaurant
 

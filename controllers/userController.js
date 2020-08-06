@@ -13,7 +13,6 @@ const { users, restaurants, menus, menuItems } = require("../mockData");
 exports.user_detail = function (req, res) {
   let username = req.params.id;
 
-  console.log(req.session.username);
   if (username != req.session.username) {
     username = req.session.username;
   }
@@ -32,16 +31,6 @@ exports.user_detail = function (req, res) {
       }
     });
   });
-};
-
-// Display User create form on GET.
-exports.user_create_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: User create GET");
-};
-
-// Display User create form on POST.
-exports.user_create_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: User create POST");
 };
 
 // Display User update form on GET.
@@ -113,7 +102,7 @@ exports.user_restaurant_create_post = function (req, res) {
         }).save(function (err) {
           if (err) res.render("error", { message: err });
           else {
-            res.redirect("/user/" + foundUser.local.username);
+            res.redirect("/user");
           }
         });
       }
@@ -254,7 +243,7 @@ exports.user_menu_create_post = function (req, res) {
             }).save(function (err) {
               if (err) res.render("error", { message: err });
               else {
-                res.redirect("/user/" + username + "/restaurant/" + restaurant);
+                res.redirect("/user/restaurant/" + restaurant);
               }
             });
           }
