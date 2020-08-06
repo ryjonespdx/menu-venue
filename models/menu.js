@@ -13,14 +13,14 @@ const MenuSchema = new Schema({
     type: String, 
     required: true, 
     maxlength: 100 
-  },
+  }
   // the items in the menu
-  items: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "MenuItem",
-    },
-  ],
+  // items: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: "MenuItem",
+  //   },
+  // ],
 });
 
 module.exports = mongoose.model("Menu", MenuSchema);
