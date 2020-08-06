@@ -37,8 +37,7 @@ exports.index_post = function (req, res) {
 
 exports.login_get = function (req, res) {
   res.render("login", {
-    title:
-      "Login (DEBUG: " + req.session.username + ", " + req.session.id + ")",
+    title: "Login",
   });
 };
 
