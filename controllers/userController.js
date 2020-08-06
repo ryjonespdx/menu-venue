@@ -164,11 +164,23 @@ exports.user_restaurant_update_post = function (req, res) {
 
 // Display Restaurant delete form on GET.
 exports.user_restaurant_delete_get = function (req, res) {
-  // delete a restaurant from database
-  let user_id = req.params.id;
-  let restaurant_id = req.params.restaurant_id;
 
-  res.redirect("/user/" + user_id);
+  let username = req.session.username;
+  let restaurant = req.params.restaurant_id;
+
+  User.findOne({ "local.username": username })
+    .then( foundUser => {
+      Restaurant.findOne({ name: restaurant, owner: foundUser._id })
+        .then( foundRestaurant => {
+          Menu.find({ restaurant: foundRestaurant._id })
+            .then ( foundMenu => {
+              foundMenu.forEach( foundMenu => {
+                MenuItem.deleteMany({ menu: foundMenu._id }, function(err, deleted) {})
+              })
+            })
+            .then( retVal => res.redirect("/user/"))
+        })
+    })
 };
 
 // Handle Restaurant delete on POST.
@@ -212,7 +224,10 @@ exports.user_restaurant_list = function (req, res) {
 
 // Display Menu create form on GET.
 exports.user_menu_create_get = function (req, res) {
-  res.render("create_menu", { restaurant_info: restaurants[0] });
+  username = req.session.username;
+  restaurant = req.params.restaurant_id;
+
+  res.render("create_menu", { restaurant_info: {name: restaurant} });
 };
 
 // Display Menu create form on POST.
@@ -310,15 +325,25 @@ exports.user_menu_update_post = function (req, res) {
 
 // Display Menu delete form on GET.
 exports.user_menu_delete_get = function (req, res) {
-  // delete a menu database
-  let user_id = req.params.id;
-  let restaurant_id = req.params.restaurant_id;
-  let menu_id = req.params.menu_id;
-  let name = req.body.name;
 
-  res.redirect(
-    "/user/" + user_id + "/restaurant/" + restaurant_id + "/menu/all"
-  );
+  let username = req.session.username;
+  let restaurant = req.params.restaurant_id;
+  let menu = req.params.menu_id;
+
+  User.findOne({ "local.username": username })
+    .then( foundUser => {
+      Restaurant.findOne({ name: restaurant, owner: foundUser._id })
+        .then( foundRestaurant => {
+          Menu.findOne({ name: menu, restaurant: foundRestaurant._id })
+            .then ( foundMenu => {
+                MenuItem.deleteMany({ menu: foundMenu._id }, 
+                  function(err, deleted) {})
+            })
+            .then( Menu.deleteOne({ name: menu, restaurant: foundRestaurant._id}, 
+              function(err, deleted) {}))
+        })
+        .then( retVal => res.redirect("/user/restaurant/" + restaurant))
+    })
 };
 
 // Handle Menu delete on POST.
@@ -533,18 +558,23 @@ exports.user_item_update_post = function (req, res) {
 
 // Display Item delete form on GET.
 exports.user_item_delete_get = function (req, res) {
-  // delete an item database
-  let user_id = req.params.id;
-  let restaurant_id = req.params.restaurant_id;
-  let menu_id = req.params.menu_id;
-  let item_id = req.params.item_id;
-  let name = req.body.name;
-  let price = req.body.price;
-  let description = req.body.description;
 
-  res.redirect(
-    "/user/" + user_id + "/restaurant/" + restaurant_id + "/menu/" + menu_id
-  );
+  let username = req.session.username;
+  let restaurant = req.params.restaurant_id;
+  let menu = req.params.menu_id;
+  let item = req.params.item_id;
+
+  User.findOne({ "local.username": username })
+    .then( foundUser => {
+      Restaurant.findOne({ name: restaurant, owner: foundUser._id })
+        .then( foundRestaurant => {
+          Menu.findOne({ name: menu, restaurant: foundRestaurant._id })
+            .then ( foundMenu => {
+              MenuItem.deleteOne({ name: item, menu: foundMenu._id }, 
+                function(err, deleted) {})})
+                  .then( retVal => res.redirect("/user/restaurant/" + restaurant + "/menu/" + menu))
+        })
+    })
 };
 
 // Handle Item delete on POST.
