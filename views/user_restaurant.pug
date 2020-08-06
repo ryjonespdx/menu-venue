@@ -4,15 +4,16 @@ block content
 
   h4= restaurant_info.name
 
-    dl
-      each menu in menu_list
-        dt 
-          a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
-        dd
-          a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name+'/update') update menu
+  each menu in menu_list
+    p 
+      a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
+    p 
+      a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name+'/update') update menu
 
-      else
-        p You have no menus.
-      
-      p
-        a(href='/user/restaurant/'+restaurant_info.name+'/menu/create') create menu
+    hr
+
+  else
+    p You have no menus.
+  
+  p
+    a(href='/user/restaurant/'+restaurant_info.name+'/menu/create') create menu

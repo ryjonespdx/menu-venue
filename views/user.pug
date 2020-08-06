@@ -3,22 +3,21 @@ extends layout
 block content
 
   h4= user_info.username
+  
+  each restaurant in restaurant_list
+    p 
+      a(href='/user/restaurant/'+restaurant.name) #{restaurant.name}
+    p #{restaurant.street}
+    p #{restaurant.city}
+    p #{restaurant.number}
+    p 
+      a(href='/user/restaurant/'+restaurant.name+'/update') update restaurant
 
-    dl
-      each restaurant in restaurant_list
-        dt 
-          a(href='/user/restaurant/'+restaurant.name) #{restaurant.name}
-          dd #{restaurant.street}
-          dd #{restaurant.city}
-          dd #{restaurant.number}
-          dd 
-            a(href='/user/restaurant/'+restaurant.name+'/update') update restaurant
+    hr  
 
-        hr  
+  else
+    p You have no restaurants.
 
-      else
-        dt You have no restaurants.
-
-      p
-        a(href='/user/restaurant/create') create restaurant
+  p
+    a(href='/user/restaurant/create') create restaurant
 

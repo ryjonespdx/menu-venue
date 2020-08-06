@@ -2,11 +2,11 @@ extends layout
 
 block content
 
-    h4= menu_info.name
+    h4= item_info.name
 
-    h5= message
+    h6= message
 
-    h5 editing an item
+    h5 Editing This Item
 
     p
         a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/item/'+item_info.name+'/delete') Remove

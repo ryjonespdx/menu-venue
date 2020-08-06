@@ -2,23 +2,21 @@ extends layout
 
 block content
 
-    h4= user_info.username
+    h4= restaurant_info.name
 
     h5= message
 
-    h5 editing a restaurant
-
-    p
+    h6 Edit Your Restaurant
 
     // Button trigger modal
-    button.btn.btn-sm.btn-primary(type="button" data-toggle="modal" data-target="#exampleModal")
+    button.btn.btn-sm.btn-danger(type="button" data-toggle="modal" data-target="#areyousuremodal")
       | Remove
     // Modal
-    #exampleModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true")
+    #areyousuremodal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="areyousuremodallabel" aria-hidden="true")
       .modal-dialog(role="document")
         .modal-content
           .modal-header
-            h5#exampleModalLabel.modal-title Are you sure?
+            h5#areyousuremodallabel.modal-title Are you sure?
             button.close(type="button" data-dismiss="modal" aria-label="Close")
               span(aria-hidden="true") ×
           .modal-body
