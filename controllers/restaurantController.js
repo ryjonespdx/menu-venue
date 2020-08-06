@@ -6,6 +6,7 @@
 //     require('../config/passport');
 var Restaurant = require("../models/restaurant");
 var Menu = require("../models/menu");
+var MenuItem = require("../models/menuitem");
 
 const { users, restaurants, menus, menuItems } = require("../mockData");
 const restaurant = require("../models/restaurant");
@@ -50,18 +51,21 @@ exports.menu_detail = function (req, res) {
 
   Restaurant.findOne({ name: restaurant })
     .then( foundRestaurant => {
-      Menu.findOne({ name: menu, restaurant: foundRestaurant._id },
-        function(err, foundMenu) {
-          if(err)
-            res.render('error', { message: err } );
-          else {
-            res.render("restaurant_menu", {
-              title: "Menu Venue: Menu Details",
-              menu_info: foundMenu,
-              item_list: foundMenu.items 
+      Menu.findOne({ name: menu, restaurant: foundRestaurant._id })
+        .then( foundMenu => {
+          MenuItem.find({ menu: foundMenu._id }, 
+            function(err, foundItem) {
+              if(err) res.render('error', { message: err } );
+              else {
+                res.render("restaurant_menu", {
+                  title: "Menu Venue: Menu Details",
+                  restaurant_info: foundRestaurant,
+                  menu_info: foundMenu,
+                  item_list: foundItem
+                });
+              }
             });
-          }
-        });
+          });
     });
 };
 
