@@ -37,8 +37,7 @@ exports.index_post = function (req, res) {
 
 exports.login_get = function (req, res) {
   res.render("login", {
-    title:
-      "Login (DEBUG: " + req.session.username + ", " + req.session.id + ")",
+    title: "Login",
   });
 };
 
@@ -86,6 +85,11 @@ exports.login_post = function (req, res, next) {
       }
     }
   )(req, res, next);
+};
+
+exports.logout_get = function (req, res, next) {
+  req.session.destroy();
+  res.redirect("/login");
 };
 
 exports.register_get = function (req, res) {

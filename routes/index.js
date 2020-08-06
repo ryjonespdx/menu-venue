@@ -14,6 +14,8 @@ router.get("/login", index_controller.login_get);
 
 router.post("/login", index_controller.login_post);
 
+router.get("/logout", index_controller.logout_get);
+
 router.get("/register", index_controller.register_get);
 
 // Redirects to /user on successful login

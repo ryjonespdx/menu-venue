@@ -11,7 +11,12 @@ const { users, restaurants, menus, menuItems } = require("../mockData");
 
 // Display detail page for a specific user.
 exports.user_detail = function (req, res) {
-  let username = req.session.username;
+  var username;
+  if (req.session.username) {
+    username = req.session.username;
+  } else {
+    return res.redirect("/login");
+  }
 
   User.findOne({ "local.username": username }).then((foundUser) => {
     Restaurant.find({ owner: foundUser._id }, function (err, foundRestaurant) {
@@ -314,8 +319,7 @@ exports.user_menu_update_post = function (req, res) {
           { new: true },
           function (err, updatedMenu) {
             if (err) res.render("error", { message: err });
-            else
-              res.redirect("/user/restaurant/" + restaurant);
+            else res.redirect("/user/restaurant/" + restaurant);
           }
         );
       }
@@ -437,11 +441,7 @@ exports.user_item_create_post = function (req, res) {
                   if (err) res.render("error", { message: err });
                   else
                     res.redirect(
-                      "/user/" +
-                        "/restaurant/" +
-                        restaurant +
-                        "/menu/" +
-                        menu
+                      "/user/" + "/restaurant/" + restaurant + "/menu/" + menu
                     );
                 });
               } else if (
@@ -464,11 +464,7 @@ exports.user_item_create_post = function (req, res) {
                   if (err) res.render("error", { message: err });
                   else
                     res.redirect(
-                      "/user/" +
-                        "/restaurant/" +
-                        restaurant +
-                        "/menu/" +
-                        menu
+                      "/user/" + "/restaurant/" + restaurant + "/menu/" + menu
                     );
                 });
               }
@@ -541,11 +537,7 @@ exports.user_item_update_post = function (req, res) {
                 if (err) res.render("error", { message: err });
                 else
                   res.redirect(
-                    "/user/" +
-                      "/restaurant/" +
-                      restaurant +
-                      "/menu/" +
-                      menu
+                    "/user/" + "/restaurant/" + restaurant + "/menu/" + menu
                   );
               }
             );
