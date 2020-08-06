@@ -4,10 +4,9 @@ block content
 
     h4= restaurant_info.name
 
-    dl
-        each menu in menu_list 
-            dt 
-                a(href='/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
+    each menu in menu_list 
+        p 
+            a(href='/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
 
-        else
-            p This restaurant has no menus.
+    else
+        p This restaurant has no menus.
