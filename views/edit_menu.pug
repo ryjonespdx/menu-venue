@@ -2,7 +2,7 @@ extends layout
 
 block content
 
-    h4= user_info.username
+    h4= restaurant_info.name
 
     h5= message
 
@@ -14,5 +14,5 @@ block content
     form(method='POST' action='')
         div.form-group
             label(for='name') Name:
-            input.form-control(type='text', placeholder=menu_info.name name='name' value=(undefined===menu? '' : menu.name) )
+            input.form-control(type='text', placeholder=menu_info.name name='name' required='true' value=(undefined===menu_info ? '' : menu_info.name) )
         button.btn.btn-outline-success(type='submit') Update
