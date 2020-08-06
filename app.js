@@ -3,17 +3,31 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const session = require("express-session");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const favicon = require("serve-favicon");
 const config = require("./config/config");
 const errorHandler = require("errorhandler");
 const cors = require("cors");
+const mongoStore = require("connect-mongo")(session);
 
 const isProduction = process.env.CURR_ENV === "production";
 
 const app = express();
 
+// Mongoose / MongoDB code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+// Set up default mongoose connection
+mongoose.promise = global.Promise;
+var mongoDB = config.DB_URL;
+mongoose.connect(mongoDB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public"))); // exposes all static files within 'public' folder so that they may be used
 app.use(favicon(path.join(__dirname, "public/image/", "favicon.ico")));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,9 +35,10 @@ app.use(bodyParser.json());
 app.use(
   session({
     secret: config.PASSPORT_SECRET,
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 60000, secure: false },
     resave: false,
     saveUninitialized: false,
+    store: new mongoStore({ mongooseConnection: db }),
   })
 );
 app.use(cors());
@@ -52,18 +67,6 @@ const restaurantRouter = require("./routes/restaurant");
 app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use("/restaurant", restaurantRouter);
-
-// Mongoose / MongoDB code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
-// Set up default mongoose connection
-mongoose.promise = global.Promise;
-var mongoDB = config.DB_URL;
-mongoose.connect(mongoDB, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // Error handlers & middlewares from: https://www.freecodecamp.org/news/learn-how-to-handle-authentication-with-node-using-passport-js-4a56ed18e81e/
 // app.use((err, req, res) => {
