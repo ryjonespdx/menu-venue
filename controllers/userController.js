@@ -109,7 +109,7 @@ exports.user_restaurant_create_post = function (req, res) {
 // Display Restaurant update form on GET.
 exports.user_restaurant_update_get = function (req, res) {
   let username = req.session.username;
-  let name = req.params.restaurant_id;
+  let restaurant = req.params.restaurant_id;
 
   User.findOne({ "local.username": username }).then((foundUser) => {
     Restaurant.findOne({ name: restaurant, owner: foundUser._id }, function (
@@ -156,7 +156,7 @@ exports.user_restaurant_update_post = function (req, res) {
       { new: true },
       function (err, updatedRestaurant) {
         if (err) res.render("error", { message: err });
-        else res.redirect("/user/" + username);
+        else res.redirect("/user");
       }
     );
   });
@@ -255,7 +255,7 @@ exports.user_menu_create_post = function (req, res) {
 
 // Display Menu update form on GET.
 exports.user_menu_update_get = function (req, res) {
-  let username = req.params.id;
+  let username = req.session.username;
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
 
@@ -283,7 +283,7 @@ exports.user_menu_update_get = function (req, res) {
 
 // Handle Menu update on POST.
 exports.user_menu_update_post = function (req, res) {
-  let username = req.params.id;
+  let username = req.session.username;
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
   let name = req.body.name;
@@ -300,7 +300,7 @@ exports.user_menu_update_post = function (req, res) {
           function (err, updatedMenu) {
             if (err) res.render("error", { message: err });
             else
-              res.redirect("/user/" + username + "/restaurant/" + restaurant);
+              res.redirect("/user/restaurant/" + restaurant);
           }
         );
       }
@@ -413,7 +413,6 @@ exports.user_item_create_post = function (req, res) {
                   else
                     res.redirect(
                       "/user/" +
-                        username +
                         "/restaurant/" +
                         restaurant +
                         "/menu/" +
@@ -441,7 +440,6 @@ exports.user_item_create_post = function (req, res) {
                   else
                     res.redirect(
                       "/user/" +
-                        username +
                         "/restaurant/" +
                         restaurant +
                         "/menu/" +
@@ -459,7 +457,7 @@ exports.user_item_create_post = function (req, res) {
 
 // Display Item update form on GET.
 exports.user_item_update_get = function (req, res) {
-  let username = req.params.id;
+  let username = req.session.username;
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
   let item = req.params.item_id;
@@ -493,7 +491,7 @@ exports.user_item_update_get = function (req, res) {
 
 // Handle Item update on POST.
 exports.user_item_update_post = function (req, res) {
-  let username = req.params.id;
+  let username = req.session.username;
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
   let item = req.params.item_id;
@@ -519,7 +517,6 @@ exports.user_item_update_post = function (req, res) {
                 else
                   res.redirect(
                     "/user/" +
-                      username +
                       "/restaurant/" +
                       restaurant +
                       "/menu/" +
