@@ -17,7 +17,6 @@ exports.user_detail = function (req, res) {
   } else {
     return res.redirect("/login");
   }
-  console.log(req.session.username);
 
   User.findOne({ "local.username": username }).then((foundUser) => {
     Restaurant.find({ owner: foundUser._id }, function (err, foundRestaurant) {
