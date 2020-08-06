@@ -41,7 +41,12 @@ app.use(
     store: new mongoStore({ mongooseConnection: db }),
   })
 );
+app.use(function (req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
 app.use(cors());
+
 if (!isProduction) {
   app.use(errorHandler());
 }

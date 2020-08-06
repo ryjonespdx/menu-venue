@@ -28,7 +28,8 @@ html(lang='en')
                                 span(class="sr-only") (current)
                         li(class='nav-item')
                             a(class='nav-link' href='/restaurant/all') All
-                        if authorized === true
+                        li(class='nav-item')
+                        if session.username
                             li(class="nav-item")
                                 a(class="nav-link" href="/user") My Restaurants
                             li(class="nav-item")
