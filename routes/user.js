@@ -6,21 +6,8 @@ const express = require("express");
 const router = express.Router();
 const user_controller = require("../controllers/userController");
 
-// requests from login and register page
-
-router.get("/", user_controller.user_get);
-
-router.get("/register", user_controller.register_get);
-
-// router.post("/register", user_controller.register_post);
-router.post("/register", user_controller.signup);
-
-// POST request for one User. (redirects '/:id' on successful login)
-// router.post("/", user_controller.user_post);
-router.post("/", user_controller.login);
-
 // GET request for one User. (redirected here on successful login)
-router.get("/:id", user_controller.user_detail);
+router.get("/", user_controller.user_detail);
 
 // requests from user (signed in)
 
