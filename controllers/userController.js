@@ -11,11 +11,7 @@ const { users, restaurants, menus, menuItems } = require("../mockData");
 
 // Display detail page for a specific user.
 exports.user_detail = function (req, res) {
-  let username = req.params.id;
-
-  if (username != req.session.username) {
-    username = req.session.username;
-  }
+  let username = req.session.username;
 
   User.findOne({ "local.username": username }).then((foundUser) => {
     Restaurant.find({ owner: foundUser._id }, function (err, foundRestaurant) {
@@ -62,14 +58,14 @@ exports.user_list = function (req, res) {
 
 // Display Restaurant create form on GET.
 exports.user_restaurant_create_get = function (req, res) {
-  let username = req.params.id;
+  let username = req.session.username;
 
   res.render("create_restaurant", { user_info: { username: username } });
 };
 
 // Display Restaurant create form on POST.
 exports.user_restaurant_create_post = function (req, res) {
-  let username = req.params.id;
+  let username = req.session.username;
   name = req.body.name;
   cuisine = req.body.cuisine;
   street = req.body.street;
@@ -112,7 +108,7 @@ exports.user_restaurant_create_post = function (req, res) {
 
 // Display Restaurant update form on GET.
 exports.user_restaurant_update_get = function (req, res) {
-  let username = req.params.id;
+  let username = req.session.username;
   let name = req.params.restaurant_id;
 
   User.findOne({ "local.username": username }).then((foundUser) => {
@@ -135,7 +131,7 @@ exports.user_restaurant_update_get = function (req, res) {
 // Handle Restaurant update on POST.
 exports.user_restaurant_update_post = function (req, res) {
   // save into database
-  let username = req.params.id;
+  let username = req.session.username;
   let restaurant = req.params.restaurant_id;
   let name = req.body.name;
   let cuisine = req.body.cuisine;
@@ -164,7 +160,7 @@ exports.user_restaurant_delete_post = function (req, res) {
 
 // Display detail page for a specific Restaurant.
 exports.user_restaurant_detail = function (req, res) {
-  let username = req.params.id;
+  let username = req.session.username;
   let restaurant = req.params.restaurant_id;
 
   User.findOne({ "local.username": username }).then((foundUser) => {
@@ -203,7 +199,7 @@ exports.user_menu_create_get = function (req, res) {
 
 // Display Menu create form on POST.
 exports.user_menu_create_post = function (req, res) {
-  username = req.params.id;
+  username = req.session.username;
   restaurant = req.params.restaurant_id;
   name = req.body.name;
   description = req.body.description;
@@ -287,7 +283,7 @@ exports.user_menu_delete_post = function (req, res) {
 
 // Display detail page for a specific menu.
 exports.user_menu_detail = function (req, res) {
-  let username = req.params.id;
+  let username = req.session.username;
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
 
@@ -335,7 +331,7 @@ exports.user_menu_list = function (req, res) {
 
 // Display Item create form on GET.
 exports.user_item_create_get = function (req, res) {
-  username = req.params.id;
+  username = req.session.username;
   restaurant = req.params.restaurant_id;
   menu = req.params.menu_id;
 
@@ -344,7 +340,7 @@ exports.user_item_create_get = function (req, res) {
 
 // Display Item create form on POST.
 exports.user_item_create_post = function (req, res) {
-  username = req.params.id;
+  username = req.session.username;
   restaurant = req.params.restaurant_id;
   menu = req.params.menu_id;
   name = req.body.name;
