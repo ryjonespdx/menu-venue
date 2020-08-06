@@ -111,20 +111,21 @@ exports.user_restaurant_update_get = function (req, res) {
   let username = req.session.username;
   let name = req.params.restaurant_id;
 
-  User.findOne({ 'local.username': username })
-    .then( foundUser => {
-      Restaurant.findOne({ name: restaurant, owner: foundUser._id }, function(err, foundRestaurant) {
-        if(err)
-          res.render('error', { message: err });
-        else {
-          res.render("edit_restaurant", {
-            title: "Menu Venue: Edit Restaurant",
-            user_info: foundUser.local,
-            restaurant_info: foundRestaurant 
-          });
-        }
-      });
+  User.findOne({ "local.username": username }).then((foundUser) => {
+    Restaurant.findOne({ name: restaurant, owner: foundUser._id }, function (
+      err,
+      foundRestaurant
+    ) {
+      if (err) res.render("error", { message: err });
+      else {
+        res.render("edit_restaurant", {
+          title: "Menu Venue: Edit Restaurant",
+          user_info: foundUser.local,
+          restaurant_info: foundRestaurant,
+        });
+      }
     });
+  });
 };
 
 // Handle Restaurant update on POST.
@@ -140,21 +141,25 @@ exports.user_restaurant_update_post = function (req, res) {
   let zip = req.body.zip;
   let phone = req.body.phone;
 
-  User.findOne({ 'local.username': username })
-    .then( foundUser => {
-      Restaurant.findOneAndUpdate({ name: restaurant, owner: foundUser._id }, {
+  User.findOne({ "local.username": username }).then((foundUser) => {
+    Restaurant.findOneAndUpdate(
+      { name: restaurant, owner: foundUser._id },
+      {
         name: name,
         cuisine: cuisine,
         street: street,
         city: city,
         state: state,
         zip: zip,
-        number: phone 
-      }, {new: true}, function(err, updatedRestaurant) {
-        if(err) res.render('error', { message: err });
+        number: phone,
+      },
+      { new: true },
+      function (err, updatedRestaurant) {
+        if (err) res.render("error", { message: err });
         else res.redirect("/user/" + username);
-      });
-    });
+      }
+    );
+  });
 };
 
 // Display Restaurant delete form on GET.
@@ -254,46 +259,53 @@ exports.user_menu_update_get = function (req, res) {
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
 
-  User.findOne({ 'local.username': username })
-    .then( foundUser => {
-      Restaurant.findOne({ name: restaurant, owner: foundUser._id })
-        .then( foundRestaurant => {
-          Menu.findOne({ name: menu, restaurant: foundRestaurant._id }, 
-            function(err, foundMenu) {
-              if(err) res.render('error', { message: err });
-              else {
-                res.render("edit_menu", {
-                  title: "Menu Venue: Edit Menu",
-                  user_info: foundUser.local,
-                  restaurant_info: foundRestaurant,
-                  menu_info: foundMenu
-                });
-              }
+  User.findOne({ "local.username": username }).then((foundUser) => {
+    Restaurant.findOne({ name: restaurant, owner: foundUser._id }).then(
+      (foundRestaurant) => {
+        Menu.findOne({ name: menu, restaurant: foundRestaurant._id }, function (
+          err,
+          foundMenu
+        ) {
+          if (err) res.render("error", { message: err });
+          else {
+            res.render("edit_menu", {
+              title: "Menu Venue: Edit Menu",
+              user_info: foundUser.local,
+              restaurant_info: foundRestaurant,
+              menu_info: foundMenu,
             });
+          }
         });
-    });
+      }
+    );
+  });
 };
 
 // Handle Menu update on POST.
 exports.user_menu_update_post = function (req, res) {
-
   let username = req.params.id;
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
   let name = req.body.name;
 
-  User.findOne({ 'local.username': username })
-    .then( foundUser => {
-      Restaurant.findOne({ name: restaurant, owner: foundUser._id})
-        .then( foundRestaurant => {
-          Menu.findOneAndUpdate({ name: menu, restaurant: foundRestaurant._id }, {
+  User.findOne({ "local.username": username }).then((foundUser) => {
+    Restaurant.findOne({ name: restaurant, owner: foundUser._id }).then(
+      (foundRestaurant) => {
+        Menu.findOneAndUpdate(
+          { name: menu, restaurant: foundRestaurant._id },
+          {
             name: name,
-          }, {new: true}, function(err, updatedMenu) {
-            if(err) res.render('error', { message: err });
-            else res.redirect("/user/" + username + "/restaurant/" + restaurant);
-          })
-        });
-    });
+          },
+          { new: true },
+          function (err, updatedMenu) {
+            if (err) res.render("error", { message: err });
+            else
+              res.redirect("/user/" + username + "/restaurant/" + restaurant);
+          }
+        );
+      }
+    );
+  });
 };
 
 // Display Menu delete form on GET.
@@ -452,33 +464,35 @@ exports.user_item_update_get = function (req, res) {
   let menu = req.params.menu_id;
   let item = req.params.item_id;
 
-  User.findOne({ 'local.username': username })
-    .then( foundUser => {
-      Restaurant.findOne({ name: restaurant, owner: foundUser._id })
-        .then( foundRestaurant => {
-          Menu.findOne({ name: menu, restaurant: foundRestaurant._id })
-            .then( foundMenu => {
-              MenuItem.findOne( { name: item, menu: foundMenu._id }, 
-                function(err, foundItem) {
-                  if(err) res.render('error', { message: err });
-                  else {
-                    res.render("edit_item", {
-                      title: "Menu Venue: Edit Item",
-                      user_info: foundUser.local,
-                      restaurant_info: foundRestaurant,
-                      menu_info: foundMenu,
-                      item_info: foundItem
-                    });
-                  }
+  User.findOne({ "local.username": username }).then((foundUser) => {
+    Restaurant.findOne({ name: restaurant, owner: foundUser._id }).then(
+      (foundRestaurant) => {
+        Menu.findOne({ name: menu, restaurant: foundRestaurant._id }).then(
+          (foundMenu) => {
+            MenuItem.findOne({ name: item, menu: foundMenu._id }, function (
+              err,
+              foundItem
+            ) {
+              if (err) res.render("error", { message: err });
+              else {
+                res.render("edit_item", {
+                  title: "Menu Venue: Edit Item",
+                  user_info: foundUser.local,
+                  restaurant_info: foundRestaurant,
+                  menu_info: foundMenu,
+                  item_info: foundItem,
                 });
+              }
             });
-        });
-    });
+          }
+        );
+      }
+    );
+  });
 };
 
 // Handle Item update on POST.
 exports.user_item_update_post = function (req, res) {
-
   let username = req.params.id;
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
@@ -487,23 +501,37 @@ exports.user_item_update_post = function (req, res) {
   let price = req.body.price;
   let description = req.body.description;
 
-  User.findOne({ 'local.username': username })
-    .then( foundUser => {
-      Restaurant.findOne({ name: restaurant, owner: foundUser._id})
-        .then( foundRestaurant => {
-          Menu.findOne({ name: menu, restaurant: foundRestaurant._id })
-            .then( foundMenu => {
-              MenuItem.findOneAndUpdate({ name: item, menu: foundMenu._id}, {
+  User.findOne({ "local.username": username }).then((foundUser) => {
+    Restaurant.findOne({ name: restaurant, owner: foundUser._id }).then(
+      (foundRestaurant) => {
+        Menu.findOne({ name: menu, restaurant: foundRestaurant._id }).then(
+          (foundMenu) => {
+            MenuItem.findOneAndUpdate(
+              { name: item, menu: foundMenu._id },
+              {
                 name: name,
                 price: price,
-                description: description
-              }, {new: true}, function(err, updatedItem) {
-                if(err) res.render('error', { message: err });
-                else res.redirect("/user/" + username + "/restaurant/" + restaurant + "/menu/" + menu);
-              })
-            });
-         });
-    });
+                description: description,
+              },
+              { new: true },
+              function (err, updatedItem) {
+                if (err) res.render("error", { message: err });
+                else
+                  res.redirect(
+                    "/user/" +
+                      username +
+                      "/restaurant/" +
+                      restaurant +
+                      "/menu/" +
+                      menu
+                  );
+              }
+            );
+          }
+        );
+      }
+    );
+  });
 };
 
 // Display Item delete form on GET.
