@@ -17,13 +17,18 @@ exports.index_post = function (req, res) {
   let searched = req.body.name;
 
   Restaurant.find(
-    { $or: [{ name: searched }, { cuisine: searched }] },
+    { $or: [
+      { name: new RegExp(searched, 'i') }, 
+      { cuisine: new RegExp(searched, 'i') },
+      { city: new RegExp(searched, 'i') },
+      { number: new RegExp(searched, 'i') }
+    ] },
     function (err, found) {
       if (err) res.render("error", { message: "we have issues, try later" });
       else if (found.length === 0)
         res.render("index", {
           restaurant_info: { name: searched },
-          title: "no restaurant found",
+          title: "no restaurants found",
         });
       else {
         res.render("restaurant_list", {
