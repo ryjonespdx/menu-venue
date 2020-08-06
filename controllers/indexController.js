@@ -88,6 +88,11 @@ exports.login_post = function (req, res, next) {
   )(req, res, next);
 };
 
+exports.logout_get = function (req, res, next) {
+  req.session.destroy();
+  res.redirect("/login");
+};
+
 exports.register_get = function (req, res) {
   res.render("create_user", { title: "enter email and create a password" });
 };
