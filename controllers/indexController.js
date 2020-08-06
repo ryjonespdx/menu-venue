@@ -36,7 +36,10 @@ exports.index_post = function (req, res) {
 };
 
 exports.login_get = function (req, res) {
-  res.render("login", { title: "Login" });
+  res.render("login", {
+    title:
+      "Login (DEBUG: " + req.session.username + ", " + req.session.id + ")",
+  });
 };
 
 // New auth operations from https://medium.com/@basics.aki/step-wise-tutorial-for-node-js-authentication-using-passport-js-and-jwt-using-apis-cfbf274ae522

@@ -28,8 +28,14 @@ html(lang='en')
                                 span(class="sr-only") (current)
                         li(class='nav-item')
                             a(class='nav-link' href='/restaurant/all') All
-                        li(class='nav-item')
-                            a(class='nav-link' href='/login') Login
+                        if authorized === true
+                            li(class="nav-item")
+                                a(class="nav-link" href="/user") My Restaurants
+                            li(class="nav-item")
+                                a(class="nav-link" href="/logout") Logout
+                        else
+                            li(class='nav-item')
+                                a(class='nav-link' href='/login') Login
 
             div(class='container-fluid')
                 br

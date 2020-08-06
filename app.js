@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 app.use(
   session({
     secret: config.PASSPORT_SECRET,
-    cookie: { maxAge: 60000, secure: false },
+    cookie: { maxAge: 360000000, secure: false },
     resave: false,
     saveUninitialized: false,
     store: new mongoStore({ mongooseConnection: db }),
