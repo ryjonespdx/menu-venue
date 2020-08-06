@@ -181,11 +181,14 @@ exports.user_restaurant_delete_get = function (req, res) {
             .then ( foundMenu => {
               foundMenu.forEach( foundMenu => {
                 MenuItem.deleteMany({ menu: foundMenu._id }, function(err, deleted) {})
-              })
-            })
-            .then( retVal => res.redirect("/user/"))
+              })})
+            .then( Menu.deleteMany({ restaurant: foundRestaurant._id },
+              function(err, deleted) {}))
         })
+        .then( Restaurant.deleteOne({ name: restaurant, owner: foundUser._id }, 
+          function(err, deleted) {}))
     })
+    .then( retVal => res.redirect("/user/"))
 };
 
 // Handle Restaurant delete on POST.
