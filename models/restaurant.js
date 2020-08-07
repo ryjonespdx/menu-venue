@@ -11,6 +11,8 @@ const RestaurantSchema = new Schema({
   state: { type: String, required: true, maxlength: 100 },
   zip: { type: Number, required: true, maxlength: 20 },
   number: { type: String, required: true, maxlength: 20 },
+  lat: { type: String, required: false, maxlength: 10 },
+  lng: { type: String, required: false, maxlength: 10 }
 });
 
 // Virtual for restaurant's full address
