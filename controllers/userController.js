@@ -1,7 +1,8 @@
 /********************************************************************************
  * userController: functions to handle GET and POST requests called as a user
  * *****************************************************************************/
-const mongoose = require("mongoose");
+const config = require("../config/config");
+const axios = require("axios");
 var User = require("../models/user");
 var Restaurant = require("../models/restaurant");
 var Menu = require("../models/menu");
@@ -100,10 +101,28 @@ exports.user_restaurant_create_post = function (req, res) {
           zip: zip,
           state: state,
           number: number,
-        }).save(function (err) {
+        })
+        .save(function (err, created) {
           if (err) res.render("error", { message: err });
           else {
-            res.redirect("/user");
+            let address = `${street} ${city} ${state}`;
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${config.MAPS_KEY}`)
+              .then(response => {
+                if(response.data.results[0]) {
+                  Restaurant.findOneAndUpdate(
+                    { name: name, owner: foundUser._id },
+                    {
+                      lat: response.data.results[0].geometry.location.lat,
+                      lng: response.data.results[0].geometry.location.lng
+                    },
+                    { new: true },
+                    function (err, updatedRestaurant) {
+                      if (err) res.render("error", { message: err });
+                      else res.redirect("/user");
+                    });
+                }
+                else res.redirect("/user");
+              })
           }
         });
       }
@@ -161,7 +180,26 @@ exports.user_restaurant_update_post = function (req, res) {
       { new: true },
       function (err, updatedRestaurant) {
         if (err) res.render("error", { message: err });
-        else res.redirect("/user");
+        else {
+            let address = `${street} ${city} ${state}`;
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${config.MAPS_KEY}`)
+              .then(response => {
+                if(response.data.results[0]) {
+                  Restaurant.findOneAndUpdate(
+                    { name: name, owner: foundUser._id },
+                    {
+                      lat: response.data.results[0].geometry.location.lat,
+                      lng: response.data.results[0].geometry.location.lng
+                    },
+                    { new: true },
+                    function (err, updatedRestaurant) {
+                      if (err) res.render("error", { message: err });
+                      else res.redirect("/user");
+                    });
+                }
+                else res.redirect("/user");
+              })
+        }
       }
     );
   });
