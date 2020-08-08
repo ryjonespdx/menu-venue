@@ -9,7 +9,7 @@ block content
 
   each item in menu
     p #{item.name}
-    p &dollar;#{item.price}
+    p #{item.price}
     p #{item.description}
     p 
       a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/item/'+item.name+'/update') update item 
