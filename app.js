@@ -15,6 +15,8 @@ const isProduction = process.env.CURR_ENV === "production";
 
 const app = express();
 
+app.locals.MAPS_KEY = config.MAPS_KEY;
+
 // Mongoose / MongoDB code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 // Set up default mongoose connection
 mongoose.promise = global.Promise;

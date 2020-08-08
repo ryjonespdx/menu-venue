@@ -1,0 +1,62 @@
+extends index
+
+block content
+
+    div(class='row')
+        div(class='col-sm-6')
+          div(class='scroll')
+
+            h4(class="center-heading")= title
+
+            each restaurant in restaurant_list
+              p 
+                a(href='/restaurant/'+restaurant.name) #{restaurant.name}
+              p #{restaurant.street}
+              p #{restaurant.city}
+              p #{restaurant.number}
+
+              hr  
+
+            else
+              p ... be more vague
+
+        div(class='col-sm-6')
+
+          #map
+          script.
+            function initMap() {
+
+            let restaurants = !{JSON.stringify(restaurant_list)};
+            let goodCoords = restaurants.filter(coords => (coords.lat !== undefined) && (coords.lng !== undefined));
+
+            if(goodCoords.length) {
+              let centerLat = 0;
+              let centerLng = 0;
+              for(const c of goodCoords) {
+                centerLat += parseFloat(c.lat);
+                centerLng += parseFloat(c.lng);
+              }
+              centerLat /= goodCoords.length;
+              centerLng /= goodCoords.length;
+
+              let center = { lat: centerLat, lng: centerLng };
+              let map = new google.maps.Map(document.getElementById('map'), {zoom: 11, center: center});
+              let marker;
+              let infowindow;
+              for (let i = 0; i < goodCoords.length; i++) {  
+                infowindow = new google.maps.InfoWindow();    
+                marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(goodCoords[i].lat, goodCoords[i].lng),
+                  title: goodCoords[i].name,
+                  map: map
+                });
+                infowindow.setContent(goodCoords[i].name);
+                infowindow.open(map, marker);   
+              }
+            }
+            }
+          //
+            Load the API from the specified URL
+            * The async attribute allows the browser to render the page while the API loads
+            * The callback parameter executes the initMap() function
+          script(defer="" src=`https://maps.googleapis.com/maps/api/js?key=` + `${MAPS_KEY}` +  `&callback=initMap`)
