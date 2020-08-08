@@ -11,23 +11,23 @@ block content
     form(method='POST' action='')
         div.form-group
             label(for='name') Name:
-            input.form-control(type='text', placeholder='its name' name='name' required='true' value=(undefined===restaurant ? '' : restaurant.name) )
+            input.form-control(type='text' aria-label='name' placeholder='its name' name='name' required='true' value=(undefined===restaurant ? '' : restaurant.name) )
         div.form-group
             label(for='cuisine') Cuisine:
-            input.form-control(type='text', placeholder='the cuisine' name='cuisine' required='true' value=(undefined===restaurant ? '' : restaurant.cuisine) )
+            input.form-control(type='text' aria-label='cuisine' placeholder='the cuisine' name='cuisine' required='true' value=(undefined===restaurant ? '' : restaurant.cuisine) )
         div.form-group
             label(for='street') Street:
-            input.form-control(type='text', placeholder='e.g. 123 Main St' name='street' required='true' value=(undefined===restaurant ? '' : restaurant.street) )
+            input.form-control(type='text' aria-label='street' placeholder='e.g. 123 Main St' name='street' required='true' value=(undefined===restaurant ? '' : restaurant.street) )
         div.form-group
             label(for='city') City:
-            input.form-control(type='text', placeholder='the city' name='city' required='true' value=(undefined===restaurant? '' : restaurant.city) )
+            input.form-control(type='text' aria-label='city' placeholder='the city' name='city' required='true' value=(undefined===restaurant? '' : restaurant.city) )
         div.form-group
             label(for='state') State:
-            input.form-control(type='text', placeholder='the state' name='state' required='true' value=(undefined===restaurant? '' : restaurant.state) )
+            input.form-control(type='text' aria-label='state' placeholder='the state' name='state' required='true' value=(undefined===restaurant? '' : restaurant.state) )
         div.form-group
             label(for='zip') Zip:
-            input.form-control(type='text', placeholder='the zip code' name='zip' required='true' value=(undefined===restaurant? '' : restaurant.zip) )
+            input.form-control(type='text' aria-label='zip' placeholder='the zip code' name='zip' required='true' value=(undefined===restaurant? '' : restaurant.zip) )
         div.form-group
             label(for='phone') Phone:
-            input.form-control(type='text', placeholder='its phone number' name='number' required='true' value=(undefined===restaurant? '' : restaurant.number) )
-        button.btn.btn-outline-success(type='submit') Create
+            input.form-control(type='text' aria-label='phone' placeholder='its phone number' name='number' required='true' value=(undefined===restaurant? '' : restaurant.number) )
+        button.btn.btn-outline-success(type='submit' value='create') Create

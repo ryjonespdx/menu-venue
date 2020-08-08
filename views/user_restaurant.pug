@@ -2,7 +2,11 @@ extends layout
 
 block content
 
-  h4= restaurant_info.name
+  p 
+    a(href='/user') &lt; Back
+
+  h4(class="user-heading")= restaurant_info.name
+
 
   each menu in menu_list
     p 

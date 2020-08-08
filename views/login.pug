@@ -2,17 +2,18 @@ extends layout
 
 block content
 
-    h1 Login
+    h3= title
 
     fieldset
-        form(method='POST' action='')
-            div.form-group
-                label(for='username') Username:
-                input.form-control(type='text' placeholder='' name='username' required='true' value=(undefined===username ? '' : user.username) )
-            div.form-group
-                label(for='password') Password:
-                input.form-control(type='password' placeholder='' name='password' required='true' value='' )
-            div.form-group
-                button.btn.btn-outline-secondary(type='submit' value='Login') Login
+        legend
+            form(method='POST' action='')
+                div.form-group(name="login")
+                    label(for='username') Username:
+                    input.form-control(type='text' aria-label='username' placeholder='' name='username' required='true' value='')
+                div.form-group
+                    label(for='password') Password:
+                    input.form-control(type='password' aria-label='password' placeholder='' name='password' required='true' value='')
+                div.form-group
+                    button.btn.btn-outline-secondary(type='submit' value='Login') Login
 
     a(href="/register") Register

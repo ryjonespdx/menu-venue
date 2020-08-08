@@ -6,7 +6,7 @@ block content
         form(method='POST' action='')
             div.form-group
                 label(for='name') Restaurant:
-                input.form-control(type='text' placeholder='e.g. Sushi Hana' name='name' value=(undefined===restaurant ? '' : restaurant.name) )
+                input.form-control(type='text' aria-label="search" placeholder='e.g. Sushi Hana or vegetarian' name='search' value=(undefined===restaurant ? '' : restaurant.name) )
             div.form-group
                 button.btn.btn-secondary.btn-success-outline(type='submit' value='Find Restaurants') Search
 

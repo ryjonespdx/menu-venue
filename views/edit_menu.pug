@@ -9,24 +9,24 @@ block content
     h6 Editing This Menu
 
     // Button trigger modal
-    button.btn.btn-sm.btn-danger(type="button" data-toggle="modal" data-target="#areyousuremodal")
+    button.btn.btn-sm.btn-danger(type='button' data-toggle='modal' data-target='#areyousuremodal')
       | Remove
     // Modal
-    #areyousuremodal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="areyousuremodallabel" aria-hidden="true")
-      .modal-dialog(role="document")
+    #areyousuremodal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='areyousuremodallabel' aria-hidden='true')
+      .modal-dialog(role='document')
         .modal-content
           .modal-header
             h5#areyousuremodallabel.modal-title Are you sure?
-            button.close(type="button" data-dismiss="modal" aria-label="Close")
-              span(aria-hidden="true") ×
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              span(aria-hidden='true') ×
           .modal-body
             | Delete this menus and its items...
           .modal-footer
-            button.btn.btn-sm.btn-secondary(type="button" data-dismiss="modal") Close
+            button.btn.btn-sm.btn-secondary(type='button' data-dismiss='modal') Close
             a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/delete') Yes
 
     form(method='POST' action='')
         div.form-group
             label(for='name') Name:
-            input.form-control(type='text', placeholder=menu_info.name name='name' required='true' value=(undefined===menu_info ? '' : menu_info.name) )
-        button.btn.btn-outline-success(type='submit') Update
+            input.form-control(type='text' aria-label='name' placeholder=menu_info.name name='name' required='true' value=(undefined===menu_info ? '' : menu_info.name) )
+        button.btn.btn-outline-success(type='submit' value='update') Update

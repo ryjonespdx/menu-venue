@@ -2,11 +2,14 @@ extends layout
 
 block content
 
-  h4= menu_info.name
+  p 
+    a(href='/user/restaurant/'+restaurant_info.name) &lt; Back
+
+  h4(class="user-heading")= menu_info.name
 
   each item in menu
     p #{item.name}
-    p #{item.price}
+    p &dollar;#{item.price}
     p #{item.description}
     p 
       a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/item/'+item.name+'/update') update item 

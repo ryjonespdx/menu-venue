@@ -2,22 +2,22 @@ extends layout
 
 block content
 
-    h1= title
+    h3= title
 
     fieldset
         form(method='POST' action='')
             div.form-group
                 label(for='email') Email:
-                input.form-control(type='email' placeholder='e.g. you@sushi.com' name='email' required='true' value=(undefined===email ? '' : user.email) )
+                input.form-control(type='email' aria-label='email' placeholder='e.g. you@sushi.com' name='email' required='true' value='')
             div.form-group
                 label(for='username') Username:
-                input.form-control(type='text' placeholder='' name='username' required='true' value=(undefined===username? '' : user.username) )
+                input.form-control(type='text' aria-label='username' placeholder='' name='username' required='true' value='')
             div.form-group
                 label(for='password') Password:
-                input#password.form-control(type='password' placeholder='' name='password' required='true' value='' )
+                input#password.form-control(type='password' aria-label='password' placeholder='' name='password' required='true' value='')
             div.form-group
                 label(for='confirm-password') Confirm Password:
-                input#password-confirm.form-control(type='password' placeholder='' name='password' required='true' value='' )
+                input#password-confirm.form-control(type='password' aria-label='confirm password' placeholder='' name='password' required='true' value='')
             div.form-group
                 button#submit.btn.btn-outline-secondary(type='submit' value='register') Register
     script.
