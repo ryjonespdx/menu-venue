@@ -8,7 +8,7 @@ A web application for restaurants to upload their menus in a quick, clean format
 2. In your working directory, run `npm install`
 3. In your working directory, create a file called `.env` and a folder called `config`
 4. Inside of the `config` folder, create a `config.js` and `passport.js` file
-4. For the contents of what to put in these files (`.env`, `config.js`, `passport.js`, see Slack/Email or ask Bruh/Ryan)
+4. For the contents of what to put in these files (`.env`, `config.js`, and `passport.js`), see Slack/Email or ask Bruh/Ryan)
 
 # Running the Server
 
