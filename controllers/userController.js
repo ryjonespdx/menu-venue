@@ -66,7 +66,9 @@ exports.user_list = function (req, res) {
 exports.user_restaurant_create_get = function (req, res) {
   let username = req.session.username;
 
-  res.render("create_restaurant", { user_info: { username: username } });
+  res.render("create_restaurant", { 
+    title: "Menu Venue: Create Restaurant", 
+    user_info: { username: username } });
 };
 
 // Display Restaurant create form on POST.
@@ -88,6 +90,7 @@ exports.user_restaurant_create_post = function (req, res) {
       if (err) res.render("error", { message: err });
       else if (foundRestaurant !== null)
         res.render("create_restaurant", {
+          title: "Menu Venue: Create Restaurant", 
           user_info: foundUser.local,
           message: "Restaurant already exists!",
         });
@@ -273,7 +276,9 @@ exports.user_menu_create_get = function (req, res) {
   username = req.session.username;
   restaurant = req.params.restaurant_id;
 
-  res.render("create_menu", { restaurant_info: {name: restaurant} });
+  res.render("create_menu", { 
+    title: "Menu Venue: Create Menu",
+    restaurant_info: {name: restaurant} });
 };
 
 // Display Menu create form on POST.
@@ -293,6 +298,7 @@ exports.user_menu_create_post = function (req, res) {
           if (err) res.render("error", { message: err });
           else if (foundMenu !== null)
             res.render("create_menu", {
+              title: "Menu Venue: Create Menu",
               user_info: foundUser.local,
               restaurant_info: foundRestaurant,
               message: "Menu already exists!",
@@ -450,7 +456,9 @@ exports.user_item_create_get = function (req, res) {
   restaurant = req.params.restaurant_id;
   menu = req.params.menu_id;
 
-  res.render("create_item", { menu_info: { name: menu } });
+  res.render("create_item", { 
+    title: "Menu Venue: Create Item",
+    menu_info: { name: menu } });
 };
 
 // Display Item create form on POST.
@@ -489,6 +497,7 @@ exports.user_item_create_post = function (req, res) {
                 foundUserItem.filter((item) => item.name === name).length > 0
               ) {
                 res.render("create_item", {
+                  title: "Menu Venue: Create Item",
                   user_info: foundUser.local,
                   restaurant_info: foundUserRestaurant,
                   menu_info: foundUserMenu,
