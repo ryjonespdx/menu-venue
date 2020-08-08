@@ -32,6 +32,32 @@ exports.restaurant_detail = function (req, res) {
      });
 };
 
+exports.share_menu = function (req, res) {
+
+  let restaurant = req.params.id;
+  let menu = req.params.menu_id;
+
+  Restaurant.findOne({ name: restaurant })
+    .then( foundRestaurant => {
+      Menu.findOne({ name: menu, restaurant: foundRestaurant._id })
+        .then( foundMenu => {
+          MenuItem.find({ menu: foundMenu._id }, 
+            function(err, foundItem) {
+              if(err) res.render('error', { message: err } );
+              else {
+                res.render("restaurant_menu", {
+                  title: "Menu Venue: Menu Details",
+                  restaurant_info: foundRestaurant,
+                  menu_info: foundMenu,
+                  item_list: foundItem
+                });
+              }
+            });
+          });
+    });
+};
+
+
 // Display list of all Restaurants.
 exports.restaurant_list = function (req, res) {
 

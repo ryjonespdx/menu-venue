@@ -14,7 +14,7 @@ exports.index_get = function (req, res) {
 
 exports.index_post = function (req, res) {
   // search the database for...
-  let searched = req.body.name;
+  let searched = req.body.search;
 
   Restaurant.find(
     { $or: [
@@ -26,14 +26,14 @@ exports.index_post = function (req, res) {
     function (err, found) {
       if (err) res.render("error", { message: "we have issues, try later" });
       else if (found.length === 0)
-        res.render("index", {
-          restaurant_info: { name: searched },
-          title: "no restaurants found",
+        res.render("restaurant_list", {
+          title: "No Restaurants Found",
+          restaurant_list: found
         });
       else {
         res.render("restaurant_list", {
           title: `Results for ${searched}`,
-          restaurant_list: found,
+          restaurant_list: found
         });
       }
     }
@@ -98,7 +98,7 @@ exports.logout_get = function (req, res, next) {
 };
 
 exports.register_get = function (req, res) {
-  res.render("create_user", { title: "enter email and create a password" });
+  res.render("create_user", { title: "Enter email and create a password" });
 };
 
 exports.register_post = function (req, res, next) {

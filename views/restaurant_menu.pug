@@ -2,12 +2,16 @@ extends index
 
 block content
 
-  h4= menu_info.name
+  p 
+    a(href='/restaurant/'+restaurant_info.name) &lt; Back
 
-  each item in item_list
-    p #{item.name}
-    p #{item.price}
-    p #{item.description}
+  h4(class="heading")= menu_info.name
 
-  else
-    p This menu has no items.
+  div.menu-container
+    each item in item_list
+      div.menu-item
+        p #{item.name}
+        p &dollar;#{item.price}
+        p #{item.description}
+    else
+      p This menu has no items.
