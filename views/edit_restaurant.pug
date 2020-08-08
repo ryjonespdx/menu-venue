@@ -46,6 +46,8 @@ block content
             label(for='zip') Zip:
             input.form-control(type='text', aria-label='zip' placeholder=restaurant_info.zip name='zip' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.zip) )
         div.form-group
-            label(for='phone') Phone:
-            input.form-control(type='text', aria-label='phone' placeholder=restaurant_info.number name='number' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.number) )
+            label(for='phone') Phone (with area code):
+            input.form-control(type='text', aria-label='phone' pattern="^(\\({1})(\\d{3})(\\){1})( {1})(\\d{3})(-{1})(\\d{4})$" placeholder=restaurant_info.number name='number' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.number) data-type="phone")
         button.btn.btn-outline-success(type='submit' value='update') Update
+      
+    script(defer="" src="/javascript/formatPhoneNumber.js")
