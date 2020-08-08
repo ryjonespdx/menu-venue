@@ -17,5 +17,5 @@ block content
             input.form-control(type='text' aria-label='price' placeholder='how much?' name='price' required='true' value=(undefined===item ? '' : item.price) )
         div.form-group
             label(for='address') Description:
-            input.form-control(type='text' aria-label='description' placeholder='describe it' name='description' required='true' value=(undefined===item ? '' : item.description) )
+            input.form-control(type='text' aria-label='description' placeholder='describe it' name='description' value=(undefined===item ? '' : item.description) )
         button.btn.btn-outline-success(type='submit' value='submit') Create

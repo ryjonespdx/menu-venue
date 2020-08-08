@@ -14,10 +14,10 @@ block content
     form(method='POST' action='')
         div.form-group
             label(for='name') Name:
-            input.form-control(type='text' aria-label='name' placeholder=item_info.name name='name' value=(undefined===item_info ? '' : item_info.name) )
+            input.form-control(type='text' aria-label='name' placeholder=item_info.name name='name' value=(undefined===item_info ? '' : item_info.name) required=true)
         div.form-group
             label(for='price') Price:
-            input.form-control(type='text' aria-label='price' placeholder=item_info.price name='price' value=(undefined===item_info? '' : item_info.price) )
+            input.form-control(type='text' aria-label='price' placeholder=item_info.price name='price' value=(undefined===item_info? '' : item_info.price) required=true)
         div.form-group
             label(for='description') Descriptton:
             input.form-control(type='text' aria-label='description' placeholder=item_info.description name='description' value=(undefined===item_info ? '' : item_info.description) )
