@@ -2,35 +2,52 @@ extends layout
 
 block content
 
-    h4= user_info.username
+    h4= restaurant_info.name
 
     h5= message
 
-    h5 editing a restaurant
+    h6 Edit Your Restaurant
 
-    p
-        a(href='/user/restaurant/'+restaurant_info.name+'/delete') Remove
+    // Button trigger modal
+    button.btn.btn-sm.btn-danger(type='button' data-toggle='modal' data-target='#areyousuremodal')
+      | Remove
+    // Modal
+    #areyousuremodal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='areyousuremodallabel' aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#areyousuremodallabel.modal-title Are you sure?
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body
+            | Delete this restaurant, all of its menus and their items...
+          .modal-footer
+            button.btn.btn-sm.btn-secondary(type='button' data-dismiss='modal') Close
+            a(href='/user/restaurant/'+restaurant_info.name+'/delete') Yes
+
 
     form(method='POST' action='')
         div.form-group
             label(for='name') Name:
-            input.form-control(type='text', placeholder=restaurant_info.name name='name' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.name) )
+            input.form-control(type='text', aria-label='name' placeholder=restaurant_info.name name='name' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.name) )
         div.form-group
             label(for='cuisine') Cuisine:
-            input.form-control(type='text', placeholder=restaurant_info.cuisine name='cuisine' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.cuisine) )
+            input.form-control(type='text', aria-label='cuisine' placeholder=restaurant_info.cuisine name='cuisine' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.cuisine) )
         div.form-group
             label(for='street') Street:
-            input.form-control(type='text', placeholder=restaurant_info.street name='street' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.street) )
+            input.form-control(type='text', aria-label='street' placeholder=restaurant_info.street name='street' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.street) )
         div.form-group
             label(for='city') City:
-            input.form-control(type='text', placeholder=restaurant_info.city name='city' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.city) )
+            input.form-control(type='text', aria-label='city' placeholder=restaurant_info.city name='city' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.city) )
         div.form-group
             label(for='state') State:
-            input.form-control(type='text', placeholder=restaurant_info.state name='state' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.state) )
+            input.form-control(type='text', aria-label='state' placeholder=restaurant_info.state name='state' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.state) )
         div.form-group
             label(for='zip') Zip:
-            input.form-control(type='text', placeholder=restaurant_info.zip name='zip' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.zip) )
+            input.form-control(type='text', aria-label='zip' placeholder=restaurant_info.zip name='zip' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.zip) )
         div.form-group
-            label(for='phone') Phone:
-            input.form-control(type='text', placeholder=restaurant_info.number name='number' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.number) )
-        button.btn.btn-outline-success(type='submit') Update
+            label(for='phone') Phone (with area code):
+            input.form-control(type='text', aria-label='phone' pattern="^(\\({1})(\\d{3})(\\){1})( {1})(\\d{3})(-{1})(\\d{4})$" placeholder=restaurant_info.number name='number' required='true' value=(undefined===restaurant_info ? '' : restaurant_info.number) data-type="phone")
+        button.btn.btn-outline-success(type='submit' value='update') Update
+      
+    script(defer="" src="/javascript/formatPhoneNumber.js")

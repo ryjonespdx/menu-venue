@@ -2,23 +2,26 @@ extends layout
 
 block content
 
-  h4= user_info.username
+  h1(class="user-heading")= user_info.username + `'s Restaurants`
+  br
 
-    dl
-      each restaurant in restaurant_list
-        dt 
+  p
+    a(href='/user/restaurant/create') Create a restaurant
+  hr  
+  
+  div.menu-container
+    each restaurant in restaurant_list
+      div.menu-item
+        h4(class="user-heading")
           a(href='/user/restaurant/'+restaurant.name) #{restaurant.name}
-          dd #{restaurant.street}
-          dd #{restaurant.city}
-          dd #{restaurant.number}
-          dd 
-            a(href='/user/restaurant/'+restaurant.name+'/update') update restaurant
+        p #{restaurant.street}
+        p #{restaurant.city}, #{restaurant.state}
+        p #{restaurant.number}
+        p 
+          a(href='/user/restaurant/'+restaurant.name+'/update') Update this restaurant
 
-        hr  
 
-      else
-        dt You have no restaurants.
+    else
+      p You have no restaurants.
 
-      p
-        a(href='/user/restaurant/create') create restaurant
 

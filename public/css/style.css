@@ -1,58 +1,107 @@
 * {
-  box-sizing: border-box; /* This makes it much easier to size elements. */
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: Helvetica;
 }
 
 body {
-  background-color: #ffffff;
+  /* background-image: url("/image/circle-blues.png"); */
+  background-color: white;
 }
 
-fieldset {
-  border: none;
+div.scroll {
+  width: 100%;
+  height: 800px;
+  scrollbar-color: #ffa65d #ffffff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: left;
+  padding: 20px;
+  border-radius: 20px;
 }
 
-.main-container {
-  /* landing page - elements are in a column as ordered */
-  display: grid;
-  grid-template-areas:
-    "title"
-    "search";
+div.scroll > * {
+  margin: 10px;
 }
 
-#title {
-  grid-area: title;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: darkorange;
-  text-align: center;
-  font-size: 3em;
+#map {
+  height: 800px;
+  width: 100%; /* The width is the width of the container*/
+  padding: 20px;
+  border-radius: 20px;
 }
 
-#search {
-  grid-area: search;
-  text-align: center;
-}
-
-.field {
-  width: 400px;
-  height: 50px;
-  font-size: 1.5em;
-  border-radius: 5px;
-  border-width: 1px;
-  border-color: #ffffff;
-}
-
-.button {
-  height: 50px;
-  font-size: 1.5em;
-  border-radius: 5px;
-  border-width: 1px;
-  border-color: #ffffff;
-}
-
-.flex-container {
-  /* restaurant login page */
+div.menu-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+div.menu-item {
+  min-width: 200px;
+  min-height: 100px;
+  margin: 10px;
+  padding: 30px;
+  /* background-color: rgb(248, 248, 248); */
+  color: black;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.center-heading {
+  text-align: center;
+}
+
+.share-btn-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.shared-list {
+  text-align: center;
+}
+
+.url {
+  text-align: center;
+}
+
+/*
+ *
+ * Landing page (index.pug) code below
+ *
+ */
+.index-page-body {
+  /* color: white; */
+  color: white;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.5)),
+    url("/image/background/bg-sushi.jpg");
+  background-size: 1920px 1080px;
+}
+
+.nav-link {
+  color: black !important;
+}
+
+.index-nav-link {
+  color: white !important;
+}
+
+.index-brand {
+  font-size: 40px;
+}
+
+.main-searchbar-form {
+  /* justify-content: space-between; */
+}
+
+.main-searchbar-content > label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.main-searchbar-item {
+  margin-left: 5px;
+  max-width: 350px;
 }

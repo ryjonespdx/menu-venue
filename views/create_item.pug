@@ -11,11 +11,14 @@ block content
     form(method='POST' action='')
         div.form-group
             label(for='name') Name:
-            input.form-control(type='text', placeholder='the name' name='name' required='true' value=(undefined===item? '' : item.name) )
+            input.form-control(type='text' aria-label='name' placeholder='the name' name='name' required='true' value=(undefined===item ? '' : item.name) )
         div.form-group
             label(for='price') Price:
-            input.form-control(type='text', placeholder='how much?' name='price' required='true' value=(undefined===price? '' : item.price) )
+            //- currency formatting from https://codepen.io/559wade/pen/LRzEjj?editors=1000
+            input.form-control(type='text' aria-label='price' pattern=`^\\$\\d{1,3}(,\\d{3})*(\\.\\d+)?$` placeholder='$5.00' name='price' required='true' value=(undefined===item ? '' : item.price) data-type="currency")
         div.form-group
             label(for='address') Description:
-            input.form-control(type='text', placeholder='describe it' name='description' required='true' value=(undefined===item? '' : item.description) )
-        button.btn.btn-outline-success(type='submit') Create
+            input.form-control(type='text' aria-label='description' placeholder='describe it' name='description' value=(undefined===item ? '' : item.description) )
+        button.btn.btn-outline-success(type='submit' value='submit') Create
+
+    script(defer="" src="/javascript/formatCurrency.js")

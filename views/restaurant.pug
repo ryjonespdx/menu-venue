@@ -1,13 +1,13 @@
-extends index
+extends layout
 
 block content
 
-    h4= restaurant_info.name
+    h1(class="heading")= restaurant_info.name
+    br
 
-    dl
-        each menu in menu_list 
-            dt 
-                a(href='/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
+    each menu in menu_list 
+        h4 
+            a(href='/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
 
-        else
-            p This restaurant has no menus.
+    else
+        p This restaurant has no menus.

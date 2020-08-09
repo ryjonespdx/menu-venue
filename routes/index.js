@@ -10,6 +10,8 @@ router.get("/", index_controller.index_get);
 
 router.post("/", index_controller.index_post);
 
+router.get("/share/:share_id", index_controller.share_get);
+
 router.get("/login", index_controller.login_get);
 
 router.post("/login", index_controller.login_post);

@@ -1,12 +1,60 @@
-extends layout
+doctype html
+html(lang='en')
+    head
+        title= title
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
+        script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js')
+        script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
+        link(rel='stylesheet', href='/css/style.css')
+        //- link(type='text/css', href='/css/style.css')
 
-block content
+    body(class="index-page-body")
+        //- Bootstrap navbar from https://getbootstrap.com/docs/4.0/components/navbar/
+        div(class='container-fluid') 
+            nav(class='navbar navbar-expand-sm navbar-dark')
+                button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+                   span(class="navbar-toggler-icon")
+                div(class='collapse navbar-collapse' id='navbarSupportedContent')
+                    ul(class='navbar-nav ml-auto index-navbar')
+                        li(class='nav-item')
+                            a(class='nav-link index-nav-link' href='/') Search 
+                                span(class="sr-only") (current)
+                        li(class='nav-item')
+                            a(class='nav-link index-nav-link' href='/restaurant/all') All
+                        li(class='nav-item')
+                        if session.username
+                            li(class="nav-item")
+                                a(class="nav-link index-nav-link" href="/user") Manage
+                            li(class="nav-item")
+                                a(class="nav-link index-nav-link" href="/logout") Logout
+                        else
+                            li(class='nav-item')
+                                a(class='nav-link index-nav-link' href='/login') Login
 
-    fieldset
-        form(method='POST' action='')
-            div.form-group
-                label(for='name') Restaurant:
-                input.form-control(type='text' placeholder='e.g. Sushi Hana' name='name' value=(undefined===restaurant ? '' : restaurant.name) )
-            div.form-group
-                button.btn.btn-secondary.btn-success-outline(type='submit' value='Find Restaurants') Search
-
+            div(class='container-fluid')
+                br
+                br
+                div(class='container text-center index-brand')
+                    a(class="container text-center")
+                        //- favicon from https://favicon.io/emoji-favicons/steaming-bowl/
+                        img(src="/image/favicon.png" alt="menu venue icon" width="100" height="100" class="d-inline-block align-left" style="margin-right: 10px")
+                        p(style="display: inline-block") Menu Venue
+                br
+                br
+                fieldset
+                    form(method='POST' action='' class="form-horizontal main-searchbar-form")
+                        div(class="form-row flex-nowrap justify-content-md-center align-items-center main-searchbar-content")
+                            label(class="sr-only" for='name') Find
+                            div(class="col-xs-5 input-group main-searchbar-item main-searchbar-find")
+                                    div(class="input-group-prepend")
+                                        div(class="input-group-text") Find
+                                    input.form-control(type='text' aria-label="search" placeholder='sushi, burgers, pubs, bars, ...' name='search' value=(undefined===restaurant ? '' : restaurant.name) )
+                            label(class="sr-only" for='location') Near
+                            div(class="col-xs-5 input-group main-searchbar-item main-searchbar-near")
+                                    div(class="input-group-prepend")
+                                        div(class="input-group-text") Near
+                                    input.form-control(type='text' aria-label="search" placeholder='city or zip code' name='location' value=(undefined===restaurant ? '' : restaurant.name) )
+                            div(class="col-xs-2 main-searchbar-item main-searchbar-btn")
+                                button.btn.btn-light.btn-success-outline(type='submit' value='Find Restaurants') Search

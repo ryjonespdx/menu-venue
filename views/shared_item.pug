@@ -1,0 +1,27 @@
+extends layout
+
+block content
+
+    div.shared-list
+        h4= restaurant_info.name
+        h5= menu_info.name
+        h6= date
+
+        div.form-group
+            label(for='url') Copy this url:
+            input.url.form-control(type='text', aria-label='url' placeholder='menu-venue.com/' name='url')
+
+        each item in items
+            p #{item.name}
+            p &dollar; #{item.price}
+            p [ #{item.description} ]
+            hr
+        else
+            p This share has no items.
+
+    script.
+        let url = document.querySelector(".url");
+        url.disabled = true;
+        url.value = `${window.location.href}`;
+
+        

@@ -1,7 +1,8 @@
 /********************************************************************************
  * userController: functions to handle GET and POST requests called as a user
  * *****************************************************************************/
-const mongoose = require("mongoose");
+const config = require("../config/config");
+const axios = require("axios");
 var User = require("../models/user");
 var Restaurant = require("../models/restaurant");
 var Menu = require("../models/menu");
@@ -65,7 +66,10 @@ exports.user_list = function (req, res) {
 exports.user_restaurant_create_get = function (req, res) {
   let username = req.session.username;
 
-  res.render("create_restaurant", { user_info: { username: username } });
+  res.render("create_restaurant", {
+    title: "Menu Venue: Create Restaurant",
+    user_info: { username: username },
+  });
 };
 
 // Display Restaurant create form on POST.
@@ -87,6 +91,7 @@ exports.user_restaurant_create_post = function (req, res) {
       if (err) res.render("error", { message: err });
       else if (foundRestaurant !== null)
         res.render("create_restaurant", {
+          title: "Menu Venue: Create Restaurant",
           user_info: foundUser.local,
           message: "Restaurant already exists!",
         });
@@ -100,10 +105,30 @@ exports.user_restaurant_create_post = function (req, res) {
           zip: zip,
           state: state,
           number: number,
-        }).save(function (err) {
+        }).save(function (err, created) {
           if (err) res.render("error", { message: err });
           else {
-            res.redirect("/user");
+            let address = `${street} ${city} ${state}`;
+            axios
+              .get(
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${config.MAPS_KEY}`
+              )
+              .then((response) => {
+                if (response.data.results[0]) {
+                  Restaurant.findOneAndUpdate(
+                    { name: name, owner: foundUser._id },
+                    {
+                      lat: response.data.results[0].geometry.location.lat,
+                      lng: response.data.results[0].geometry.location.lng,
+                    },
+                    { new: true },
+                    function (err, updatedRestaurant) {
+                      if (err) res.render("error", { message: err });
+                      else res.redirect("/user");
+                    }
+                  );
+                } else res.redirect("/user");
+              });
           }
         });
       }
@@ -144,7 +169,7 @@ exports.user_restaurant_update_post = function (req, res) {
   let city = req.body.city;
   let state = req.body.state;
   let zip = req.body.zip;
-  let phone = req.body.phone;
+  let phone = req.body.number;
 
   User.findOne({ "local.username": username }).then((foundUser) => {
     Restaurant.findOneAndUpdate(
@@ -161,7 +186,29 @@ exports.user_restaurant_update_post = function (req, res) {
       { new: true },
       function (err, updatedRestaurant) {
         if (err) res.render("error", { message: err });
-        else res.redirect("/user");
+        else {
+          let address = `${street} ${city} ${state}`;
+          axios
+            .get(
+              `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${config.MAPS_KEY}`
+            )
+            .then((response) => {
+              if (response.data.results[0]) {
+                Restaurant.findOneAndUpdate(
+                  { name: name, owner: foundUser._id },
+                  {
+                    lat: response.data.results[0].geometry.location.lat,
+                    lng: response.data.results[0].geometry.location.lng,
+                  },
+                  { new: true },
+                  function (err, updatedRestaurant) {
+                    if (err) res.render("error", { message: err });
+                    else res.redirect("/user");
+                  }
+                );
+              } else res.redirect("/user");
+            });
+        }
       }
     );
   });
@@ -169,11 +216,37 @@ exports.user_restaurant_update_post = function (req, res) {
 
 // Display Restaurant delete form on GET.
 exports.user_restaurant_delete_get = function (req, res) {
-  // delete a restaurant from database
-  let user_id = req.params.id;
-  let restaurant_id = req.params.restaurant_id;
+  let username = req.session.username;
+  let restaurant = req.params.restaurant_id;
 
-  res.redirect("/user/" + user_id);
+  User.findOne({ "local.username": username })
+    .then((foundUser) => {
+      Restaurant.findOne({ name: restaurant, owner: foundUser._id })
+        .then((foundRestaurant) => {
+          Menu.find({ restaurant: foundRestaurant._id })
+            .then((foundMenu) => {
+              foundMenu.forEach((foundMenu) => {
+                MenuItem.deleteMany({ menu: foundMenu._id }, function (
+                  err,
+                  deleted
+                ) {});
+              });
+            })
+            .then(
+              Menu.deleteMany({ restaurant: foundRestaurant._id }, function (
+                err,
+                deleted
+              ) {})
+            );
+        })
+        .then(
+          Restaurant.deleteOne(
+            { name: restaurant, owner: foundUser._id },
+            function (err, deleted) {}
+          )
+        );
+    })
+    .then((retVal) => res.redirect("/user/"));
 };
 
 // Handle Restaurant delete on POST.
@@ -217,7 +290,13 @@ exports.user_restaurant_list = function (req, res) {
 
 // Display Menu create form on GET.
 exports.user_menu_create_get = function (req, res) {
-  res.render("create_menu", { restaurant_info: restaurants[0] });
+  username = req.session.username;
+  restaurant = req.params.restaurant_id;
+
+  res.render("create_menu", {
+    title: "Menu Venue: Create Menu",
+    restaurant_info: { name: restaurant },
+  });
 };
 
 // Display Menu create form on POST.
@@ -237,6 +316,7 @@ exports.user_menu_create_post = function (req, res) {
           if (err) res.render("error", { message: err });
           else if (foundMenu !== null)
             res.render("create_menu", {
+              title: "Menu Venue: Create Menu",
               user_info: foundUser.local,
               restaurant_info: foundRestaurant,
               message: "Menu already exists!",
@@ -314,15 +394,29 @@ exports.user_menu_update_post = function (req, res) {
 
 // Display Menu delete form on GET.
 exports.user_menu_delete_get = function (req, res) {
-  // delete a menu database
-  let user_id = req.params.id;
-  let restaurant_id = req.params.restaurant_id;
-  let menu_id = req.params.menu_id;
-  let name = req.body.name;
+  let username = req.session.username;
+  let restaurant = req.params.restaurant_id;
+  let menu = req.params.menu_id;
 
-  res.redirect(
-    "/user/" + user_id + "/restaurant/" + restaurant_id + "/menu/all"
-  );
+  User.findOne({ "local.username": username }).then((foundUser) => {
+    Restaurant.findOne({ name: restaurant, owner: foundUser._id })
+      .then((foundRestaurant) => {
+        Menu.findOne({ name: menu, restaurant: foundRestaurant._id })
+          .then((foundMenu) => {
+            MenuItem.deleteMany({ menu: foundMenu._id }, function (
+              err,
+              deleted
+            ) {});
+          })
+          .then(
+            Menu.deleteOne(
+              { name: menu, restaurant: foundRestaurant._id },
+              function (err, deleted) {}
+            )
+          );
+      })
+      .then((retVal) => res.redirect("/user/restaurant/" + restaurant));
+  });
 };
 
 // Handle Menu delete on POST.
@@ -384,7 +478,10 @@ exports.user_item_create_get = function (req, res) {
   restaurant = req.params.restaurant_id;
   menu = req.params.menu_id;
 
-  res.render("create_item", { menu_info: { name: menu } });
+  res.render("create_item", {
+    title: "Menu Venue: Create Item",
+    menu_info: { name: menu },
+  });
 };
 
 // Display Item create form on POST.
@@ -423,6 +520,7 @@ exports.user_item_create_post = function (req, res) {
                 foundUserItem.filter((item) => item.name === name).length > 0
               ) {
                 res.render("create_item", {
+                  title: "Menu Venue: Create Item",
                   user_info: foundUser.local,
                   restaurant_info: foundUserRestaurant,
                   menu_info: foundUserMenu,
@@ -525,18 +623,27 @@ exports.user_item_update_post = function (req, res) {
 
 // Display Item delete form on GET.
 exports.user_item_delete_get = function (req, res) {
-  // delete an item database
-  let user_id = req.params.id;
-  let restaurant_id = req.params.restaurant_id;
-  let menu_id = req.params.menu_id;
-  let item_id = req.params.item_id;
-  let name = req.body.name;
-  let price = req.body.price;
-  let description = req.body.description;
+  let username = req.session.username;
+  let restaurant = req.params.restaurant_id;
+  let menu = req.params.menu_id;
+  let item = req.params.item_id;
 
-  res.redirect(
-    "/user/" + user_id + "/restaurant/" + restaurant_id + "/menu/" + menu_id
-  );
+  User.findOne({ "local.username": username }).then((foundUser) => {
+    Restaurant.findOne({ name: restaurant, owner: foundUser._id }).then(
+      (foundRestaurant) => {
+        Menu.findOne({ name: menu, restaurant: foundRestaurant._id })
+          .then((foundMenu) => {
+            MenuItem.deleteOne({ name: item, menu: foundMenu._id }, function (
+              err,
+              deleted
+            ) {});
+          })
+          .then((retVal) =>
+            res.redirect("/user/restaurant/" + restaurant + "/menu/" + menu)
+          );
+      }
+    );
+  });
 };
 
 // Handle Item delete on POST.
