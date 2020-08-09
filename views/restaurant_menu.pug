@@ -15,12 +15,10 @@ block content
     div.menu-container
       each item in item_list
         div.menu-item.form-check
-          input.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
+          input.shareboxes.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
           label.form-check-label(for=item.name) #{item.name}
             hr
             p &dollar;#{item.price} 
             p [ #{item.description} ]
       else
         p This menu has no items.
-
-

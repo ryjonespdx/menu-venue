@@ -5,12 +5,19 @@ div.scroll {
   overflow-x: hidden;
   overflow-y: auto;
   text-align: left;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 20px;
 }
 
 div.scroll > * {
   margin: 10px;
+}
+
+#map {
+  height: 800px;
+  width: 100%;  /* The width is the width of the container*/
+  padding: 20px;
+  border-radius: 20px;
 }
 
 div.menu-container {
@@ -41,4 +48,12 @@ div.menu-item{
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-end;
+}
+
+.shared-list{
+  text-align: center;
+}
+
+.url {
+  text-align: center;
 }
