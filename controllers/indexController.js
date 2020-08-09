@@ -51,10 +51,9 @@ exports.index_post = function (req, res) {
     {
       $or: [
         { name: new RegExp(searched, "i") },
-        { cuisine: new RegExp(searched, "i") },
-        { city: new RegExp(location, "i") },
-        { number: new RegExp(searched, "i") },
+        { cuisine: new RegExp(searched, "i") }
       ],
+      city: new RegExp(location, "i")
     },
     function (err, found) {
       if (err) res.render("error", { message: "we have issues, try later" });
