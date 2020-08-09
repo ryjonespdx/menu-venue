@@ -6,24 +6,24 @@ block content
     a(href='/user') &lt; Back
 
   h1(class="user-heading")= restaurant_info.name + `'s Menus`
-  br
 
   p #{restaurant_info.street}
   p #{restaurant_info.city}, #{restaurant_info.state}
   p #{restaurant_info.number}
 
-  br
-
-  each menu in menu_list
-    h4 
-      a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
-    p 
-      a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name+'/update') update menu
-
-    hr
-
-  else
-    p You have no menus.
-  
   p
-    a(href='/user/restaurant/'+restaurant_info.name+'/menu/create') create menu
+    a(href='/user/restaurant/'+restaurant_info.name+'/menu/create') Create a menu
+  hr
+
+  div.menu-container
+    each menu in menu_list
+      div.menu-item
+        h4 
+          a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
+        p 
+          a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name+'/update') Update this menu
+
+
+    else
+      p You have no menus.
+  

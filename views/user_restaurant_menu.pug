@@ -6,18 +6,20 @@ block content
     a(href='/user/restaurant/'+restaurant_info.name) &lt; Back
 
   h1(class="user-heading")= menu_info.name
-  br
+  
+  p
+    a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/item/create') Create an item
+  hr
 
-  each item in menu
-    p #{item.name}
-    p #{item.price}
-    p #{item.description}
-    p 
-      a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/item/'+item.name+'/update') update item 
+  div.menu-container
+    each item in menu
+      div.menu-item
+        p #{item.name}
+        p #{item.price}
+        p #{item.description}
+        p 
+          a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/item/'+item.name+'/update') Update this item 
 
-    hr
+    else
+      p You have no items.
 
-  else
-    p You have no items.
-
-  a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu_info.name+'/item/create') create item

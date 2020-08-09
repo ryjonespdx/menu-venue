@@ -4,21 +4,24 @@ block content
 
   h1(class="user-heading")= user_info.username + `'s Restaurants`
   br
-  
-  each restaurant in restaurant_list
-    h4(class="user-heading")
-      a(href='/user/restaurant/'+restaurant.name) #{restaurant.name}
-    p #{restaurant.street}
-    p #{restaurant.city}, #{restaurant.state}
-    p #{restaurant.number}
-    p 
-      a(href='/user/restaurant/'+restaurant.name+'/update') update restaurant
-
-    hr  
-
-  else
-    p You have no restaurants.
 
   p
-    a(href='/user/restaurant/create') create restaurant
+    a(href='/user/restaurant/create') Create a restaurant
+  hr  
+  
+  div.menu-container
+    each restaurant in restaurant_list
+      div.menu-item
+        h4(class="user-heading")
+          a(href='/user/restaurant/'+restaurant.name) #{restaurant.name}
+        p #{restaurant.street}
+        p #{restaurant.city}, #{restaurant.state}
+        p #{restaurant.number}
+        p 
+          a(href='/user/restaurant/'+restaurant.name+'/update') Update this restaurant
+
+
+    else
+      p You have no restaurants.
+
 
