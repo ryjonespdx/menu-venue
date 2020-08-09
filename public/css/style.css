@@ -15,7 +15,7 @@ div.scroll > * {
 
 #map {
   height: 800px;
-  width: 100%;  /* The width is the width of the container*/
+  width: 100%; /* The width is the width of the container*/
   padding: 20px;
   border-radius: 20px;
 }
@@ -27,7 +27,7 @@ div.menu-container {
   justify-content: space-evenly;
 }
 
-div.menu-item{
+div.menu-item {
   min-width: 200px;
   min-height: 100px;
   margin: 10px;
@@ -50,10 +50,15 @@ div.menu-item{
   justify-content: flex-end;
 }
 
-.shared-list{
+.shared-list {
   text-align: center;
 }
 
 .url {
   text-align: center;
+}
+
+.main_searchbar > label {
+  font-size: 20px;
+  font-weight: bold;
 }

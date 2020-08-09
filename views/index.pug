@@ -3,10 +3,13 @@ extends layout
 block content
 
     fieldset
-        form(method='POST' action='')
-            div.form-group
-                label(for='name') Restaurant:
-                input.form-control(type='text' aria-label="search" placeholder='e.g. Sushi Hana or vegetarian' name='search' value=(undefined===restaurant ? '' : restaurant.name) )
-            div.form-group
-                button.btn.btn-secondary.btn-success-outline(type='submit' value='Find Restaurants') Search
-
+        form(method='POST' action='' class="form-horizontal")
+            div(class="form-row flex-nowrap justify-content-md-center align-items-center main_searchbar")
+                label(for='name') Find
+                div(class="col-xs-5")
+                        input.form-control(type='text' aria-label="search" placeholder='sushi, burgers, pubs, bars, ...' name='search' value=(undefined===restaurant ? '' : restaurant.name) )
+                label(for='location') Near
+                div(class="col-xs-5")
+                        input.form-control(type='text' aria-label="search" placeholder='city or zip code' name='location' value=(undefined===restaurant ? '' : restaurant.name) )
+                div(class="col-xs-2")
+                    button.btn.btn-primary.btn-success-outline(type='submit' value='Find Restaurants') Search
