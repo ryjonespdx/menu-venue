@@ -1,7 +1,7 @@
 /********************************************************************************
  * userController: functions to handle GET and POST requests called as a user
  * *****************************************************************************/
-const config = require("../config/config");
+// const config = require("../config/config");
 const axios = require("axios");
 var User = require("../models/user");
 var Restaurant = require("../models/restaurant");
