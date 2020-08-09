@@ -6,7 +6,6 @@ const session = require("express-session");
 // const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const favicon = require("serve-favicon");
-const config = require("./config/config");
 const errorHandler = require("errorhandler");
 const cors = require("cors");
 const mongoStore = require("connect-mongo")(session);
@@ -17,12 +16,12 @@ const isProduction = process.env.CURR_ENV === "production";
 
 const app = express();
 
-app.locals.MAPS_KEY = config.MAPS_KEY;
+app.locals.MAPS_KEY = process.env.MAPS_KEY;
 
 // Mongoose / MongoDB code from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
 // Set up default mongoose connection
 mongoose.promise = global.Promise;
-var mongoDB = config.DB_URL;
+var mongoDB = process.env.DB_URL;
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -38,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
   session({
-    secret: config.PASSPORT_SECRET,
+    secret: passport.env.PASSPORT_SECRET,
     cookie: { maxAge: 360000000, secure: false },
     resave: false,
     saveUninitialized: false,
