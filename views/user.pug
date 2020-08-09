@@ -2,13 +2,14 @@ extends layout
 
 block content
 
-  h4(class="user-heading")= user_info.username
+  h1(class="user-heading")= user_info.username + `'s Restaurants`
+  br
   
   each restaurant in restaurant_list
-    p 
+    h4(class="user-heading")
       a(href='/user/restaurant/'+restaurant.name) #{restaurant.name}
     p #{restaurant.street}
-    p #{restaurant.city}
+    p #{restaurant.city}, #{restaurant.state}
     p #{restaurant.number}
     p 
       a(href='/user/restaurant/'+restaurant.name+'/update') update restaurant

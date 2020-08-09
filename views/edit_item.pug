@@ -16,9 +16,12 @@ block content
             label(for='name') Name:
             input.form-control(type='text' aria-label='name' placeholder=item_info.name name='name' value=(undefined===item_info ? '' : item_info.name) required=true)
         div.form-group
-            label(for='price') Price:
-            input.form-control(type='text' aria-label='price' placeholder=item_info.price name='price' value=(undefined===item_info? '' : item_info.price) required=true)
+          label(for='price') Price:
+            //- currency formatting from https://codepen.io/559wade/pen/LRzEjj?editors=1000
+            input.form-control(type='text' aria-label='price' pattern=`^\\$\\d{1,3}(,\\d{3})*(\\.\\d+)?$` placeholder='$5.00' name='price' required='true' value=(undefined===item ? '' : item.price) data-type="currency")
         div.form-group
             label(for='description') Descriptton:
             input.form-control(type='text' aria-label='description' placeholder=item_info.description name='description' value=(undefined===item_info ? '' : item_info.description) )
         button.btn.btn-outline-success(type='submit' value='submit') Update
+
+    script(defer="" src="/javascript/formatCurrency.js")
