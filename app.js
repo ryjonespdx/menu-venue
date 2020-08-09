@@ -10,6 +10,8 @@ const config = require("./config/config");
 const errorHandler = require("errorhandler");
 const cors = require("cors");
 const mongoStore = require("connect-mongo")(session);
+const compression = require("compression");
+const helmet = require("helmet");
 
 const isProduction = process.env.CURR_ENV === "production";
 
@@ -48,6 +50,8 @@ app.use(function (req, res, next) {
   next();
 });
 app.use(cors());
+app.use(compression());
+app.use(helmet());
 
 if (!isProduction) {
   app.use(errorHandler());
