@@ -67,7 +67,37 @@ div.menu-item {
   text-align: center;
 }
 
-.main_searchbar > label {
+/*
+ *
+ * Landing page (index.pug) code below
+ *
+ */
+.index-page-body {
+  /* color: white; */
+  color: white;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.5)),
+    url("/image/background/bg-sushi.jpg");
+  background-size: 1920px 1080px;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.index-brand {
+  font-size: 40px;
+}
+
+.main-searchbar-form {
+  /* justify-content: space-between; */
+}
+
+.main-searchbar-content > label {
   font-size: 20px;
   font-weight: bold;
+}
+
+.main-searchbar-item {
+  margin-left: 5px;
+  max-width: 350px;
 }
