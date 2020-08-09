@@ -1,6 +1,9 @@
 * {
-  font-family: Arial, Helvetica, sans-serif;
-  src: url("/HelveticaNowDisplayXBlk.otf");
+  font-family: Helvetica;
+}
+
+body {
+  /* background-image: url("/image/circle-blues.png"); */
 }
 
 div.scroll {
