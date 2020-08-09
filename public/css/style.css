@@ -81,6 +81,10 @@ div.menu-item {
 }
 
 .nav-link {
+  color: black !important;
+}
+
+.index-nav-link {
   color: white !important;
 }
 
