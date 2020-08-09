@@ -13,30 +13,29 @@ const { users, restaurants, menus, menuItems } = require("../mockData");
 const menu = require("../models/menu");
 
 exports.share_get = function (req, res) {
-  
   let share_id = req.params.share_id;
 
-  Share.findById(share_id)
-    .then( foundShare => {
-      Restaurant.findById(foundShare.restaurant)
-        .then( foundRestaurant => {
-          Menu.findById(foundShare.menu)
-            .then( foundMenu => {
-              MenuItem.find({ 
-                _id: { $in: foundShare.items }, 
-                menu: foundMenu._id }, 
-                function(err, shared) {
-                  res.render("shared_item", {
-                    title: "Menu Venue: Shared Item",
-                    restaurant_info: foundRestaurant,
-                    menu_info: foundMenu,
-                    date: foundShare.date,
-                    items: shared
-                  });
-                });
+  Share.findById(share_id).then((foundShare) => {
+    Restaurant.findById(foundShare.restaurant).then((foundRestaurant) => {
+      Menu.findById(foundShare.menu).then((foundMenu) => {
+        MenuItem.find(
+          {
+            _id: { $in: foundShare.items },
+            menu: foundMenu._id,
+          },
+          function (err, shared) {
+            res.render("shared_item", {
+              title: "Menu Venue: Shared Item",
+              restaurant_info: foundRestaurant,
+              menu_info: foundMenu,
+              date: foundShare.date,
+              items: shared,
             });
-        });
+          }
+        );
+      });
     });
+  });
 };
 
 exports.index_get = function (req, res) {
@@ -46,25 +45,28 @@ exports.index_get = function (req, res) {
 exports.index_post = function (req, res) {
   // search the database for...
   let searched = req.body.search;
+  let location = req.body.location;
 
   Restaurant.find(
-    { $or: [
-      { name: new RegExp(searched, 'i') }, 
-      { cuisine: new RegExp(searched, 'i') },
-      { city: new RegExp(searched, 'i') },
-      { number: new RegExp(searched, 'i') }
-    ] },
+    {
+      $or: [
+        { name: new RegExp(searched, "i") },
+        { cuisine: new RegExp(searched, "i") },
+        { city: new RegExp(location, "i") },
+        { number: new RegExp(searched, "i") },
+      ],
+    },
     function (err, found) {
       if (err) res.render("error", { message: "we have issues, try later" });
       else if (found.length === 0)
         res.render("restaurant_list", {
           title: "No Restaurants Found",
-          restaurant_list: found
+          restaurant_list: found,
         });
       else {
         res.render("restaurant_list", {
           title: `Results for ${searched}`,
-          restaurant_list: found
+          restaurant_list: found,
         });
       }
     }
