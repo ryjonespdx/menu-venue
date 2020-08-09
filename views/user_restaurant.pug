@@ -5,11 +5,17 @@ block content
   p 
     a(href='/user') &lt; Back
 
-  h4(class="user-heading")= restaurant_info.name
+  h1(class="user-heading")= restaurant_info.name + `'s Menus`
+  br
 
+  p #{restaurant_info.street}
+  p #{restaurant_info.city}, #{restaurant_info.state}
+  p #{restaurant_info.number}
+
+  br
 
   each menu in menu_list
-    p 
+    h4 
       a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
     p 
       a(href='/user/restaurant/'+restaurant_info.name+'/menu/'+menu.name+'/update') update menu

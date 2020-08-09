@@ -2,10 +2,11 @@ extends index
 
 block content
 
-    h4(class="heading")= restaurant_info.name
+    h1(class="heading")= restaurant_info.name
+    br
 
     each menu in menu_list 
-        p 
+        h4 
             a(href='/restaurant/'+restaurant_info.name+'/menu/'+menu.name) #{menu.name}
 
     else

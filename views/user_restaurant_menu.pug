@@ -5,7 +5,8 @@ block content
   p 
     a(href='/user/restaurant/'+restaurant_info.name) &lt; Back
 
-  h4(class="user-heading")= menu_info.name
+  h1(class="user-heading")= menu_info.name
+  br
 
   each item in menu
     p #{item.name}
