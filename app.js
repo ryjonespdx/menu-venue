@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
   session({
-    secret: passport.env.PASSPORT_SECRET,
+    secret: process.env.PASSPORT_SECRET,
     cookie: { maxAge: 360000000, secure: false },
     resave: false,
     saveUninitialized: false,
