@@ -5,13 +5,22 @@ block content
   p 
     a(href='/restaurant/'+restaurant_info.name) &lt; Back
 
-  h4(class="heading")= menu_info.name
+  form(method='POST' action='')
 
-  div.menu-container
-    each item in item_list
-      div.menu-item
-        p #{item.name}
-        p &dollar;#{item.price}
-        p #{item.description}
-    else
-      p This menu has no items.
+    h4(class="heading")= menu_info.name
+
+    div.share-btn-container
+      button.share.btn.btn-outline-success(type='submit' value='share') Share
+
+    div.menu-container
+      each item in item_list
+        div.menu-item.form-check
+          input.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
+          label.form-check-label(for=item.name) #{item.name}
+            hr
+            p &dollar;#{item.price} 
+            p [ #{item.description} ]
+      else
+        p This menu has no items.
+
+

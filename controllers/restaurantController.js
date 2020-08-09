@@ -7,6 +7,7 @@
 var Restaurant = require("../models/restaurant");
 var Menu = require("../models/menu");
 var MenuItem = require("../models/menuitem");
+var Share = require("../models/share");
 
 const { users, restaurants, menus, menuItems } = require("../mockData");
 const restaurant = require("../models/restaurant");
@@ -36,20 +37,34 @@ exports.share_menu = function (req, res) {
 
   let restaurant = req.params.id;
   let menu = req.params.menu_id;
+  let sharebox = req.body.sharebox;
 
   Restaurant.findOne({ name: restaurant })
     .then( foundRestaurant => {
       Menu.findOne({ name: menu, restaurant: foundRestaurant._id })
         .then( foundMenu => {
-          MenuItem.find({ menu: foundMenu._id }, 
+          MenuItem.find({ name: { $in: sharebox }, menu: foundMenu._id }, 
             function(err, foundItem) {
               if(err) res.render('error', { message: err } );
               else {
-                res.render("restaurant_menu", {
-                  title: "Menu Venue: Menu Details",
-                  restaurant_info: foundRestaurant,
-                  menu_info: foundMenu,
-                  item_list: foundItem
+                console.log(foundItem);
+                new Share({
+                  restaurant: foundRestaurant._id,
+                  menu: foundMenu._id,
+                  items: foundItem,
+                  date: Date.now()
+                })
+                .save(function (err, created) {
+                  if (err) res.render("error", { message: err });
+                  else {
+                    res.redirect(`/share/${created._id}`);
+                    // res.render("restaurant_menu", {
+                    //   title: "Menu Venue: Menu Details",
+                    //   restaurant_info: foundRestaurant,
+                    //   menu_info: foundMenu,
+                    //   item_list: foundItem
+                    // });
+                  }
                 });
               }
             });

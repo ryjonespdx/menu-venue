@@ -23,8 +23,8 @@ div.menu-container {
 div.menu-item{
   min-width: 200px;
   min-height: 100px;
-  margin: 5px;
-  padding: 5px;
+  margin: 10px;
+  padding: 30px;
   background-color: papayawhip;
   color: black;
   text-align: center;
@@ -33,4 +33,12 @@ div.menu-item{
 
 .center-heading {
   text-align: center;
+}
+
+.share-btn-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }

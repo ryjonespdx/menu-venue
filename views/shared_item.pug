@@ -1,0 +1,15 @@
+extends index
+
+block content
+
+    h4= restaurant_info.name
+    h5= menu_info.name
+    h6= date
+
+    each item in items
+        p #{item.name}
+        p #{item.price}
+        p #{item.description}
+
+    else
+        p This share has no items.
