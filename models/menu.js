@@ -14,13 +14,6 @@ const MenuSchema = new Schema({
     required: true, 
     maxlength: 100 
   }
-  // the items in the menu
-  // items: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: "MenuItem",
-  //   },
-  // ],
 });
 
 module.exports = mongoose.model("Menu", MenuSchema);

@@ -7,6 +7,7 @@ body {
   background-color: white;
 }
 
+/* restaurant listing */
 div.scroll {
   width: 100%;
   height: 800px;
@@ -17,16 +18,19 @@ div.scroll {
   padding: 20px;
 }
 
+/* restaurant listing items */
 div.scroll > * {
   margin: 10px;
 }
 
+/* google maps */
 #map {
   height: 800px;
   width: 100%; /* The width is the width of the container*/
   padding: 20px;
 }
 
+/* lists things horizontally */
 div.menu-container {
   display: flex;
   flex-direction: row;
@@ -39,12 +43,12 @@ div.menu-container {
   justify-content: center;
 } */
 
+/* children elements that are listed horizontally */
 div.menu-item {
   min-width: 200px;
   min-height: 100px;
   margin: 10px;
   padding: 30px;
-  /* background-color: rgb(248, 248, 248); */
   color: black;
   text-align: center;
   border-radius: 5px;
@@ -54,6 +58,7 @@ div.menu-item {
   text-align: center;
 }
 
+/* to make the share button appear right-most */
 .share-btn-container {
   padding: 30px;
   display: flex;
@@ -68,6 +73,7 @@ div.menu-item {
   max-width: 500px;
 }
 
+/* greyed out textfield on shared item */
 .url {
   text-align: center;
 }
@@ -97,9 +103,9 @@ div.menu-item {
   font-size: 40px;
 }
 
-.main-searchbar-form {
+/* .main-searchbar-form { */
   /* justify-content: space-between; */
-}
+/* } */
 
 .main-searchbar-content > label {
   font-size: 20px;
