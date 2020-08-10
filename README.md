@@ -33,18 +33,3 @@ https://mongoosejs.com/docs/index.html
 https://developers.google.com/maps/documentation/geocoding/overview
 
 https://developers.google.com/maps/documentation/javascript/adding-a-google-map
-
-
-# With Help From
-
-https://html2pug.now.sh/
-https://stackoverflow.com/questions/8698534/how-to-pass-variable-from-jade-template-file-to-a-script-file
-http://thecodebarbarian.com/how-find-works-in-mongoose.html
-https://stackoverflow.com/questions/9824010/mongoose-js-find-user-by-username-like-value
-https://kb.objectrocket.com/mongo-db/how-to-delete-documents-with-mongoose-235
-https://developers.google.com/maps/documentation/javascript/reference/marker
-https://stackabuse.com/javascript-convert-string-to-number/
-https://www.w3docs.com/snippets/css/how-to-make-a-div-vertically-scrollable.html
-https://stackoverflow.com/questions/29108747/proper-way-to-read-checkbox-data-in-nodejs
-https://thisinterestsme.com/disable-text-field-javascript/
-https://codewithhugo.com/fix-git-failed-to-push-updates-were-rejected/
