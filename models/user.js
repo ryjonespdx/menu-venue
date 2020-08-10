@@ -44,7 +44,7 @@ UserSchema.methods.generateJWT = function () {
       id: this._id,
       exp: parseInt(expirationDate.getTime() / 1000, 10),
     },
-    JWT_SECRET
+    process.env.JWT_SECRET
   );
 };
 
