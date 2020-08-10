@@ -2,15 +2,12 @@
  * indexController: functions to handle GET and POST requests called from index
  * *****************************************************************************************/
 
-var Restaurant = require("../models/restaurant");
-var User = require("../models/user");
-var Menu = require("../models/menu");
-var MenuItem = require("../models/menuitem");
-var Share = require("../models/share");
+const Restaurant = require("../models/restaurant");
+const User = require("../models/user");
+const Menu = require("../models/menu");
+const MenuItem = require("../models/menuitem");
+const Share = require("../models/share");
 const passport = require("passport");
-
-const { users, restaurants, menus, menuItems } = require("../mockData");
-const menu = require("../models/menu");
 
 exports.share_get = function (req, res) {
   let share_id = req.params.share_id;
@@ -64,7 +61,10 @@ exports.index_post = function (req, res) {
         });
       else {
         res.render("restaurant_list", {
-          title: `Results for ${searched}`,
+          title: 
+            (searched && location)
+            ? `${searched} in ${location}` 
+            : `${searched}` || `${location}`,
           restaurant_list: found,
         });
       }

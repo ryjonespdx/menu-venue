@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+// A list of items from a restaurant's menu
 const ShareSchema = new Schema({
   restaurant: {
     type: Schema.Types.ObjectId,
