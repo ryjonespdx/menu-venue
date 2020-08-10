@@ -10,6 +10,16 @@ block content
 
     form(method='POST' action='')
         div.form-group
+            label(for='category') Category:
+            select.form-control(type='text' aria-label='category' name='category' required='true')
+                option(selected disabled) Choose Category
+                option Appetizer
+                option Entree
+                option Sides
+                option Dessert
+                option Alcohol
+                option Drink
+        div.form-group
             label(for='name') Name:
             input.form-control(type='text' aria-label='name' placeholder='the name' name='name' required='true' value=(undefined===item ? '' : item.name) )
         div.form-group
