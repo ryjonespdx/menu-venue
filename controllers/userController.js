@@ -489,6 +489,7 @@ exports.user_item_create_post = function (req, res) {
   username = req.session.username;
   restaurant = req.params.restaurant_id;
   menu = req.params.menu_id;
+  category = req.body.category;
   name = req.body.name;
   price = req.body.price;
   description = req.body.description;
@@ -506,6 +507,7 @@ exports.user_item_create_post = function (req, res) {
               else if (foundUserItem.length === 0) {
                 new MenuItem({
                   menu: foundUserMenu._id,
+                  category: category,
                   name: name,
                   price: price,
                   description: description,
@@ -524,12 +526,18 @@ exports.user_item_create_post = function (req, res) {
                   user_info: foundUser.local,
                   restaurant_info: foundUserRestaurant,
                   menu_info: foundUserMenu,
-                  item: { name: name, price: price, description: description },
+                  item: {
+                    category: category,
+                    name: name,
+                    price: price,
+                    description: description,
+                  },
                   message: "Item already exists!",
                 });
               } else {
                 new MenuItem({
                   menu: foundUserMenu._id,
+                  category: category,
                   name: name,
                   price: price,
                   description: description,
@@ -589,6 +597,7 @@ exports.user_item_update_post = function (req, res) {
   let restaurant = req.params.restaurant_id;
   let menu = req.params.menu_id;
   let item = req.params.item_id;
+  let category = req.body.category;
   let name = req.body.name;
   let price = req.body.price;
   let description = req.body.description;
@@ -601,6 +610,7 @@ exports.user_item_update_post = function (req, res) {
             MenuItem.findOneAndUpdate(
               { name: item, menu: foundMenu._id },
               {
+                category: category,
                 name: name,
                 price: price,
                 description: description,
