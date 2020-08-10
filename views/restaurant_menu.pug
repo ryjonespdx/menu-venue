@@ -12,13 +12,78 @@ block content
     div.share-btn-container
       button.share.btn.btn-outline-success(type='submit' value='share') Share
 
-    div.menu-container
-      each item in item_list
-        div.menu-item.form-check
-          input.shareboxes.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
-          label.form-check-label(for=item.name) #{item.name}
-            hr
-            p &dollar;#{item.price} 
-            p [ #{item.description} ]
-      else
+    if item_list.length > 0
+      h3.menu-category-header Appetizer
+      div.menu-container
+        each item in item_list
+          if item.category === 'Appetizer'
+            block append Appetizer
+              div.menu-item.form-check
+                input.shareboxes.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
+                label.form-check-label(for=item.name) #{item.name}
+                  hr
+                  p #{item.price} 
+                  p [ #{item.description} ]
+      br
+      h3.menu-category-header Entree
+      div.menu-container
+        each item in item_list
+          if item.category === 'Entree'
+            block append Appetizer
+              div.menu-item.form-check
+                input.shareboxes.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
+                label.form-check-label(for=item.name) #{item.name}
+                  hr
+                  p #{item.price} 
+                  p [ #{item.description} ]
+      br
+      h3.menu-category-header Sides
+      div.menu-container
+        each item in item_list
+          if item.category === 'Sides'
+            block append Appetizer
+              div.menu-item.form-check
+                input.shareboxes.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
+                label.form-check-label(for=item.name) #{item.name}
+                  hr
+                  p #{item.price} 
+                  p [ #{item.description} ]
+      br
+      h3.menu-category-header Dessert
+      div.menu-container
+        each item in item_list
+          if item.category === 'Dessert'
+            block append Appetizer
+              div.menu-item.form-check
+                input.shareboxes.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
+                label.form-check-label(for=item.name) #{item.name}
+                  hr
+                  p #{item.price} 
+                  p [ #{item.description} ]
+      br
+      h3.menu-category-header Drinks
+      div.menu-container
+        each item in item_list
+          if item.category === 'Drinks'
+            block append Appetizer
+              div.menu-item.form-check
+                input.shareboxes.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
+                label.form-check-label(for=item.name) #{item.name}
+                  hr
+                  p #{item.price} 
+                  p [ #{item.description} ]
+      br
+      h3.menu-category-header Alcohol
+      div.menu-container
+        each item in item_list
+          if item.category === 'Alcohol'
+            block append Appetizer
+              div.menu-item.form-check
+                input.shareboxes.form-check-input(type='checkbox' id=item.name aria-label=item.name name='sharebox' value=item.name)
+                label.form-check-label(for=item.name) #{item.name}
+                  hr
+                  p #{item.price} 
+                  p [ #{item.description} ]
+                  
+    else
         p This menu has no items.
