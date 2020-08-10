@@ -12,9 +12,7 @@ A web application for restaurants to upload their menus in a quick, clean format
 
 # Running the Server
 
-To run the server, run `node app.js`
-
-To run the server with nodemon, run `DEBUG=menu-venue:* npm run devstart`
+To run the server, run `npm run serverstart`
 
 # Tutorials Used
 
