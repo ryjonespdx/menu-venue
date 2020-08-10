@@ -12,7 +12,7 @@ A web application for restaurants to upload their menus in a quick, clean format
 
 # Running the Server
 
-To run the server, run `npm run serverstart`
+To run the server, run `npm run serverstart` or `node app.js`
 
 # Tutorials Used
 
@@ -24,22 +24,27 @@ https://www.freecodecamp.org/news/learn-how-to-handle-authentication-with-node-u
 
 !!! https://medium.com/@basics.aki/step-wise-tutorial-for-node-js-authentication-using-passport-js-and-jwt-using-apis-cfbf274ae522
 
+https://getbootstrap.com/docs/4.0/
+
+https://riptutorial.com/pug/example/29560/value-interpolation-in-javascript-code
+
+https://mongoosejs.com/docs/index.html
+
+https://developers.google.com/maps/documentation/geocoding/overview
+
+https://developers.google.com/maps/documentation/javascript/adding-a-google-map
+
+
 # With Help From
 
 https://html2pug.now.sh/
-https://riptutorial.com/pug/example/29560/value-interpolation-in-javascript-code
 https://stackoverflow.com/questions/8698534/how-to-pass-variable-from-jade-template-file-to-a-script-file
-https://coursework.vschool.io/mongoose-crud/
 http://thecodebarbarian.com/how-find-works-in-mongoose.html
 https://stackoverflow.com/questions/9824010/mongoose-js-find-user-by-username-like-value
 https://kb.objectrocket.com/mongo-db/how-to-delete-documents-with-mongoose-235
-https://getbootstrap.com/docs/4.0/components/modal/
-https://developers.google.com/maps/documentation/geocoding/overview
-https://developers.google.com/maps/documentation/javascript/adding-a-google-map
 https://developers.google.com/maps/documentation/javascript/reference/marker
 https://stackabuse.com/javascript-convert-string-to-number/
 https://www.w3docs.com/snippets/css/how-to-make-a-div-vertically-scrollable.html
 https://stackoverflow.com/questions/29108747/proper-way-to-read-checkbox-data-in-nodejs
-https://getbootstrap.com/docs/4.0/components/forms/
 https://thisinterestsme.com/disable-text-field-javascript/
 https://codewithhugo.com/fix-git-failed-to-push-updates-were-rejected/
