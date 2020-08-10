@@ -15,7 +15,6 @@ div.scroll {
   overflow-y: auto;
   text-align: left;
   padding: 20px;
-  border-radius: 20px;
 }
 
 div.scroll > * {
@@ -26,7 +25,6 @@ div.scroll > * {
   height: 800px;
   width: 100%; /* The width is the width of the container*/
   padding: 20px;
-  border-radius: 20px;
 }
 
 div.menu-container {
@@ -35,6 +33,11 @@ div.menu-container {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+
+/* .menu-category-header {
+  display: flex;
+  justify-content: center;
+} */
 
 div.menu-item {
   min-width: 200px;

@@ -64,7 +64,10 @@ exports.index_post = function (req, res) {
         });
       else {
         res.render("restaurant_list", {
-          title: `Results for ${searched}`,
+          title: 
+            (searched && location)
+            ? `${searched} in ${location}` 
+            : `${searched}` || `${location}`,
           restaurant_list: found,
         });
       }
