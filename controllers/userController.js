@@ -1,7 +1,7 @@
 /********************************************************************************
  * userController: functions to handle GET and POST requests called as a user
  * *****************************************************************************/
-const config = require("../config/config");
+// const config = require("../config/config");
 const axios = require("axios");
 const User = require("../models/user");
 const Restaurant = require("../models/restaurant");
@@ -109,7 +109,7 @@ exports.user_restaurant_create_post = function (req, res) {
             let address = `${street} ${city} ${state}`;
             axios
               .get(
-                `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${config.MAPS_KEY}`
+                `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.MAPS_KEY}`
               )
               .then((response) => {
                 if (response.data.results[0]) {
@@ -188,7 +188,7 @@ exports.user_restaurant_update_post = function (req, res) {
           let address = `${street} ${city} ${state}`;
           axios
             .get(
-              `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${config.MAPS_KEY}`
+              `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.MAPS_KEY}`
             )
             .then((response) => {
               if (response.data.results[0]) {

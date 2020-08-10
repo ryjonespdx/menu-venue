@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const { JWT_SECRET } = require("../config/config");
+// const { JWT_SECRET } = require("../config/config");
 
 // Potential restaurant owner
 const UserSchema = new Schema({
