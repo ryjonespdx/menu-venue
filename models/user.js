@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 // const { JWT_SECRET } = require("../config/config");
 
+// Potential restaurant owner
 const UserSchema = new Schema({
   local: {
     username: { type: String, unique: true, required: true, maxlength: 100 },

@@ -3,16 +3,14 @@
  * *****************************************************************************/
 // const config = require("../config/config");
 const axios = require("axios");
-var User = require("../models/user");
-var Restaurant = require("../models/restaurant");
-var Menu = require("../models/menu");
-var MenuItem = require("../models/menuitem");
-
-const { users, restaurants, menus, menuItems } = require("../mockData");
+const User = require("../models/user");
+const Restaurant = require("../models/restaurant");
+const Menu = require("../models/menu");
+const MenuItem = require("../models/menuitem");
 
 // Display detail page for a specific user.
 exports.user_detail = function (req, res) {
-  var username;
+  let username;
   if (req.session.username) {
     username = req.session.username;
   } else {
@@ -75,13 +73,13 @@ exports.user_restaurant_create_get = function (req, res) {
 // Display Restaurant create form on POST.
 exports.user_restaurant_create_post = function (req, res) {
   let username = req.session.username;
-  name = req.body.name;
-  cuisine = req.body.cuisine;
-  street = req.body.street;
-  city = req.body.city;
-  state = req.body.state;
-  zip = req.body.zip;
-  number = req.body.number;
+  let name = req.body.name;
+  let cuisine = req.body.cuisine;
+  let street = req.body.street;
+  let city = req.body.city;
+  let state = req.body.state;
+  let zip = req.body.zip;
+  let number = req.body.number;
 
   User.findOne({ "local.username": username }).then((foundUser) => {
     Restaurant.findOne({ owner: foundUser._id, name: name }, function (
@@ -301,10 +299,10 @@ exports.user_menu_create_get = function (req, res) {
 
 // Display Menu create form on POST.
 exports.user_menu_create_post = function (req, res) {
-  username = req.session.username;
-  restaurant = req.params.restaurant_id;
-  name = req.body.name;
-  description = req.body.description;
+  let username = req.session.username;
+  let restaurant = req.params.restaurant_id;
+  let name = req.body.name;
+  let description = req.body.description;
 
   User.findOne({ "local.username": username }).then((foundUser) => {
     Restaurant.findOne({ owner: foundUser._id, name: restaurant }).then(
@@ -486,13 +484,13 @@ exports.user_item_create_get = function (req, res) {
 
 // Display Item create form on POST.
 exports.user_item_create_post = function (req, res) {
-  username = req.session.username;
-  restaurant = req.params.restaurant_id;
-  menu = req.params.menu_id;
-  category = req.body.category;
-  name = req.body.name;
-  price = req.body.price;
-  description = req.body.description;
+  let username = req.session.username;
+  let restaurant = req.params.restaurant_id;
+  let menu = req.params.menu_id;
+  let category = req.body.category;
+  let name = req.body.name;
+  let price = req.body.price;
+  let description = req.body.description;
 
   User.findOne({ "local.username": username }).then((foundUser) => {
     Restaurant.findOne({ owner: foundUser._id, name: restaurant }).then(

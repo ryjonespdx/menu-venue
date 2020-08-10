@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const RestaurantSchema = new Schema({
-  owner: { type: Schema.Types.ObjectId, ref: "User", required: true }, // username of restaurant owner
+  // username of restaurant owner
+  owner: { type: Schema.Types.ObjectId, ref: "User", required: true }, 
   name: { type: String, required: true, maxlength: 100 },
   cuisine: { type: String, required: true, maxlength: 100 },
   street: { type: String, required: true, maxlength: 100 },
