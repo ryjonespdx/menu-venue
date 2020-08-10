@@ -58,7 +58,9 @@ div.menu-item {
 }
 
 .shared-list {
+  margin: auto;
   text-align: center;
+  max-width: 500px;
 }
 
 .url {
