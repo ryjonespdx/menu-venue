@@ -9,13 +9,10 @@ const restaurant_controller = require("../controllers/restaurantController");
 // GET request for list of all Restaurants.
 router.get("/all", restaurant_controller.restaurant_list);
 
-// GET request for list of all Menus.
-// router.get('/:id/menu/all', restaurant_controller.menu_list);
-
 // GET request for one Menu.
 router.get("/:id/menu/:menu_id", restaurant_controller.menu_detail);
 
-
+// POST request for shared menu
 router.post("/:id/menu/:menu_id", restaurant_controller.share_menu);
 
 // GET request for one Restaurant.
