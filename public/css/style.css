@@ -34,10 +34,10 @@ div.menu-container {
   justify-content: space-evenly;
 }
 
-.menu-category-header {
+/* .menu-category-header {
   display: flex;
   justify-content: center;
-}
+} */
 
 div.menu-item {
   min-width: 200px;
