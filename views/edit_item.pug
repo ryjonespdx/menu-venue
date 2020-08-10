@@ -31,14 +31,14 @@ block content
                     option(selected) Dessert
                 else
                     option Dessert
-                if item_info.category === 'Alcohol'
-                    option(selected) Alcohol
-                else
-                    option Alcohol
                 if item_info.category === 'Drink'
                     option(selected) Drink
                 else
                     option Drink
+                if item_info.category === 'Alcohol'
+                    option(selected) Alcohol
+                else
+                    option Alcohol
         div.form-group
             label(for='name') Name:
             input.form-control(type='text' aria-label='name' placeholder=item_info.name name='name' value=(undefined===item_info ? '' : item_info.name) required=true)

@@ -34,6 +34,11 @@ div.menu-container {
   justify-content: space-evenly;
 }
 
+.menu-category-header {
+  display: flex;
+  justify-content: center;
+}
+
 div.menu-item {
   min-width: 200px;
   min-height: 100px;
@@ -66,7 +71,6 @@ div.menu-item {
 .url {
   text-align: center;
 }
-
 
 /*
  *
