@@ -2,6 +2,10 @@
 
 A web application built using Node.js and Express that allows small/local restaurants to upload their menus in a quick, clean, and easy format. Utilizes Google Maps API to allow users to search for restaurants based upon cuisine or location.
 
+URL: https://menu-venue.herokuapp.com/
+
+![alt text](https://github.com/ryjonespdx/menu-venue/blob/master/menu_venue_landing_page.PNG)
+
 # Setup
 
 1. Install Node.js from https://nodejs.org/en/
